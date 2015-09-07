@@ -26,8 +26,8 @@ import com.alipay.sdk.app.PayTask;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.cn.person.Cst;
-import com.cn.person.NetworkAction;
+import com.cn.washoes.util.Cst;
+import com.cn.washoes.util.NetworkAction;
 
 
 public class Pay {

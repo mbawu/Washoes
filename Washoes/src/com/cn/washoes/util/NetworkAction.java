@@ -1,4 +1,4 @@
-package com.cn.person;
+package com.cn.washoes.util;
 
 
 /**
