@@ -16,7 +16,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
-import com.cn.activity.PhotoSelectDialog;
+import com.cn.washoes.activity.PhotoSelectDialog;
 
 
 public abstract class PhotoActivity extends BaseActivity {

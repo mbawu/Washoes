@@ -1,4 +1,4 @@
-package com.cn.activity;
+package com.cn.washoes.activity;
 
 
 import com.cn.hongwei.BaseActivity;

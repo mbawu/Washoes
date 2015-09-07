@@ -15,9 +15,9 @@ import android.util.Log;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
-import com.cn.activity.MainActivity;
 import com.cn.person.Cst;
 import com.cn.washoes.R;
+import com.cn.washoes.activity.MainActivity;
 
 /**
  * 自定义接收器
