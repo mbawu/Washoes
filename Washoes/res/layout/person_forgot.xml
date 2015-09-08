@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wihte"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/log" />
+
+    <EditText
+        android:id="@+id/forgot_phone"
+        style="@style/editTextStyle"
+        android:hint="手机号" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/forgot_code"
+            style="@style/editTextStyle"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:hint="输入验证码"
+            android:maxLength="6"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="50dp" />
+
+        <TextView
+            android:id="@+id/get_code_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="获取验证码"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/wihte"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/get_code_on" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/forgot_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/enable_btn_off"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="@color/wihte"
+        android:textSize="20sp" />
+
+</LinearLayout>

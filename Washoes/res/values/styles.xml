@@ -33,6 +33,7 @@
         <item name="android:layout_marginRight">30dp</item>
         <item name="android:background">@drawable/edit_bg</item>
         <item name="android:textColorHint">@color/edit_hint_color</item>
+         <item name="android:textColor">@color/blank</item>
         <item name="android:gravity">center</item>
     </style>
      
