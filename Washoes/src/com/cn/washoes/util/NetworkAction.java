@@ -1,10 +1,11 @@
-package com.cn.person;
+package com.cn.washoes.util;
 
 
 /**
  * 网络请求枚举类型
  */
 public enum NetworkAction {
+	login,//登录
 	userF_register,//注册
 	userF_resetpwd,//忘记密码
 	userF_send_phone,//获取验证码
@@ -55,10 +56,5 @@ public enum NetworkAction {
 	centerF_location, //定位
 	indexF_recommend //推荐
 	;
-
-	@Override
-	public String toString() {
-		return this.name().replaceAll("F_", "/");
-	}
 
 }

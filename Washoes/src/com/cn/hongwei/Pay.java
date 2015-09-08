@@ -26,8 +26,8 @@ import com.alipay.sdk.app.PayTask;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.cn.person.Cst;
-import com.cn.person.NetworkAction;
+import com.cn.washoes.util.Cst;
+import com.cn.washoes.util.NetworkAction;
 
 
 public class Pay {
@@ -80,8 +80,8 @@ public class Pay {
 						Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT)
 								.show();
 						RequestWrapper wrapper=new RequestWrapper();
-						wrapper.setIdentity(MyApplication.identity);
-						wrapper.setOid(oid);
+//						wrapper.setIdentity(MyApplication.identity);
+//						wrapper.setOid(oid);
 						sendData(wrapper, NetworkAction.orderF_pay_defeated);
 					}
 				}

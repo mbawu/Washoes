@@ -21,9 +21,9 @@ import cn.jpush.android.api.JPushInterface;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.cn.person.Cst;
-import com.cn.person.NetworkAction;
 import com.cn.washoes.R;
+import com.cn.washoes.util.Cst;
+import com.cn.washoes.util.NetworkAction;
 
 
 public class BaseActivity extends Activity {
@@ -178,11 +178,11 @@ public class BaseActivity extends Activity {
 		// 重置返回结果值
 		getResualt = false;
 		// 先分析返回code值，正确执行showResualt，错误直接输出结果
-		boolean done = false;
+		String code = "";
 		String msg = "";
 		Log.i("response", response.toString());
 		try {
-			done = response.getBoolean("done");
+			code = response.getString("code");
 			msg = response.getString("msg");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -194,7 +194,7 @@ public class BaseActivity extends Activity {
 
 		Log.i(Cst.TAG, response.toString());
 		// 如果数据返回正确的时候正常执行showResualt
-		if (done) {
+		if (code.equals("1")) {
 			if (!requesType.contains(requestType))
 				requesType.add(requestType);
 			// Log.i(Cst.TAG,

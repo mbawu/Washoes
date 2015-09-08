@@ -15,8 +15,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.cn.person.Cst;
-import com.cn.person.NetworkAction;
+import com.cn.washoes.util.Cst;
+import com.cn.washoes.util.NetworkAction;
 
 
 public class MyHttpClient extends Object {
@@ -167,7 +167,7 @@ public class MyHttpClient extends Object {
 		Log.i(Cst.TAG,
 				MyApplication.getUrl(paramMap, url + requestType.toString()));
 		MyRequest jsObjRequest = new MyRequest(Request.Method.POST, url
-				+ requestType.toString(), paramMap, requestType, listener,
+				, paramMap, requestType, listener,
 				errorListener);
 		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);

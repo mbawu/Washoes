@@ -12,7 +12,7 @@ import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.cn.person.NetworkAction;
+import com.cn.washoes.util.NetworkAction;
 
 /**
  * Created with IntelliJ IDEA. User: jimmy Date: 8/9/13 Time: 1:52 PM To change

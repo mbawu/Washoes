@@ -13,11 +13,8 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.cn.hongwei.BaseActivity;
-import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
-import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
-import com.cn.person.NetworkAction;
 import com.cn.washoes.R;
 import com.cn.washoes.model.Order;
 
@@ -96,8 +93,8 @@ public class OrderListActivity extends BaseActivity implements
 	private void getOrder() {
 		RequestWrapper request = new RequestWrapper();
 		request.setShowDialog(true);
-		request.setIdentity(MyApplication.identity);
-		request.setStatus(status);
+		//request.setIdentity(MyApplication.identity);
+		//request.setStatus(status);
 		// request.setPage(page);
 		//sendDataByGet(request, NetworkAction.centerF_user_order);
 		
@@ -128,14 +125,14 @@ public class OrderListActivity extends BaseActivity implements
 	/**
 	 * 解析服务端数据
 	 */
-	@Override
+	/*@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.centerF_user_order) {
 		
 		} 
-	}
+	}*/
 
 	/**
 	 * 订单操作点击响应事件

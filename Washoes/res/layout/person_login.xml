@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wihte" 
+    android:orientation="vertical">
+
+    <include layout="@layout/top_title_layout"/>
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/log"
+        android:layout_gravity="center"/>
+    
+    <EditText 
+        android:id="@+id/login_phone"
+        style="@style/editTextStyle"
+        android:hint="手机号"/>
+    <EditText 
+        android:id="@+id/login_pwd"
+        style="@style/editTextStyle"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:inputType="textPassword"
+        android:hint="密码"/>
+    
+    <TextView 
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="@color/wihte"
+        android:background="@drawable/btn_green_bg"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:textSize="20sp"/>
+    
+    <TextView 
+        android:id="@+id/forgot_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="忘记密码"
+        android:textColor="@color/green"
+        android:gravity="center"
+        android:paddingLeft="200dp"
+        android:textSize="16sp"/>
+</LinearLayout>
