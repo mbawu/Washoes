@@ -167,7 +167,7 @@ public class MyHttpClient extends Object {
 		Log.i(Cst.TAG,
 				MyApplication.getUrl(paramMap, url + requestType.toString()));
 		MyRequest jsObjRequest = new MyRequest(Request.Method.POST, url
-				+ requestType.toString(), paramMap, requestType, listener,
+				, paramMap, requestType, listener,
 				errorListener);
 		jsObjRequest.setTag(requestType);
 		this.addRequest(jsObjRequest);

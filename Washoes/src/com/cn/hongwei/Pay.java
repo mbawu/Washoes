@@ -80,8 +80,8 @@ public class Pay {
 						Toast.makeText(activity, "支付失败", Toast.LENGTH_SHORT)
 								.show();
 						RequestWrapper wrapper=new RequestWrapper();
-						wrapper.setIdentity(MyApplication.identity);
-						wrapper.setOid(oid);
+//						wrapper.setIdentity(MyApplication.identity);
+//						wrapper.setOid(oid);
 						sendData(wrapper, NetworkAction.orderF_pay_defeated);
 					}
 				}
