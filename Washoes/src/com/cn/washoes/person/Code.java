@@ -1,6 +1,7 @@
 package com.cn.washoes.person;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -79,7 +80,11 @@ public class Code {
 		RequestWrapper requestWrapper=new RequestWrapper();
 		requestWrapper.setOp(NetworkAction.code.toString());
 		requestWrapper.setMobile(phoneNum);
-		requestWrapper.setType("1");
+		Log.i("test", activity.getClass().getSimpleName());
+		if(activity.getClass().getSimpleName().equals("ForgotActivity"))
+			requestWrapper.setType("1");
+		else if(activity.getClass().getSimpleName().equals("RegisterActivity"))
+			requestWrapper.setType("0");
 		activity.sendData(requestWrapper, NetworkAction.code);
 		
 	}

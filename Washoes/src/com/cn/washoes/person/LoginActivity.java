@@ -69,7 +69,8 @@ public class LoginActivity extends BaseActivity {
 					
 				if(pwd.equals(""))
 				{
-					Toast.makeText(LoginActivity.this, "请输入手机号", Toast.LENGTH_SHORT).show();
+					Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+					pwdTxt.requestFocus();
 					return;
 				}
 				if(!MyApplication.isPhoneNumberValid(phone))

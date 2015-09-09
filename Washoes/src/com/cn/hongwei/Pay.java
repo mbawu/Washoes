@@ -82,7 +82,7 @@ public class Pay {
 						RequestWrapper wrapper=new RequestWrapper();
 //						wrapper.setIdentity(MyApplication.identity);
 //						wrapper.setOid(oid);
-						sendData(wrapper, NetworkAction.orderF_pay_defeated);
+//						sendData(wrapper, NetworkAction.orderF_pay_defeated);
 					}
 				}
 				break;
@@ -413,9 +413,9 @@ public class Pay {
 		return JsonUtil.fromJson(json, ResponseWrapper.class);
 	}
 	public void showAttr(ResponseWrapper responseWrappe,NetworkAction requestType) {
-		if(requestType==NetworkAction.orderF_pay_defeated)
-		{
-			
-		}
+//		if(requestType==NetworkAction.orderF_pay_defeated)
+//		{
+//			
+//		}
 	}
 }

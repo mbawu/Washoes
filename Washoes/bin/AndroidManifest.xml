@@ -53,7 +53,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
-        <activity android:name="com.cn.washoes.person.LoginActivity" >
+        <activity android:name="com.cn.washoes.person.RegisterActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,6 +61,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.cn.washoes.person.ForgotActivity" />
+        <activity android:name="com.cn.washoes.person.LoginActivity" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
