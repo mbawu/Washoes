@@ -1,8 +1,10 @@
 package com.cn.washoes.person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -37,6 +39,7 @@ public class RegisterActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_register);
 		initView();
+		MyApplication.getKey(this);
 	}
 
 	private void initView() {
@@ -83,7 +86,8 @@ public class RegisterActivity extends BaseActivity {
 		requestWrapper.setMobile(phoneTxt.getText().toString());
 		requestWrapper.setGps(MyApplication.lat+","+MyApplication.lng);
 		requestWrapper.setCode(codeTxt.getText().toString());
-		requestWrapper.setSms_id(sms_id);
+		if(sms_id!=null)
+			requestWrapper.setSms_id(sms_id);
 		sendData(requestWrapper, NetworkAction.register);
 	}
 	
@@ -135,7 +139,14 @@ public class RegisterActivity extends BaseActivity {
 		}
 		else if(requestType==NetworkAction.register)
 		{
-			Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+			Intent intent=new Intent();
+			intent.setClass(RegisterActivity.this, SetPwdActivity.class);
+//			intent.
+		}
+		else if(requestType==NetworkAction.login)
+		{
+			Log.i("test", "aid--->"+responseWrapper.getInfo().getAid());
+			Log.i("test", "Seskey--->"+responseWrapper.getInfo().getSeskey());
 		}
 	}
 	

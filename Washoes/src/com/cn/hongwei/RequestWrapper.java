@@ -13,12 +13,28 @@ public class RequestWrapper {
 	private String op; //操作类型
 	private String mobile; //手机号
 	private String password; //密码
+	private String repassword;//再次输入的密码
 	private String type; //验证码类型(注册0   密码找回1  手机号更新2)
 	private String idcard;//身份证号码
 	private String realname;//姓名(注册模块)
 	private String gps;//GPS字串(经度,纬度  如：116.237543,39.911836)
 	private String code;//验证码
 	private String sms_id;//验证码ID
+	private String aid;//技师ID
+	
+	
+	public String getRepassword() {
+		return repassword;
+	}
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
+	}
+	public String getAid() {
+		return aid;
+	}
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
 	private boolean showDialog=false;
 	
 	

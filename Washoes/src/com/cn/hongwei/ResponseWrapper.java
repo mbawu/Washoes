@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.cn.washoes.model.Info;
+
 
 
 /**
@@ -19,6 +21,15 @@ public class ResponseWrapper {
 	private String code;//代码值
 	private String msg;//信息提示
 	private String sms_id;//验证码ID
+	private Info info; //用户信息
+	
+	
+	public Info getInfo() {
+		return info;
+	}
+	public void setInfo(Info info) {
+		this.info = info;
+	}
 	public String getCode() {
 		return code;
 	}
