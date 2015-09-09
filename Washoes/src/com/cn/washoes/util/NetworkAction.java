@@ -6,6 +6,7 @@ package com.cn.washoes.util;
  */
 public enum NetworkAction {
 	login,//登录
+	code,//获取验证码
 	userF_register,//注册
 	userF_resetpwd,//忘记密码
 	userF_send_phone,//获取验证码

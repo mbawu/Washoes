@@ -10,10 +10,19 @@ import java.util.Map;
  */
 public class RequestWrapper {
 	
-	private String op;
-	private String mobile;
-	private String password;
+	private String op; //操作类型
+	private String mobile; //手机号
+	private String password; //密码
+	private String type; //验证码类型(注册0   密码找回1  手机号更新2)
 	private boolean showDialog=false;
+	
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getOp() {
 		return op;
 	}

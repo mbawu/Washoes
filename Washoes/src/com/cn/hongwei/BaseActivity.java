@@ -110,9 +110,9 @@ public class BaseActivity extends Activity {
 		// if(MyApplication.identity!=null)
 		// paramMap.put("identity", MyApplication.identity);
 		paramMap = getMap(requestWrapper);
-		// Log.i("test",
-		// MyApplication.getUrl(paramMap,
-		// Cst.HOST + requestType.toString()));
+		 Log.i("test",
+		 MyApplication.getUrl(paramMap,
+		 Cst.HOST + requestType.toString()));
 		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
