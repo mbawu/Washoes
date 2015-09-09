@@ -29,8 +29,6 @@ public class ForgotActivity extends BaseActivity {
 	private EditText codeTxt;//验证码输入框
 	private TextView getCodeBtn;//获取验证码按钮
 	private TextView forgotBtn;//下一步按钮
-	private int defaultCount = 60;// 默认多长时间(秒)重复获取验证码
-	private int count = defaultCount;//计时器
 	private String phone;//点击获取验证码时候获取到的手机号
 	private String sms_id;//验证码ID
 	
@@ -61,23 +59,14 @@ public class ForgotActivity extends BaseActivity {
 					Toast.makeText(ForgotActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
 					return;
 				}
-				handler.sendEmptyMessage(count);
-				getCode();
+//				handler.sendEmptyMessage(count);
+//				getCode();
+				Code.getCode(getCodeBtn, phone, ForgotActivity.this);
 			}
 		});
 	}
 	
-	/**
-	 * 获取验证码
-	 */
-	private void getCode() {
-		RequestWrapper requestWrapper=new RequestWrapper();
-		requestWrapper.setOp(NetworkAction.code.toString());
-		requestWrapper.setMobile(phone);
-		requestWrapper.setType("1");
-		sendData(requestWrapper, NetworkAction.code);
-		
-	}
+
 	
 	
 	@Override
@@ -129,51 +118,28 @@ public class ForgotActivity extends BaseActivity {
 	    }
 	};
 	
+
+	
 	/**
-	 * 倒计时用的handler
-	 * 
+	 * 在返回错误信息的时候也恢复可获取验证码的点击动作
 	 */
-	Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			if (count > 0) {
-				getCodeBtn.setText("" + count);
-				getCodeBtn.setBackgroundResource(R.drawable.get_code_off);
-				getCodeBtn.setEnabled(false);
-				count--;
-				handler.sendEmptyMessageDelayed(count, 1000);
-			} else {
-				changeBtnNormal();
-				count = defaultCount;
-				getCodeBtn.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						getCode();
-						getCodeBtn.setEnabled(true);
-					}
-
-					
-				});
-			}
-		};
-	};
-	
-	
-	//在服务器出错的时候恢复可获取验证码的点击动作
-	public void sendDataErrorResponse(NetworkAction requestType) {
-		//在服务器出错的时候恢复可获取验证码的点击动作
+	public void getErrorMsg(NetworkAction requestType) {
 		if(requestType==NetworkAction.code)
 		{
-			changeBtnNormal();
+			Code.changeBtnNormal(getCodeBtn);
 		}
 	};
 	
 	/**
-	 * 还原可点击的获取验证码的功能
+	 * 在服务器出错的时候恢复可获取验证码的点击动作
 	 */
-	private void changeBtnNormal() {
-		getCodeBtn.setText("获取验证码");
-		getCodeBtn.setBackgroundResource(R.drawable.get_code_on);
-		getCodeBtn.setEnabled(true);
-	}
+	public void sendDataErrorResponse(NetworkAction requestType) {
+		//在服务器出错的时候恢复可获取验证码的点击动作
+		if(requestType==NetworkAction.code)
+		{
+			Code.changeBtnNormal(getCodeBtn);
+		}
+	};
+	
+
 }
