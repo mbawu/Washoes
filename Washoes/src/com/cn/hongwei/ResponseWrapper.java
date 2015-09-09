@@ -22,8 +22,21 @@ public class ResponseWrapper {
 	private String msg;//信息提示
 	private String sms_id;//验证码ID
 	private Info info; //用户信息
+	private String aid; //准技师ID(注册)
+	private String mobile; //手机号(注册)
 	
-	
+	public String getAid() {
+		return aid;
+	}
+	public void setAid(String aid) {
+		this.aid = aid;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 	public Info getInfo() {
 		return info;
 	}

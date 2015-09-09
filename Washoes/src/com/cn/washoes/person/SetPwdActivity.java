@@ -1,6 +1,7 @@
 package com.cn.washoes.person;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +36,18 @@ public class SetPwdActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_setpwd);
 		initView();
+		getData();
+	}
+	private void getData() {
+		Intent intent=getIntent();
+		String type=intent.getStringExtra("type");
+		//注册页面设置密码
+		if(type.equals("0"))
+		{
+			aid=intent.getStringExtra("aid");
+			mobile=intent.getStringExtra("mobile");
+		}
+		
 	}
 	private void initView() {
 		pwd1Txt=(EditText) findViewById(R.id.setpwd_pwd1);

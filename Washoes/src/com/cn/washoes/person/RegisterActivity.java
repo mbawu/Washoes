@@ -39,7 +39,7 @@ public class RegisterActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.person_register);
 		initView();
-		MyApplication.getKey(this);
+//		MyApplication.getKey(this);
 	}
 
 	private void initView() {
@@ -141,13 +141,17 @@ public class RegisterActivity extends BaseActivity {
 		{
 			Intent intent=new Intent();
 			intent.setClass(RegisterActivity.this, SetPwdActivity.class);
-//			intent.
+			intent.putExtra("type","0");
+			intent.putExtra("aid", responseWrapper.getAid());
+			intent.putExtra("mobile", responseWrapper.getMobile());
+			startActivity(intent);
+			finish();
 		}
-		else if(requestType==NetworkAction.login)
-		{
-			Log.i("test", "aid--->"+responseWrapper.getInfo().getAid());
-			Log.i("test", "Seskey--->"+responseWrapper.getInfo().getSeskey());
-		}
+//		else if(requestType==NetworkAction.login)
+//		{
+//			Log.i("test", "aid--->"+responseWrapper.getInfo().getAid());
+//			Log.i("test", "Seskey--->"+responseWrapper.getInfo().getSeskey());
+//		}
 	}
 	
 	/**
