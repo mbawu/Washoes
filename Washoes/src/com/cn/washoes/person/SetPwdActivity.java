@@ -99,7 +99,7 @@ public class SetPwdActivity extends BaseActivity {
 		super.showResualt(responseWrapper, requestType);
 		if(requestType==NetworkAction.setpwd)
 		{
-			ConfirmDialog dialog=new ConfirmDialog(this);
+			ConfirmDialog dialog=new ConfirmDialog(this,R.layout.msg_dialog);
 			dialog.setTitle("提示");
 			dialog.setMessage(responseWrapper.getMsg());
 			

@@ -1,5 +1,6 @@
 package com.cn.washoes.person;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.washoes.R;
+import com.cn.washoes.activity.ConfirmDialog;
 import com.cn.washoes.util.NetworkAction;
 
 /**
