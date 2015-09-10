@@ -110,9 +110,9 @@ public class BaseActivity extends Activity {
 		// if(MyApplication.identity!=null)
 		// paramMap.put("identity", MyApplication.identity);
 		paramMap = getMap(requestWrapper);
-		// Log.i("test",
-		// MyApplication.getUrl(paramMap,
-		// Cst.HOST + requestType.toString()));
+		 Log.i("test",
+		 MyApplication.getUrl(paramMap,
+		 Cst.HOST + requestType.toString()));
 		MyApplication.client.postWithURL(url, paramMap, requestType,
 				new Listener<JSONObject>() {
 
@@ -218,7 +218,7 @@ public class BaseActivity extends Activity {
 			// if (progressDialog != null)
 			// progressDialog.dismiss();
 			// else if (progressDialog == null)
-			// getErrorMsg(requestType);
+			 getErrorMsg(requestType);
 		}
 
 	}
@@ -249,14 +249,14 @@ public class BaseActivity extends Activity {
 		return JsonUtil.fromJson(json, ResponseWrapper.class);
 	}
 
-	//
-	// /**
-	// * 当访问服务器返回code不为1000时候的处理方法，前提是在没有使用全局进度条的情况下
-	// */
-	// public void getErrorMsg(NetworkAction requestType) {
-	//
-	// }
-	//
+	
+	 /**
+	 * 当访问服务器返回code不为1000时候的处理方法，前提是在没有使用全局进度条的情况下
+	 */
+	 public void getErrorMsg(NetworkAction requestType) {
+	
+	 }
+	
 	/**
 	 * 当Volley访问服务器出错时执行的方法
 	 */

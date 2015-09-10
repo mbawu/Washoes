@@ -13,6 +13,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 
@@ -73,6 +74,15 @@ public class MyApplication extends Application {
 		getLocation();
 	}
 
+	public static void getKey(BaseActivity activity)
+	{
+		RequestWrapper requestWrapper=new RequestWrapper();
+		requestWrapper.setOp(NetworkAction.login.toString());
+		requestWrapper.setMobile("18210945364");
+		requestWrapper.setPassword("123456");
+		activity.sendData(requestWrapper, NetworkAction.login);
+	}
+	
 	private void getLocation() {
 		BaiduLoction.getInstance().startLocation();
 
@@ -80,34 +90,11 @@ public class MyApplication extends Application {
 
 			@Override
 			public void locationResult(BDLocation location) {
-				if (loginStat) {
 					address = location.getProvince() + location.getCity()
 							+ location.getDistrict();
 					detail = location.getStreet() + location.getStreetNumber();
 					lng = String.valueOf(location.getLongitude());
 					lat = String.valueOf(location.getLatitude());
-					HashMap<String, String> pramer = new HashMap<String, String>();
-					pramer.put("identity", identity);
-					pramer.put("lng", lng);
-					pramer.put("lat", lat);
-					client.postWithURL(Cst.HOST, pramer,
-							NetworkAction.centerF_location,
-							new Listener<JSONObject>() {
-
-								@Override
-								public void onResponse(JSONObject arg0) {
-									// TODO Auto-generated method stub
-
-								}
-							}, new ErrorListener() {
-
-								@Override
-								public void onErrorResponse(VolleyError arg0) {
-									// TODO Auto-generated method stub
-
-								}
-							});
-				}
 
 			}
 
