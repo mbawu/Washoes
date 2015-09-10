@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/main_bg_color"
     android:orientation="vertical" >
 
     <include layout="@layout/top_title_layout" />
@@ -15,45 +15,59 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/order_list_all_radiobtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="全部"
-            android:textColor="@drawable/text_checked_style" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="20dp"
-            android:background="@color/more_gray" />
-
-        <RadioButton
             android:id="@+id/order_list_underway_radiobtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/order_radio_selector"
             android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/order_watting_radio_selector"
             android:gravity="center"
-            android:text="进行中"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="待服务"
             android:textColor="@drawable/text_checked_style" />
 
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="20dp"
-            android:background="@color/more_gray" />
+        <RadioButton
+            android:id="@+id/order_list_all_radiobtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/order_radio_selector"
+            android:button="@null"
+            android:drawableTop="@drawable/order_working_radio_selector"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="服务中"
+            android:textColor="@drawable/text_checked_style" />
+
+        <RadioButton
+            android:id="@+id/order_list_finish_radiobtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/order_radio_selector"
+            android:button="@null"
+            android:drawableTop="@drawable/order_finish_radio_selector"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="已完成"
+            android:textColor="@drawable/text_checked_style" />
 
         <RadioButton
             android:id="@+id/order_list_cancel_radiobtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/order_radio_selector"
             android:button="@null"
+            android:drawableTop="@drawable/order_cancel_radio_selector"
             android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="已取消"
             android:textColor="@drawable/text_checked_style" />
     </RadioGroup>
@@ -76,11 +90,15 @@
         android:id="@+id/listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_marginTop="8dp"
         android:cacheColorHint="#ffffff"
-        android:divider="#FFFFFF"
+        android:divider="#00FFFFFF"
         android:dividerHeight="8dp"
         android:fadingEdge="none"
         android:listSelector="#ffffff"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:visibility="visible" >
     </ListView>
+
 </LinearLayout>
