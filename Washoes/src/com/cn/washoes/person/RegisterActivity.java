@@ -137,7 +137,7 @@ public class RegisterActivity extends BaseActivity {
 		if(requestType==NetworkAction.code)
 		{
 			sms_id=responseWrapper.getSms_id();
-			Toast.makeText(this, "验证码已发送成功", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, responseWrapper.getMsg(), Toast.LENGTH_SHORT).show();
 		}
 		else if(requestType==NetworkAction.register)
 		{

@@ -1,5 +1,6 @@
 package com.cn.washoes.person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -64,10 +65,30 @@ public class ForgotActivity extends BaseActivity {
 				Code.getCode(getCodeBtn, phone, ForgotActivity.this);
 			}
 		});
+		
+		forgotBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				goNext();
+			}
+		});
 	}
 	
 
-	
+	/**
+	 * 下一步
+	 */
+	private void goNext()
+	{
+		RequestWrapper requestWrapper=new RequestWrapper();
+		requestWrapper.setOp(NetworkAction.getpwd_next.toString());
+		requestWrapper.setMobile(phone);
+		requestWrapper.setCode(codeTxt.getText().toString());
+		requestWrapper.setSms_id(sms_id);
+		sendData(requestWrapper, NetworkAction.getpwd_next);
+	}
 	
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
@@ -77,7 +98,16 @@ public class ForgotActivity extends BaseActivity {
 		if(requestType==NetworkAction.code)
 		{
 			sms_id=responseWrapper.getSms_id();
-			Toast.makeText(this, "获取到验证码为"+sms_id, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, responseWrapper.getMsg(), Toast.LENGTH_SHORT).show();
+		}
+		else if(requestType==NetworkAction.getpwd_next)
+		{
+			Intent intent=new Intent();
+			intent.setClass(this, SetPwdActivity.class);
+			intent.putExtra("type","1");
+			intent.putExtra("mobile", responseWrapper.getMobile());
+			startActivity(intent);
+			finish();
 		}
 	}
 	
@@ -102,7 +132,7 @@ public class ForgotActivity extends BaseActivity {
 	   
 	    @Override
 	    public void afterTextChanged(Editable s) {
-	        if(s.length()>1)
+	        if(phoneTxt.length()>1 && codeTxt.length()>1)
 	        {
 	        	forgotBtn.setBackgroundResource(R.drawable.login_bg);
 	        	forgotBtn.setEnabled(true);

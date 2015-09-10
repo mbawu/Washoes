@@ -3,6 +3,8 @@ package com.cn.washoes.person;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -28,6 +30,7 @@ public class SetPwdActivity extends BaseActivity {
 	private EditText pwd1Txt;//第一次输入的密码
 	private EditText pwd2Txt;//第二次输入的密码
 	private TextView btn;
+	private String type;
 	private String aid;//技师ID
 	private String mobile;//手机号
 	@Override
@@ -40,18 +43,18 @@ public class SetPwdActivity extends BaseActivity {
 	}
 	private void getData() {
 		Intent intent=getIntent();
-		String type=intent.getStringExtra("type");
+		type=intent.getStringExtra("type");
+		mobile=intent.getStringExtra("mobile");
 		//注册页面设置密码
 		if(type.equals("0"))
-		{
 			aid=intent.getStringExtra("aid");
-			mobile=intent.getStringExtra("mobile");
-		}
 		
 	}
 	private void initView() {
 		pwd1Txt=(EditText) findViewById(R.id.setpwd_pwd1);
 		pwd2Txt=(EditText) findViewById(R.id.setpwd_pwd2);
+		pwd2Txt.addTextChangedListener(watcher);
+		pwd1Txt.addTextChangedListener(watcher);
 		btn=(TextView) findViewById(R.id.setpwd_btn);
 		btn.setOnClickListener(new OnClickListener() {
 			
@@ -79,17 +82,64 @@ public class SetPwdActivity extends BaseActivity {
 	}
 	
 	/**
+	 * 监听是否输入验证码以开启下一步按钮
+	 */
+	private TextWatcher watcher = new TextWatcher() {
+		   
+	    @Override
+	    public void onTextChanged(CharSequence s, int start, int before, int count) {
+	        // TODO Auto-generated method stub
+	       
+	    }
+	   
+	    @Override
+	    public void beforeTextChanged(CharSequence s, int start, int count,
+	            int after) {
+	        // TODO Auto-generated method stub
+	       
+	    }
+	   
+	    @Override
+	    public void afterTextChanged(Editable s) {
+	        if(pwd1Txt.length()>1 && pwd2Txt.length()>1)
+	        {
+	        	btn.setBackgroundResource(R.drawable.login_bg);
+	        	btn.setEnabled(true);
+	        }
+	        	
+	        else
+	        {
+	        	btn.setBackgroundResource(R.drawable.enable_btn_off);
+	        	btn.setEnabled(false);
+	        }
+	        	
+	       
+	    }
+	};
+	
+	/**
 	 * 注册设置密码
 	 */
 	private void setpwd()
 	{
 		RequestWrapper requestWrapper=new RequestWrapper();
-		requestWrapper.setOp(NetworkAction.setpwd.toString());
-		requestWrapper.setAid(aid);
+		
 		requestWrapper.setMobile(mobile);
 		requestWrapper.setPassword(pwd1Txt.getText().toString());
 		requestWrapper.setRepassword(pwd2Txt.getText().toString());
-		sendData(requestWrapper, NetworkAction.setpwd);
+		//注册页面设置密码
+		if(type.equals("0"))
+		{
+			requestWrapper.setOp(NetworkAction.setpwd.toString());
+			requestWrapper.setAid(aid);
+			sendData(requestWrapper, NetworkAction.setpwd);
+		}
+		//找回密码
+		else if(type.equals("1"))
+		{
+			requestWrapper.setOp(NetworkAction.getpwd_reset.toString());
+			sendData(requestWrapper, NetworkAction.getpwd_reset);
+		}
 	}
 	
 	@Override
@@ -97,8 +147,8 @@ public class SetPwdActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
-		if(requestType==NetworkAction.setpwd)
-		{
+//		if(requestType==NetworkAction.setpwd)
+//		{
 			ConfirmDialog dialog=new ConfirmDialog(this,R.layout.msg_dialog);
 			dialog.setTitle("提示");
 			dialog.setMessage(responseWrapper.getMsg());
@@ -112,6 +162,6 @@ public class SetPwdActivity extends BaseActivity {
 				}
 			});
 			dialog.show();
-		}
+//		}
 	}
 }
