@@ -54,6 +54,7 @@
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
         <activity android:name="com.cn.washoes.person.RegisterActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

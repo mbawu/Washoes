@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="main_bg_color">#39B5E9</color>
+    <color name="main_bg_color">#F7F6F5</color>
     <color name="style_color">#44B5E9</color>
     <color name="wihte">#ffffff</color>
     <color name="green">#8be1d2</color>
