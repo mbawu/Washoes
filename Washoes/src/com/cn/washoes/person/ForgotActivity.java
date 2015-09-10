@@ -16,6 +16,7 @@ import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.washoes.R;
+import com.cn.washoes.util.Code;
 import com.cn.washoes.util.NetworkAction;
 
 /**

@@ -1,0 +1,209 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/more_gray"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/person_item_margging"
+        android:background="@color/edit_hint_color" />
+
+    <FrameLayout
+        android:id="@+id/person_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wihte" >
+
+        <TextView
+            style="@style/personLeft"
+            android:drawableLeft="@drawable/person_time"
+            android:text="我的时间" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/person_right" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/edit_hint_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/person_item_margging"
+        android:background="@color/edit_hint_color" />
+
+    <FrameLayout
+        android:id="@+id/person_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wihte" >
+
+        <TextView
+            style="@style/personLeft"
+            android:drawableLeft="@drawable/person_msg"
+            android:text="我的消息" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_right" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/edit_hint_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/person_item_margging"
+        android:background="@color/edit_hint_color" />
+
+    <FrameLayout
+        android:id="@+id/person_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wihte" >
+
+        <TextView
+            style="@style/personLeft"
+            android:drawableLeft="@drawable/person_change"
+            android:text="修改手机号" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_right" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/edit_hint_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/person_item_margging"
+        android:background="@color/edit_hint_color" />
+
+    <FrameLayout
+        android:id="@+id/person_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wihte" >
+
+        <TextView
+            style="@style/personLeft"
+            android:drawableLeft="@drawable/person_pwd"
+            android:text="修改密码" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_right" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/edit_hint_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/person_item_margging"
+        android:background="@color/edit_hint_color" />
+
+    <FrameLayout
+        android:id="@+id/person_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wihte" >
+
+        <TextView
+            style="@style/personLeft"
+            android:drawableLeft="@drawable/person_location"
+            android:text="服务位置" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_right" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/edit_hint_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/person_item_margging"
+        android:background="@color/edit_hint_color" />
+
+    <FrameLayout
+        android:id="@+id/person_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wihte" >
+
+        <TextView
+            style="@style/personLeft"
+            android:drawableLeft="@drawable/person_call"
+            android:text="平台咨询" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/person_right" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/edit_hint_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/logout"
+            android:gravity="center"
+            android:text="退出"
+            android:textColor="@color/wihte"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,4 +6,5 @@
     <dimen name="order_item_text_V_padding">10dp</dimen>
     <dimen name="order_item_text_H_padding">15dp</dimen>
 
+    <dimen name="person_item_margging">10dp</dimen>
 </resources>
