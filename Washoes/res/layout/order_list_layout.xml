@@ -15,7 +15,7 @@
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/order_list_underway_radiobtn"
+            android:id="@+id/order_list_watting_radiobtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -30,7 +30,7 @@
             android:textColor="@drawable/text_checked_style" />
 
         <RadioButton
-            android:id="@+id/order_list_all_radiobtn"
+            android:id="@+id/order_list_working_radiobtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,7 +75,49 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/province_line_border" />
+
+    <LinearLayout
+        android:id="@+id/order_num_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务总订单："
+            android:textColor="#646464"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/order_text_num_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="125"
+            android:textColor="#646464"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本月订单："
+            android:textColor="#646464"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/order_text_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11"
+            android:textColor="#646464"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/nodataTxt"
@@ -90,14 +132,11 @@
         android:id="@+id/listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="8dp"
         android:cacheColorHint="#ffffff"
         android:divider="#00FFFFFF"
         android:dividerHeight="8dp"
         android:fadingEdge="none"
         android:listSelector="#ffffff"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:visibility="visible" >
     </ListView>
 

@@ -11,6 +11,7 @@ import java.util.Map;
 public class RequestWrapper {
 	
 	private String op; //操作类型
+	private String act;//程序入口参数
 	private String mobile; //手机号
 	private String password; //密码
 	private String repassword;//再次输入的密码
@@ -21,21 +22,15 @@ public class RequestWrapper {
 	private String code;//验证码
 	private String sms_id;//验证码ID
 	private String aid;//技师ID
-	private String act;//程序入口参数
 	private String seskey;//身份秘钥
 	
-	public String getSeskey() {
-		return seskey;
-	}
-	public void setSeskey(String seskey) {
-		this.seskey = seskey;
-	}
-	public String getAct() {
-		return act;
-	}
-	public void setAct(String act) {
-		this.act = act;
-	}
+	private String page;//当前页
+	private String per;//每页显示条数（默认6）
+	private String flag;//状态
+	private String is_onum;//是否查询订单总数（1是 0否  flag=5时使用）
+	
+	private String order_id	;
+
 	public String getRepassword() {
 		return repassword;
 	}
@@ -111,6 +106,48 @@ public class RequestWrapper {
 	}
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+	public String getSeskey() {
+		return seskey;
+	}
+	public void setSeskey(String seskey) {
+		this.seskey = seskey;
+	}
+	public String getAct() {
+		return act;
+	}
+	public void setAct(String act) {
+		this.act = act;
+	}
+	public String getPage() {
+		return page;
+	}
+	public void setPage(String page) {
+		this.page = page;
+	}
+	public String getPer() {
+		return per;
+	}
+	public void setPer(String per) {
+		this.per = per;
+	}
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	public String getIs_onum() {
+		return is_onum;
+	}
+	public void setIs_onum(String is_onum) {
+		this.is_onum = is_onum;
+	}
+	public String getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(String order_id) {
+		this.order_id = order_id;
 	}
 
 }

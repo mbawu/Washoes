@@ -43,7 +43,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@android:style/Theme.NoTitleBar" >
 
         <!-- app签名 03a8bc1660bd27c9301cd6363c665f77 -->
         <!-- meta-data需要写在application中 -->
@@ -54,13 +54,13 @@
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
         <activity android:name="com.cn.washoes.person.PersonActivity" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.cn.washoes.activity.OrderInfoActivity" />
         <activity android:name="com.cn.washoes.person.LoginActivity" />
         <activity android:name="com.cn.washoes.person.ForgotActivity" />
         <activity android:name="com.cn.washoes.person.SetPwdActivity" />
