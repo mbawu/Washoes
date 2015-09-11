@@ -11,6 +11,7 @@ public enum NetworkAction {
 	setpwd,//注册设置密码
 	getpwd_next,//找回/修改密码  --  下一步
 	getpwd_reset,//找回/修改密码  --  设置密码
+	mobile,//修改手机号
 	;
 
 }

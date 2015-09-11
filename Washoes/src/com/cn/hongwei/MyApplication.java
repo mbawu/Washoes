@@ -22,6 +22,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
 import com.cn.hongwei.BaiduLoction.LocationCallback;
+import com.cn.washoes.model.Info;
 import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -29,19 +30,14 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-
-
 public class MyApplication extends Application {
 
 	public static MyHttpClient client;// 网络请求的终端
 	public static ArrayList<BaseActivity> list;// 记录所有存在的activity
 	public static SharedPreferences sp; // 本地存储SharedPreferences
 	public static Editor ed; // 本地存储编辑器Editor
-
-	public static String identity;
-	public static boolean loginStat = false;
-	public static boolean refresh = false; // 是否需要刷新
 	public static NotificationManager mNotificationManager;
+	public static boolean loginStat = false;
 	public static String lng = "0";
 	public static String lat = "0";
 	public static String address = "";
@@ -65,24 +61,23 @@ public class MyApplication extends Application {
 		list = new ArrayList<BaseActivity>();
 		// UpgradeManager.getInstence().init(this);
 		// 初始化SharedPreferences
-		sp = getSharedPreferences("CarService", MODE_PRIVATE);
+		sp = getSharedPreferences("Washoes", MODE_PRIVATE);
 		ed = sp.edit();
-
+		initSharePreferenceData() ;
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		// 初始化JPUSH
 		JPushInterface.init(getApplicationContext());
 		getLocation();
 	}
 
-	public static void getKey(BaseActivity activity)
-	{
-		RequestWrapper requestWrapper=new RequestWrapper();
+	public static void getKey(BaseActivity activity) {
+		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setOp(NetworkAction.login.toString());
 		requestWrapper.setMobile("18210945364");
 		requestWrapper.setPassword("123456");
 		activity.sendData(requestWrapper, NetworkAction.login);
 	}
-	
+
 	private void getLocation() {
 		BaiduLoction.getInstance().startLocation();
 
@@ -90,11 +85,11 @@ public class MyApplication extends Application {
 
 			@Override
 			public void locationResult(BDLocation location) {
-					address = location.getProvince() + location.getCity()
-							+ location.getDistrict();
-					detail = location.getStreet() + location.getStreetNumber();
-					lng = String.valueOf(location.getLongitude());
-					lat = String.valueOf(location.getLatitude());
+				address = location.getProvince() + location.getCity()
+						+ location.getDistrict();
+				detail = location.getStreet() + location.getStreetNumber();
+				lng = String.valueOf(location.getLongitude());
+				lat = String.valueOf(location.getLatitude());
 
 			}
 
@@ -135,22 +130,55 @@ public class MyApplication extends Application {
 		ImageLoader.getInstance().init(config);
 	}
 
+	private void initSharePreferenceData() {
+		String infoJson = sp.getString("info", null);
+		if (infoJson != null && !"".equals(infoJson)) {
+			info = JsonUtil.fromJson(infoJson, Info.class);
+			MyApplication.loginStat = info.isLoginState();
+		}
+		
+	};
 
+//	private String guide;
+//
+//	public String getGuide() {
+//		return guide;
+//	}
+//
+//	public void setGuide(String guide) {
+//		this.guide = guide;
+//		ed.putString("guide", guide);
+//		ed.commit();
+//	}
 
-	
-	private String guide;
+	private static Info info;//用户信息保存类
 
-	public String getGuide() {
-		return guide;
-	}
-
-	public void setGuide(String guide) {
-		this.guide = guide;
-		ed.putString("guide", guide);
+	/**
+	 * 设置用户信息
+	 * @param infoin
+	 */
+	public static void setInfo(Info infoin) {
+		info = infoin;
+		ed.putString("info", JsonUtil.toJson(info));
 		ed.commit();
 	}
 
-
+	/**
+	 * 清除用户信息
+	 */
+	public static void clearInfo()
+	{
+		ed.remove("info");
+		ed.commit();
+	}
+	
+	/**
+	 * 获取用户信息
+	 * @return
+	 */
+	public static Info getInfo() {
+		return info;
+	}
 
 	public NotificationManager getmNotificationManager() {
 		return mNotificationManager;
@@ -160,29 +188,26 @@ public class MyApplication extends Application {
 		this.mNotificationManager = mNotificationManager;
 	}
 
-	
-	 public static boolean isPhoneNumberValid(String phoneNumber) {
-		  boolean isValid = false;
-		  /*
-		   * 可接受的电话格式有：
-		   */
-		  String expression = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{5})$";
-		  /*
-		   * 可接受的电话格式有：
-		   */
-		  String expression2 = "^\\(?(\\d{3})\\)?[- ]?(\\d{4})[- ]?(\\d{4})$";
-		  CharSequence inputStr = phoneNumber;
-		  Pattern pattern = Pattern.compile(expression);
-		  Matcher matcher = pattern.matcher(inputStr);
-		  
-		  Pattern pattern2 = Pattern.compile(expression2);
-		  Matcher matcher2 = pattern2.matcher(inputStr);
-		  if(matcher.matches() || matcher2.matches()) {
-			  isValid = true;
-		  }
-		  return isValid;
-	   }
+	public static boolean isPhoneNumberValid(String phoneNumber) {
+		boolean isValid = false;
+		/*
+		 * 可接受的电话格式有：
+		 */
+		String expression = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{5})$";
+		/*
+		 * 可接受的电话格式有：
+		 */
+		String expression2 = "^\\(?(\\d{3})\\)?[- ]?(\\d{4})[- ]?(\\d{4})$";
+		CharSequence inputStr = phoneNumber;
+		Pattern pattern = Pattern.compile(expression);
+		Matcher matcher = pattern.matcher(inputStr);
 
-
+		Pattern pattern2 = Pattern.compile(expression2);
+		Matcher matcher2 = pattern2.matcher(inputStr);
+		if (matcher.matches() || matcher2.matches()) {
+			isValid = true;
+		}
+		return isValid;
+	}
 
 }

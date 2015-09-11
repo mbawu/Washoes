@@ -21,8 +21,21 @@ public class RequestWrapper {
 	private String code;//验证码
 	private String sms_id;//验证码ID
 	private String aid;//技师ID
+	private String act;//程序入口参数
+	private String seskey;//身份秘钥
 	
-	
+	public String getSeskey() {
+		return seskey;
+	}
+	public void setSeskey(String seskey) {
+		this.seskey = seskey;
+	}
+	public String getAct() {
+		return act;
+	}
+	public void setAct(String act) {
+		this.act = act;
+	}
 	public String getRepassword() {
 		return repassword;
 	}
