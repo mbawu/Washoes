@@ -41,4 +41,9 @@ public class TopTitleView {
 			rightBtnTextView.setOnClickListener(onClickListener);
 		}
 	}
+	
+	public void setBackImageViewVisable(int visibility)
+	{
+		backImageView.setVisibility(visibility);
+	}
 }

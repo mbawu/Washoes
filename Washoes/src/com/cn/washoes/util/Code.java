@@ -1,4 +1,4 @@
-package com.cn.washoes.person;
+package com.cn.washoes.util;
 
 import android.os.Handler;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.washoes.R;
-import com.cn.washoes.util.NetworkAction;
 
 /**
  * 获取验证码相关

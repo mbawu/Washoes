@@ -2,8 +2,11 @@ package com.cn.washoes.activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cn.washoes.R;
@@ -33,6 +36,20 @@ public class ConfirmDialog extends Dialog {
 		titleTextView = (TextView) findViewById(R.id.confirm_dialog_title);
 	}
 
+	/**
+	 * 提示用的dialog
+	 * @param context 上下文
+	 */
+	public ConfirmDialog(Context context,int layoutResID) {
+		super(context, R.style.confirmDialog);
+		this.setContentView(layoutResID);
+
+		btu_ok = (Button) findViewById(R.id.btu_on);
+//		btu_cancel = (Button) findViewById(R.id.btu_off);
+		msgTextView = (TextView) findViewById(R.id.confirm_dialog_msg);
+		titleTextView = (TextView) findViewById(R.id.confirm_dialog_title);
+	}
+	
 	/**
 	 * 设置取消按钮事件
 	 * @param resId 显示的资源ID
@@ -131,4 +148,6 @@ public class ConfirmDialog extends Dialog {
 	public void setSigleBtn(){
 		btu_cancel.setVisibility(View.GONE);
 	}
+	
+	
 }
