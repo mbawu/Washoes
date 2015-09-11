@@ -11,7 +11,7 @@ import java.util.Map;
 public class RequestWrapper {
 	
 	private String op; //操作类型
-	private String act;//操作
+	private String act;//程序入口参数
 	private String mobile; //手机号
 	private String password; //密码
 	private String repassword;//再次输入的密码
@@ -30,8 +30,7 @@ public class RequestWrapper {
 	private String is_onum;//是否查询订单总数（1是 0否  flag=5时使用）
 	
 	private String order_id	;
-	
-	
+
 	public String getRepassword() {
 		return repassword;
 	}

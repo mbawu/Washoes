@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.washoes.R;
+import com.cn.washoes.person.ForgotActivity;
 
 /**
  * 获取验证码相关
@@ -81,7 +82,13 @@ public class Code {
 		requestWrapper.setMobile(phoneNum);
 		Log.i("test", activity.getClass().getSimpleName());
 		if(activity.getClass().getSimpleName().equals("ForgotActivity"))
-			requestWrapper.setType("1");
+		{
+			if(((ForgotActivity)activity).changePwd)
+				requestWrapper.setType("1");
+			else
+				requestWrapper.setType("2");
+		}
+			
 		else if(activity.getClass().getSimpleName().equals("RegisterActivity"))
 			requestWrapper.setType("0");
 		activity.sendData(requestWrapper, NetworkAction.code);

@@ -11,6 +11,16 @@ public class Info {
 	private String qrcode_url;  //二维码跳转链接
 	private String lastlogin;  //最后登录时间
 	private String logintimes;  //登录次数
+	private boolean loginState;//登录状态
+	
+	
+	
+	public boolean isLoginState() {
+		return loginState;
+	}
+	public void setLoginState(boolean loginState) {
+		this.loginState = loginState;
+	}
 	public String getAid() {
 		return aid;
 	}

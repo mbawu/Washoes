@@ -66,7 +66,8 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 			break;
 		// 修改手机号
 		case R.id.person_change:
-
+			intent=new Intent().setClass(PersonActivity.this, ForgotActivity.class);
+			intent.putExtra("changephone", "changephone");
 			break;
 		// 修改密码
 		case R.id.person_pwd:
