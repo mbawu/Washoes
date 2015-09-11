@@ -15,6 +15,7 @@ import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
+import com.cn.washoes.model.Info;
 import com.cn.washoes.util.NetworkAction;
 
 /**
@@ -101,6 +102,12 @@ public class LoginActivity extends BaseActivity {
 		if(requestType==NetworkAction.login)
 		{
 			Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+			//登录成功以后更改登录状态并写入用户信息
+			Info info=responseWrapper.getInfo();
+			info.setLoginState(true);
+			MyApplication.loginStat=true;
+			MyApplication.setInfo(info);
+			finish();
 		}
 	}
 	

@@ -12,11 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cn.hongwei.BaseActivity;
+import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.ConfirmDialog;
+import com.cn.washoes.model.Info;
 import com.cn.washoes.util.NetworkAction;
 
 
@@ -150,21 +152,41 @@ public class SetPwdActivity extends BaseActivity {
 			NetworkAction requestType) {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
+//		if(requestType==NetworkAction.login)
+//		{
+//			//登录成功以后更改登录状态并写入用户信息
+//			Info info=responseWrapper.getInfo();
+//			info.setLoginState(true);
+//			MyApplication.loginStat=true;
+//			MyApplication.setInfo(info);
+//			return;
+//		}
+		
 //		if(requestType==NetworkAction.setpwd)
 //		{
-			ConfirmDialog dialog=new ConfirmDialog(this,R.layout.msg_dialog);
-			dialog.setTitle("提示");
-			dialog.setMessage(responseWrapper.getMsg());
-			
-			dialog.setOkButton("我知道了", new ConfirmDialog.OnClickListener() {
-				
-				@Override
-				public void onClick(Dialog dialog, View view) {
-					SetPwdActivity.this.finish();
-					
-				}
-			});
-			dialog.show();
+//			
+//			RequestWrapper requestWrapper=new RequestWrapper();
+//			requestWrapper.setOp(NetworkAction.login.toString());
+//			requestWrapper.setMobile(mobile);
+//			requestWrapper.setPassword(pwd1Txt.getText().toString());
+//			sendData(requestWrapper, NetworkAction.login);
 //		}
+		//写入本地用户信息
+		Info info=responseWrapper.getInfo();
+		MyApplication.setInfo(info);
+		//弹出提示框
+		ConfirmDialog dialog=new ConfirmDialog(this,R.layout.msg_dialog);
+		dialog.setTitle("提示");
+		dialog.setMessage(responseWrapper.getMsg());
+		
+		dialog.setOkButton("我知道了", new ConfirmDialog.OnClickListener() {
+			
+			@Override
+			public void onClick(Dialog dialog, View view) {
+				SetPwdActivity.this.finish();
+				
+			}
+		});
+		dialog.show();
 	}
 }

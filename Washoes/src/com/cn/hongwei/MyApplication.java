@@ -78,6 +78,15 @@ public class MyApplication extends Application {
 		activity.sendData(requestWrapper, NetworkAction.login);
 	}
 
+	public static void getKey(BaseActivity activity,String mobile,String pwd) {
+		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setOp(NetworkAction.login.toString());
+		requestWrapper.setMobile(mobile);
+		requestWrapper.setPassword(pwd);
+		activity.sendData(requestWrapper, NetworkAction.login);
+		
+	}
+	
 	private void getLocation() {
 		BaiduLoction.getInstance().startLocation();
 
