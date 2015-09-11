@@ -20,6 +20,8 @@ public class Cst {
 //	public static final String HOST = "http://http://www.xidoudou.com.cn/api/import2.php";//正式服务器地址
 	public static final String GET_RECEIVE = "get_receive"; // 消息推送
 	public static final String CART_CAHNGE = "cart_change"; // 编辑后更改购物车
+	
+	public static final int PER = 10; //每页条数
 
 	/** 本地缓存目录 */
 	public static final String CACHE_DIR;///** 本地缓存目录 */

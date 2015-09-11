@@ -1,10 +1,9 @@
 package com.cn.hongwei;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.cn.washoes.model.Info;
+import com.cn.washoes.model.OrderItem;
 
 
 
@@ -25,6 +24,13 @@ public class ResponseWrapper {
 	private String aid; //准技师ID(注册)
 	private String mobile; //手机号(注册)
 	
+	private String page;//当前页数
+	private String per;//每页显示条数
+	private String nums;//总数量
+	private String pages;//总页数
+	private String all_onums;//所有订单总数（已完成的订单 flag=5）
+	private String now_onums;//本月订单总数（已完成的订单 flag=5）
+	private List<OrderItem> list;
 	public String getAid() {
 		return aid;
 	}
@@ -60,6 +66,48 @@ public class ResponseWrapper {
 	}
 	public void setSms_id(String sms_id) {
 		this.sms_id = sms_id;
+	}
+	public String getPage() {
+		return page;
+	}
+	public void setPage(String page) {
+		this.page = page;
+	}
+	public String getPer() {
+		return per;
+	}
+	public void setPer(String per) {
+		this.per = per;
+	}
+	public String getNums() {
+		return nums;
+	}
+	public void setNums(String nums) {
+		this.nums = nums;
+	}
+	public String getPages() {
+		return pages;
+	}
+	public void setPages(String pages) {
+		this.pages = pages;
+	}
+	public String getAll_onums() {
+		return all_onums;
+	}
+	public void setAll_onums(String all_onums) {
+		this.all_onums = all_onums;
+	}
+	public String getNow_onums() {
+		return now_onums;
+	}
+	public void setNow_onums(String now_onums) {
+		this.now_onums = now_onums;
+	}
+	public List<OrderItem> getList() {
+		return list;
+	}
+	public void setList(List<OrderItem> list) {
+		this.list = list;
 	}
 	
 	

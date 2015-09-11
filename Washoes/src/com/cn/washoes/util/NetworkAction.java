@@ -9,6 +9,7 @@ public enum NetworkAction {
 	code,//获取验证码
 	register,//注册
 	setpwd,//注册设置密码
+	order,//订单列表
 	;
 
 }
