@@ -15,6 +15,7 @@ import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
+import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.util.Code;
 import com.cn.washoes.util.NetworkAction;
@@ -26,7 +27,7 @@ import com.cn.washoes.util.NetworkAction;
  */
 public class ForgotActivity extends BaseActivity {
 
-	
+	private TopTitleView topTitleView;//标题栏
 	private EditText phoneTxt;//手机号输入框
 	private EditText codeTxt;//验证码输入框
 	private TextView getCodeBtn;//获取验证码按钮
@@ -46,6 +47,11 @@ public class ForgotActivity extends BaseActivity {
 	 * 初始化界面
 	 */
 	private void initView() {
+		topTitleView = new TopTitleView(this);
+		if(getIntent().getStringExtra("changepwd")!=null)
+			topTitleView.setTitle("修改密码");
+		else
+			topTitleView.setTitle("忘记密码");
 		phoneTxt=(EditText) findViewById(R.id.forgot_phone);
 		codeTxt=(EditText) findViewById(R.id.forgot_code);
 		codeTxt.addTextChangedListener(watcher);
@@ -67,14 +73,7 @@ public class ForgotActivity extends BaseActivity {
 			}
 		});
 		
-		forgotBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				goNext();
-			}
-		});
+		
 	}
 	
 
@@ -136,13 +135,20 @@ public class ForgotActivity extends BaseActivity {
 	        if(phoneTxt.length()>1 && codeTxt.length()>1)
 	        {
 	        	forgotBtn.setBackgroundResource(R.drawable.login_bg);
-	        	forgotBtn.setEnabled(true);
+	        	forgotBtn.setOnClickListener(new OnClickListener() {
+	    			
+	    			@Override
+	    			public void onClick(View v) {
+	    				
+	    				goNext();
+	    			}
+	    		});
 	        }
 	        	
 	        else
 	        {
 	        	forgotBtn.setBackgroundResource(R.drawable.enable_btn_off);
-	        	forgotBtn.setEnabled(false);
+	        	forgotBtn.setOnClickListener(null);
 	        }
 	        	
 	       

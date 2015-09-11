@@ -16,6 +16,7 @@ import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
+import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.ConfirmDialog;
 import com.cn.washoes.util.Code;
@@ -28,6 +29,7 @@ import com.cn.washoes.util.NetworkAction;
  */
 public class RegisterActivity extends BaseActivity {
 
+	private TopTitleView topTitleView;//标题栏
 	private EditText idTxt;//身份证号
 	private EditText nameTxt;//姓名
 	private EditText phoneTxt;//手机号
@@ -46,6 +48,8 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	private void initView() {
+		topTitleView = new TopTitleView(this);
+		topTitleView.setTitle("注册");
 		idTxt=(EditText) findViewById(R.id.register_id);
 		nameTxt=(EditText) findViewById(R.id.register_name);
 		phoneTxt=(EditText) findViewById(R.id.register_phone);
@@ -70,14 +74,7 @@ public class RegisterActivity extends BaseActivity {
 			}
 		});
 		
-		registerBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				register();
-				
-			}
-		});
+		
 	}
 	
 	private void register()
@@ -117,13 +114,20 @@ public class RegisterActivity extends BaseActivity {
 	        if(idTxt.length()>1 && nameTxt.length()>1 && phoneTxt.length()>1 && codeTxt.length()>1)
 	        {
 	        	registerBtn.setBackgroundResource(R.drawable.login_bg);
-	        	registerBtn.setEnabled(true);
+	        	registerBtn.setOnClickListener(new OnClickListener() {
+	    			
+	    			@Override
+	    			public void onClick(View v) {
+	    				register();
+	    				
+	    			}
+	    		});
 	        }
 	        	
 	        else
 	        {
 	        	registerBtn.setBackgroundResource(R.drawable.enable_btn_off);
-	        	registerBtn.setEnabled(false);
+	        	registerBtn.setOnClickListener(null);
 	        }
 	        	
 	       

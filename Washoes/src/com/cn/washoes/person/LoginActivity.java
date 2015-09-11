@@ -13,6 +13,7 @@ import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
+import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.util.NetworkAction;
 
@@ -23,6 +24,7 @@ import com.cn.washoes.util.NetworkAction;
  */
 public class LoginActivity extends BaseActivity {
 
+	private TopTitleView topTitleView;//标题栏
 	private EditText phoneTxt;//电话号码输入框
 	private EditText pwdTxt;//密码输入框
 	private TextView loginBtn;//登录按钮
@@ -37,6 +39,8 @@ public class LoginActivity extends BaseActivity {
 		initView();
 	}
 	private void initView() {
+		topTitleView = new TopTitleView(this);
+		topTitleView.setTitle("登录");
 		phoneTxt=(EditText) findViewById(R.id.login_phone);
 		pwdTxt=(EditText) findViewById(R.id.login_pwd);
 		loginBtn=(TextView) findViewById(R.id.login_btn);

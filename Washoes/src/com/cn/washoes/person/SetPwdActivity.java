@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
+import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.ConfirmDialog;
 import com.cn.washoes.util.NetworkAction;
@@ -26,7 +27,7 @@ import com.cn.washoes.util.NetworkAction;
  */
 public class SetPwdActivity extends BaseActivity {
 
-	
+	private TopTitleView topTitleView;//标题栏
 	private EditText pwd1Txt;//第一次输入的密码
 	private EditText pwd2Txt;//第二次输入的密码
 	private TextView btn;
@@ -51,6 +52,8 @@ public class SetPwdActivity extends BaseActivity {
 		
 	}
 	private void initView() {
+		topTitleView = new TopTitleView(this);
+		topTitleView.setTitle("设置密码");
 		pwd1Txt=(EditText) findViewById(R.id.setpwd_pwd1);
 		pwd2Txt=(EditText) findViewById(R.id.setpwd_pwd2);
 		pwd2Txt.addTextChangedListener(watcher);
