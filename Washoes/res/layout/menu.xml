@@ -49,6 +49,7 @@
                     android:layout_weight="1.0"
                     android:checked="true"
                     android:drawableTop="@drawable/main_menu_home"
+                    android:drawablePadding="5dp"
                     android:paddingTop="7dp"
                     android:text="@string/main_menu_home"
                     android:textColor="@color/color_radiobutton" />
@@ -65,6 +66,7 @@
                     android:layout_weight="1.0"
                     android:drawableTop="@drawable/main_menu_order"
                     android:paddingTop="7dp"
+                    android:drawablePadding="5dp"
                     android:text="@string/main_menu_order"
                     android:textColor="@color/color_radiobutton" />
 
@@ -80,6 +82,7 @@
                     android:layout_weight="1.0"
                     android:drawableTop="@drawable/main_menu_person"
                     android:paddingTop="7dp"
+                    android:drawablePadding="5dp"
                     android:text="@string/main_menu_person"
                     android:textColor="@color/color_radiobutton" />
             </RadioGroup>
