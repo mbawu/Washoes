@@ -10,20 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/order_item_head_bg"
+        android:background="#8BE1D2"
         android:gravity="center_vertical"
         android:paddingBottom="@dimen/order_item_text_V_padding"
+        android:paddingLeft="@dimen/order_info_text_H_padding"
+        android:paddingRight="@dimen/order_info_text_H_padding"
         android:paddingTop="@dimen/order_item_text_V_padding" >
 
         <TextView
             android:id="@+id/order_item_text_data"
-            style="@style/orderItem"
+            style="@style/orderInfotext"
             android:drawableLeft="@drawable/order_item_date"
             android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/order_item_text_time"
-            style="@style/orderItem"
+            style="@style/orderInfotext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
@@ -31,19 +33,20 @@
 
         <TextView
             android:id="@+id/order_item_text_price"
-            style="@style/orderItem"
+            style="@style/orderInfotext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right|center_vertical"
-            android:paddingRight="@dimen/order_item_text_H_padding"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/order_item_bg"
-        android:orientation="vertical" >
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/order_info_text_H_padding"
+        android:paddingRight="@dimen/order_info_text_H_padding" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,31 +56,115 @@
 
             <TextView
                 android:id="@+id/order_item_text_username"
-                style="@style/orderItem"
+                style="@style/orderInfotext"
                 android:drawableLeft="@drawable/order_item_user" />
 
             <TextView
                 android:id="@+id/order_item_text_usertype"
-                style="@style/orderItem"
+                style="@style/orderInfotext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:paddingRight="@dimen/order_item_text_H_padding"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/order_item_text_phone"
-            style="@style/orderItem"
+            style="@style/orderInfotext"
             android:drawableLeft="@drawable/order_item_phone"
             android:paddingBottom="@dimen/order_item_text_V_padding"
             android:paddingTop="@dimen/order_item_text_V_padding" />
 
         <TextView
             android:id="@+id/order_item_text_address"
-            style="@style/orderItem"
+            style="@style/orderInfotext"
             android:drawableLeft="@drawable/order_item_id"
             android:paddingBottom="@dimen/order_item_text_V_padding"
             android:paddingTop="@dimen/order_item_text_V_padding" />
     </LinearLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:background="#FFFFFF"
+        android:paddingLeft="@dimen/order_info_text_H_padding"
+        android:paddingRight="@dimen/order_info_text_H_padding" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="服务项目"
+            android:textColor="#323232"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="服务项目"
+            android:textColor="#323232"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/order_info_text_H_padding"
+        android:paddingRight="@dimen/order_info_text_H_padding" >
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#8CCEC4"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="洗护/上色"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_info_color_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/order_info_text_H_padding"
+        android:paddingRight="@dimen/order_info_text_H_padding" >
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#E05429"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="修理"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

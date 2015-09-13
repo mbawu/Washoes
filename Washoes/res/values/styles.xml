@@ -60,7 +60,7 @@
         <item name="android:drawablePadding">@dimen/order_item_text_H_padding</item>
         <item name="android:layout_marginLeft">@dimen/order_item_text_H_padding</item>
         <item name="android:textColor">#646464</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="personLeft">
@@ -73,6 +73,14 @@
         <item name="android:textColor">@color/blank</item>
         <item name="android:textSize">16sp</item>
         <item name="android:drawablePadding">10dp</item>
+    </style>
+    
+        <style name="orderInfotext">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/order_item_text_H_padding</item>
+        <item name="android:textColor">#646464</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>
