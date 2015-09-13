@@ -15,6 +15,7 @@ import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
+import com.cn.washoes.activity.LoadActivity;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.util.NetworkAction;
 
@@ -129,10 +130,12 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 		{
 			Toast.makeText(PersonActivity.this, responseWrapper.getMsg(), Toast.LENGTH_SHORT).show();
 			MyApplication.loginStat=false;
-			Info info=MyApplication.getInfo();
-			info.setLoginState(false);
-			MyApplication.setInfo(info);
+//			Info info=MyApplication.getInfo();
+//			info.setLoginState(false);
+			MyApplication.setInfo(null);
 			logout.setVisibility(View.GONE);
+			Intent intent=new Intent().setClass(PersonActivity.this, LoadActivity.class);
+			startActivity(intent);
 		}
 	}
 	

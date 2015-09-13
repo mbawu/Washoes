@@ -38,6 +38,7 @@ public class MyApplication extends Application {
 	public static Editor ed; // 本地存储编辑器Editor
 	public static NotificationManager mNotificationManager;
 	public static boolean loginStat = false;
+	public static boolean exit=false;//是否退出应用
 	public static String lng = "0";
 	public static String lat = "0";
 	public static String address = "";

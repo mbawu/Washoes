@@ -53,7 +53,9 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
-        <activity android:name="com.cn.washoes.person.PersonActivity" >
+        <activity
+            android:name="com.cn.washoes.activity.MenuTable"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +66,12 @@
         <activity android:name="com.cn.washoes.person.LoginActivity" />
         <activity android:name="com.cn.washoes.person.ForgotActivity" />
         <activity android:name="com.cn.washoes.person.SetPwdActivity" />
-         <activity android:name="com.cn.washoes.person.ChangPhoneActivity" />
+        <activity android:name="com.cn.washoes.person.ChangPhoneActivity" />
+        <activity android:name="com.cn.washoes.person.RegisterActivity" />
+        <activity android:name="com.cn.washoes.person.PersonActivity" />
+        <activity android:name="com.cn.washoes.activity.HomeActivity" />
+        <activity android:name="com.cn.washoes.activity.LoadActivity" />
+        <activity android:name="com.cn.washoes.activity.OrderListActivity" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

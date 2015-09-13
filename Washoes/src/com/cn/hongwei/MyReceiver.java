@@ -16,7 +16,7 @@ import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
 import com.cn.washoes.R;
-import com.cn.washoes.activity.MainActivity;
+import com.cn.washoes.person.PersonActivity;
 import com.cn.washoes.util.Cst;
 
 /**
@@ -42,7 +42,7 @@ public class MyReceiver extends BroadcastReceiver {
         notification.defaults |= Notification.DEFAULT_VIBRATE;
         CharSequence contentTitle = msg;
         CharSequence contentText = msg;
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, PersonActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 notificationIntent, 0);
         notification.setLatestEventInfo(context, contentTitle, contentText,
