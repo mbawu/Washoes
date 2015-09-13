@@ -7,6 +7,11 @@ import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 
+/**
+ * 首页
+ * @author Administrator
+ *
+ */
 public class HomeActivity extends BaseActivity {
 	
 	private TopTitleView topTitleView;

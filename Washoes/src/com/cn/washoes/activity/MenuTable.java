@@ -4,13 +4,17 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 import cn.jpush.android.api.JPushInterface;
 
+import com.cn.hongwei.MyApplication;
 import com.cn.washoes.R;
+import com.cn.washoes.model.Info;
 import com.cn.washoes.person.PersonActivity;
 
 public class MenuTable extends TabActivity {
@@ -92,11 +96,17 @@ public class MenuTable extends TabActivity {
 				}
 			}
 		});
+		 getInfo();
 	}
 	@Override
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(this);
+        if(MyApplication.exit)
+        {
+        	finish();
+			System.exit(0);
+        }
     }
     @Override
     protected void onPause() {
@@ -104,5 +114,35 @@ public class MenuTable extends TabActivity {
         JPushInterface.onPause(this);
     }
 
+    
+	/**
+	 * 获取用户信息，判断是否登录过
+	 */
+	private void getInfo() {
+		Info info=MyApplication.getInfo();
+		if(info==null)
+		{
+			Intent intent=new Intent().setClass(MenuTable.this, LoadActivity.class);
+			startActivity(intent);
+		}
+	}
 
+	
+	private long exitTime = 0;
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), "再按一次退出程序",
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+				System.exit(0);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 }

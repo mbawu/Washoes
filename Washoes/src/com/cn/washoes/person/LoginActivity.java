@@ -15,6 +15,7 @@ import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
+import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.util.NetworkAction;
 
@@ -39,6 +40,10 @@ public class LoginActivity extends BaseActivity {
 		setContentView(R.layout.person_login);
 		initView();
 	}
+	
+	/**
+	 * 初始化界面
+	 */
 	private void initView() {
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("登录");
@@ -53,7 +58,7 @@ public class LoginActivity extends BaseActivity {
 				Intent intent=new Intent();
 				intent.setClass(LoginActivity.this, ForgotActivity.class);
 				startActivity(intent);
-				finish();
+//				finish();
 				
 				
 			}
@@ -107,7 +112,9 @@ public class LoginActivity extends BaseActivity {
 			info.setLoginState(true);
 			MyApplication.loginStat=true;
 			MyApplication.setInfo(info);
-			finish();
+			Intent intent=new Intent().setClass(this, MenuTable.class);
+			startActivity(intent);
+		
 		}
 	}
 	
