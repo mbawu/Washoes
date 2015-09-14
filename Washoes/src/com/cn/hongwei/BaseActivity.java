@@ -203,9 +203,15 @@ public class BaseActivity extends Activity {
 			// ResponseWrapper responseWrapper =
 			// jsonToClass(response
 			// .toString());
-			ResponseWrapper responseWrappe = jsonToClass(response.toString());
+			ResponseWrapper responseWrappe=null;
+			try {
+				responseWrappe = jsonToClass(response.toString());
+			} catch (Exception e) {
+				Toast.makeText(BaseActivity.this, "解析错误！", Toast.LENGTH_SHORT).show();
+			}
 			// Log.i(Cst.TAG,""+(responseWrappe.getBrand().get(0).getName()));
-			showResualt(responseWrappe, requestType);
+			if(responseWrappe!=null)
+				showResualt(responseWrappe, requestType);
 
 		}
 		// 否则输出错误信息
