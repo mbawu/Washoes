@@ -72,6 +72,7 @@
         <activity android:name="com.cn.washoes.activity.HomeActivity" />
         <activity android:name="com.cn.washoes.activity.LoadActivity" />
         <activity android:name="com.cn.washoes.activity.OrderListActivity" />
+        <activity android:name="com.cn.washoes.person.LocationActivity" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
