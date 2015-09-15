@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/person_location"
+            android:drawableLeft="@drawable/loc_loc"
             android:drawablePadding="5dp"
             android:gravity="center"
             android:text="位置:"
@@ -102,7 +102,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/personFeedBack"
+                android:id="@+id/loc_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/person_area"
+            android:drawableLeft="@drawable/loc_area"
             android:drawablePadding="5dp"
             android:gravity="center"
             android:text="区域:"

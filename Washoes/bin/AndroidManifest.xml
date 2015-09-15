@@ -54,7 +54,7 @@
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
         <activity
-            android:name="com.cn.washoes.activity.MenuTable"
+            android:name="com.cn.washoes.person.LocationActivity"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -54,7 +54,7 @@
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
         <activity
-            android:name="com.cn.washoes.activity.MenuTable"
+            android:name="com.cn.washoes.person.LocationActivity"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,7 +72,6 @@
         <activity android:name="com.cn.washoes.activity.HomeActivity" />
         <activity android:name="com.cn.washoes.activity.LoadActivity" />
         <activity android:name="com.cn.washoes.activity.OrderListActivity" />
-        <activity android:name="com.cn.washoes.person.LocationActivity" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
