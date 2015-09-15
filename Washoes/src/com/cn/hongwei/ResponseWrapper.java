@@ -1,10 +1,14 @@
 package com.cn.hongwei;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.cn.washoes.model.Area;
+import com.cn.washoes.model.City;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
+import com.cn.washoes.model.Province;
 
 /**
  * 
@@ -31,6 +35,36 @@ public class ResponseWrapper {
 	private String now_onums;// 本月订单总数（已完成的订单 flag=5）
 	private List<OrderItem> list;// 订单列表
 	private OrderInfo order_info;//订单信息
+	
+	private ArrayList<Province> province;//省份
+	private ArrayList<City> city;//省份
+	private ArrayList<Area> area;//地区
+	
+	
+
+	public ArrayList<Province> getProvince() {
+		return province;
+	}
+
+	public void setProvince(ArrayList<Province> province) {
+		this.province = province;
+	}
+
+	public ArrayList<City> getCity() {
+		return city;
+	}
+
+	public void setCity(ArrayList<City> city) {
+		this.city = city;
+	}
+
+	public ArrayList<Area> getArea() {
+		return area;
+	}
+
+	public void setArea(ArrayList<Area> area) {
+		this.area = area;
+	}
 
 	public String getAid() {
 		return aid;

@@ -112,14 +112,13 @@ public class ForgotActivity extends BaseActivity {
 	 */
 	private void changePhone() {
 		RequestWrapper requestWrapper = new RequestWrapper();
-		requestWrapper.setOp(NetworkAction.mobile.toString());
-		requestWrapper.setAct("edit");
+		requestWrapper.setOp("mobile");
 		requestWrapper.setMobile(phone);
 		requestWrapper.setCode(codeTxt.getText().toString());
 		requestWrapper.setSms_id(sms_id);
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
-		sendData(requestWrapper, NetworkAction.mobile);
+		sendData(requestWrapper, NetworkAction.edit);
 	}
 
 	@Override
@@ -140,7 +139,7 @@ public class ForgotActivity extends BaseActivity {
 			startActivity(intent);
 			finish();
 
-		} else if (requestType == NetworkAction.mobile) {
+		} else if (requestType == NetworkAction.edit) {
 			//更新用户信息
 			Info info=MyApplication.getInfo();
 			info.setMobile(responseWrapper.getMobile());

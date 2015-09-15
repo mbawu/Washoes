@@ -94,7 +94,7 @@ public class BaseActivity extends Activity {
 	public void sendData(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
-		requestWrapper.setOp(requestType.toString());
+		requestWrapper.setAct(requestType.toString());
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		if (requestWrapper.isShowDialog()) {
 			if (progressDialog == null)

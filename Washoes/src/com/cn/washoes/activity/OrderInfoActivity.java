@@ -58,19 +58,20 @@ public class OrderInfoActivity extends BaseActivity {
 	private void getOrderInfo() {
 
 		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setOp("order");
 		requestWrapper.setAid(OrderListActivity.aid);
 		requestWrapper.setSeskey(OrderListActivity.seskey);
-		requestWrapper.setAct("detail");
+//		requestWrapper.setAct("detail");
 		requestWrapper.setOrder_id(oid);
 
-		sendData(requestWrapper, NetworkAction.order);
+		sendData(requestWrapper, NetworkAction.detail);
 	}
 
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		if (requestType == NetworkAction.order) {
+		if (requestType == NetworkAction.detail) {
 			orderInfo = responseWrapper.getOrder_info();
 			if (orderInfo != null) {
 

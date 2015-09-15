@@ -128,7 +128,7 @@ public class OrderListActivity extends BaseActivity implements
 		} else {
 			requestWrapper.setIs_onum("0");
 		}
-		sendData(requestWrapper, NetworkAction.order);
+		sendData(requestWrapper, NetworkAction.detail);
 
 		/*
 		 * ConfirmDialog dlg = new ConfirmDialog(this); dlg.setTitle("提示");
@@ -161,7 +161,7 @@ public class OrderListActivity extends BaseActivity implements
 			seskey = responseWrapper.getInfo().getSeskey();
 			getOrder();
 
-		} else if (requestType == NetworkAction.order) {
+		} else if (requestType == NetworkAction.detail) {
 			if (responseWrapper.getList() != null) {
 				if ("1".equals(responseWrapper.getPage())) {
 					orderList.clear();
