@@ -54,7 +54,7 @@
             android:value="rLXkxWKihXM0DIjQ0emxPSmX" />
 
         <activity
-            android:name="com.cn.washoes.person.LoginActivity"
+            android:name="com.cn.washoes.activity.MenuTable"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,8 +63,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.cn.washoes.activity.OrderInfoActivity" />
-        <activity android:name="com.cn.washoes.activity.OrderCamareActivity" />
-        <activity android:name="com.cn.washoes.activity.MenuTable" />
+        <activity android:name="com.cn.washoes.person.LoginActivity" />
         <activity android:name="com.cn.washoes.person.ForgotActivity" />
         <activity android:name="com.cn.washoes.person.SetPwdActivity" />
         <activity android:name="com.cn.washoes.person.ChangPhoneActivity" />

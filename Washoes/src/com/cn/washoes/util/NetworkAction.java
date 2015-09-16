@@ -18,6 +18,8 @@ public enum NetworkAction {
 	province,//省份
 	city,//城市
 	area,//地区
+	distance,//获取服务距离列表
+	pos_in,//技师服务位置设置
 	;
 
 }

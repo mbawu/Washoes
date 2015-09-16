@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cn.washoes.model.Area;
 import com.cn.washoes.model.City;
+import com.cn.washoes.model.Distance;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
@@ -39,8 +40,16 @@ public class ResponseWrapper {
 	private ArrayList<Province> province;//省份
 	private ArrayList<City> city;//省份
 	private ArrayList<Area> area;//地区
+	private ArrayList<Distance> distance;//获取服务距离列表
 	
-	
+
+	public ArrayList<Distance> getDistance() {
+		return distance;
+	}
+
+	public void setDistance(ArrayList<Distance> distance) {
+		this.distance = distance;
+	}
 
 	public ArrayList<Province> getProvince() {
 		return province;
