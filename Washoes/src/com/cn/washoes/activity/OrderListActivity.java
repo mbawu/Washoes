@@ -125,7 +125,7 @@ public class OrderListActivity extends BaseActivity implements
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
-		requestWrapper.setAct("list");
+		requestWrapper.setOp("order");
 		requestWrapper.setPer(Cst.PER + "");
 		requestWrapper.setPage(page);
 		requestWrapper.setFlag(status);
@@ -135,7 +135,7 @@ public class OrderListActivity extends BaseActivity implements
 		} else {
 			requestWrapper.setIs_onum("0");
 		}
-		sendData(requestWrapper, NetworkAction.order);
+		sendData(requestWrapper, NetworkAction.list);
 
 		/*
 		 * ConfirmDialog dlg = new ConfirmDialog(this); dlg.setTitle("提示");
@@ -163,7 +163,8 @@ public class OrderListActivity extends BaseActivity implements
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		if (requestType == NetworkAction.order) {
+
+		if (requestType == NetworkAction.list) {
 			if (responseWrapper.getList() != null) {
 				if ("1".equals(responseWrapper.getPage())) {
 					orderList.clear();

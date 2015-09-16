@@ -30,7 +30,30 @@ public class RequestWrapper {
 	private String is_onum;//是否查询订单总数（1是 0否  flag=5时使用）
 	
 	private String order_id	;
+	private String province_id;
+	private String city_id;
+	private String area_id;
+	
+	
 
+	public String getProvince_id() {
+		return province_id;
+	}
+	public void setProvince_id(String province_id) {
+		this.province_id = province_id;
+	}
+	public String getCity_id() {
+		return city_id;
+	}
+	public void setCity_id(String city_id) {
+		this.city_id = city_id;
+	}
+	public String getArea_id() {
+		return area_id;
+	}
+	public void setArea_id(String area_id) {
+		this.area_id = area_id;
+	}
 	public String getRepassword() {
 		return repassword;
 	}

@@ -94,7 +94,7 @@ public class BaseActivity extends Activity {
 	public void sendData(RequestWrapper requestWrapper,
 			final NetworkAction requestType) {
 		String url = Cst.HOST;
-		requestWrapper.setOp(requestType.toString());
+		requestWrapper.setAct(requestType.toString());
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		if (requestWrapper.isShowDialog()) {
 			if (progressDialog == null)
@@ -203,9 +203,15 @@ public class BaseActivity extends Activity {
 			// ResponseWrapper responseWrapper =
 			// jsonToClass(response
 			// .toString());
-			ResponseWrapper responseWrappe = jsonToClass(response.toString());
+			ResponseWrapper responseWrappe=null;
+			try {
+				responseWrappe = jsonToClass(response.toString());
+			} catch (Exception e) {
+				Toast.makeText(BaseActivity.this, "解析错误！", Toast.LENGTH_SHORT).show();
+			}
 			// Log.i(Cst.TAG,""+(responseWrappe.getBrand().get(0).getName()));
-			showResualt(responseWrappe, requestType);
+			if(responseWrappe!=null)
+				showResualt(responseWrappe, requestType);
 
 		}
 		// 否则输出错误信息
