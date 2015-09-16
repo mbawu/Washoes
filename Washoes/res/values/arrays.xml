@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="order_camare_type">
+        <item>正面</item>
+        <item>左侧</item>
+        <item>右侧</item>
+        <item>后面</item>
+        <item>里面</item>
+        <item>局部</item>
+    </string-array>
+
+</resources>

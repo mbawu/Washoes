@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -45,15 +47,20 @@ public class OrderListActivity extends BaseActivity implements
 	private TextView textOrderAll;
 	private TextView textOrderMonth;
 
+	private TextView textCamareBefore;
+	private TextView textCamareAfter;
+	private PopupWindow mPopupWindow;
+
 	public static boolean EVALUATE_SUCCESS = false;
 	private String page = "1";
 	private String status = "2";
-	private static final String ORDER_STATUS_WAITING = "2"; // 待服务
-	private static final String ORDER_STATUS_WORKING = "4"; // 服务中
-	private static final String ORDER_STATUS_FINISH = "5"; // 已完成
-	private static final String ORDER_STATUS_CANCEL = "3"; // 已取消
-	public static  String aid;
-	public static String seskey;
+	public static final String ORDER_STATUS_WAITING = "2"; // 待服务
+	public static final String ORDER_STATUS_WORKING = "4"; // 服务中
+	public static final String ORDER_STATUS_FINISH = "5"; // 已完成
+	public static final String ORDER_STATUS_CANCEL = "3"; // 已取消
+	// public static String aid;
+	// public static String seskey;
+	private String orderId;
 
 	/**
 	 * 界面初始化
@@ -95,8 +102,8 @@ public class OrderListActivity extends BaseActivity implements
 		adapter = new OrderListAdapter(this);
 		adapter.setDataList(orderList);
 		listView.setAdapter(adapter);
-		MyApplication.getKey(this);
-		// getOrder();
+		// MyApplication.getKey(this);
+		getOrder();
 	}
 
 	/**
@@ -116,8 +123,8 @@ public class OrderListActivity extends BaseActivity implements
 	 */
 	private void getOrder() {
 		RequestWrapper requestWrapper = new RequestWrapper();
-		requestWrapper.setAid(aid);
-		requestWrapper.setSeskey(seskey);
+		requestWrapper.setAid(MyApplication.getInfo().getAid());
+		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
 		requestWrapper.setAct("list");
 		requestWrapper.setPer(Cst.PER + "");
 		requestWrapper.setPage(page);
@@ -156,12 +163,7 @@ public class OrderListActivity extends BaseActivity implements
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
 		super.showResualt(responseWrapper, requestType);
-		if (requestType == NetworkAction.login) {
-			aid = responseWrapper.getInfo().getAid();
-			seskey = responseWrapper.getInfo().getSeskey();
-			getOrder();
-
-		} else if (requestType == NetworkAction.order) {
+		if (requestType == NetworkAction.order) {
 			if (responseWrapper.getList() != null) {
 				if ("1".equals(responseWrapper.getPage())) {
 					orderList.clear();
@@ -184,6 +186,41 @@ public class OrderListActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onClick(View v) {
+		if (v.getId() == R.id.order_item_img_camare) {// 点击拍照
+			orderId = v.getTag().toString();
+			if (mPopupWindow == null) {
+				View popupWindow = getLayoutInflater().inflate(
+						R.layout.popwindow_camare, null);
+				mPopupWindow = new PopupWindow(popupWindow,
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				mPopupWindow.setBackgroundDrawable(getResources().getDrawable(
+						R.drawable.camare_popwin_bg));
+				mPopupWindow.setFocusable(true);
+				mPopupWindow.setOutsideTouchable(true);
+				textCamareAfter = (TextView) popupWindow
+						.findViewById(R.id.order_camare_after);
+				textCamareBefore = (TextView) popupWindow
+						.findViewById(R.id.order_camare_before);
+				textCamareAfter.setOnClickListener(this);
+				textCamareBefore.setOnClickListener(this);
+			}
+
+			mPopupWindow.showAsDropDown(v, -120, -200);
+
+		} else if (v.getId() == R.id.order_camare_after) {
+			openCamareActivity(OrderCamareActivity.CAMARE_TYPE_AFTER);
+		} else if (v.getId() == R.id.order_camare_before) {
+			openCamareActivity(OrderCamareActivity.CAMARE_TYPE_BEFORE);
+		}
+
+	}
+
+	private void openCamareActivity(int type) {
+		mPopupWindow.dismiss();
+		Intent intent = new Intent();
+		intent.putExtra(OrderCamareActivity.KEY_CAMARE_TYPE, type);
+		intent.setClass(this, OrderCamareActivity.class);
+		startActivity(intent);
 
 	}
 
@@ -219,24 +256,29 @@ public class OrderListActivity extends BaseActivity implements
 						.findViewById(R.id.order_item_text_phone);
 				viewHolder.textID = (TextView) convertView
 						.findViewById(R.id.order_item_text_id);
+				viewHolder.imgCamare = (ImageView) convertView
+						.findViewById(R.id.order_item_img_camare);
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 			final OrderItem oItem = orderList.get(position);
 			viewHolder.textDate.setText(oItem.getServicetime());
-			viewHolder.textPrice.setText(oItem.getPay_price());
+			viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
 			viewHolder.textUserName.setText(oItem.getRealname());
 			viewHolder.textUserType.setText("0".equals(oItem.getUtag()) ? "新用户"
 					: "老用户");
 			viewHolder.textPhone.setText(oItem.getMobile());
 			viewHolder.textID.setText(oItem.getUid());
+			viewHolder.imgCamare.setTag(oItem.getOrder_id());
+			viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
 			convertView.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					Intent intent = new  Intent();
-					intent.setClass(OrderListActivity.this, OrderInfoActivity.class);
+					Intent intent = new Intent();
+					intent.setClass(OrderListActivity.this,
+							OrderInfoActivity.class);
 					intent.putExtra("oid", oItem.getOrder_id());
 					OrderListActivity.this.startActivity(intent);
 				}

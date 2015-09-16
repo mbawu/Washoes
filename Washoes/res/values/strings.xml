@@ -9,5 +9,8 @@
     <string name="main_menu_order">订单</string>
     <string name="main_menu_person">我的</string>
     <string name="load_title">洗豆豆技师版</string>
+    <string name="order_info_zy">专业：%1$s</string>
+    <string name="order_info_td">态度：%1$s</string>
+    <string name="order_info_ss">守时：%1$s</string>
 
 </resources>

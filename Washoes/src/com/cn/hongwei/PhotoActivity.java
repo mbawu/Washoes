@@ -26,8 +26,8 @@ public abstract class PhotoActivity extends BaseActivity {
 
 	private PhotoSelectDialog dialog;
 
-	private String imgPath;
-	Uri imageUri;
+	protected String imgPath;
+	protected Uri imageUri;
 
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;

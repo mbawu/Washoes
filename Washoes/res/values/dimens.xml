@@ -7,5 +7,6 @@
     <dimen name="order_item_text_H_padding">15dp</dimen>
     <dimen name="order_info_text_H_padding">20dp</dimen>
     <dimen name="person_item_margging">10dp</dimen>
+    <dimen name="order_camare_content_padding">8dp</dimen>
 
 </resources>
