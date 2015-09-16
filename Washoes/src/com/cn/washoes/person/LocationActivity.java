@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cn.hongwei.BaseActivity;
+import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
@@ -41,6 +42,8 @@ import com.cn.washoes.util.NetworkAction;
 public class LocationActivity extends BaseActivity implements
 		OnItemSelectedListener, OnClickListener {
 
+	
+	private LinearLayout createLayout;//创建服务位置时候的整个layout
 	private Spinner pSpinner;// 显示省份控件
 	private ProvinceAdapter pAdapter;// 省份适配器
 	private Spinner cSpinner; // 显示城市控件
@@ -102,6 +105,7 @@ public class LocationActivity extends BaseActivity implements
 		setContentView(R.layout.person_location);
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("服务位置");
+		createLayout=(LinearLayout) findViewById(R.id.create_layout);
 		initViewNew();
 		getData();
 
@@ -111,7 +115,7 @@ public class LocationActivity extends BaseActivity implements
 	 * 初始化界面
 	 */
 	private void initViewNew() {
-		
+		createLayout.setVisibility(View.VISIBLE);
 		topTitleView.setRightBtnText("保存", new OnClickListener() {
 			
 			@Override
@@ -172,10 +176,20 @@ public class LocationActivity extends BaseActivity implements
 		delete5 = (TextView) findViewById(R.id.loc_area5_delete);
 		layout6 = (LinearLayout) findViewById(R.id.loc_layout6);
 		area1.setOnItemSelectedListener(this);
+		km1.setOnItemSelectedListener(this);
+		area2.setOnItemSelectedListener(this);
+		km2.setOnItemSelectedListener(this);
+		area3.setOnItemSelectedListener(this);
+		km3.setOnItemSelectedListener(this);
+		area4.setOnItemSelectedListener(this);
+		km4.setOnItemSelectedListener(this);
+		area5.setOnItemSelectedListener(this);
+		km5.setOnItemSelectedListener(this);
 		delete2.setOnClickListener(this);
 		delete3.setOnClickListener(this);
 		delete4.setOnClickListener(this);
 		delete5.setOnClickListener(this);
+		
 		resetLoc();
 	}
 
@@ -198,6 +212,8 @@ public class LocationActivity extends BaseActivity implements
 		requestWrapper.setArea_name(area_name);
 		requestWrapper.setAddress(addressTxt.getText().toString());
 		requestWrapper.setPos_json(getJson());
+		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		sendData(requestWrapper, NetworkAction.pos_in);
 	}
 	/**
@@ -213,9 +229,11 @@ public class LocationActivity extends BaseActivity implements
 			builder.append("\"area_id\":"+area1_id+",");
 			builder.append("\"distance\":"+km1_distance);
 			builder.append("}");
+			
 		}
 		if(area2_id!=null)
 		{
+			builder.append(",");
 			builder.append("{");
 			builder.append("\"area_id\":"+area2_id+",");
 			builder.append("\"distance\":"+km2_distance);
@@ -223,20 +241,25 @@ public class LocationActivity extends BaseActivity implements
 		}
 		if(area3_id!=null)
 		{
+			builder.append(",");
 			builder.append("{");
 			builder.append("\"area_id\":"+area3_id+",");
 			builder.append("\"distance\":"+km3_distance);
 			builder.append("}");
+			
 		}
 		if(area4_id!=null)
 		{
+			builder.append(",");
 			builder.append("{");
 			builder.append("\"area_id\":"+area4_id+",");
 			builder.append("\"distance\":"+km4_distance);
 			builder.append("}");
+			
 		}
 		if(area5_id!=null)
 		{
+			builder.append(",");
 			builder.append("{");
 			builder.append("\"area_id\":"+area5_id+",");
 			builder.append("\"distance\":"+km5_distance);
@@ -333,12 +356,44 @@ public class LocationActivity extends BaseActivity implements
 			km5.setAdapter(kmAdapter);
 			kmAdapter.notifyDataSetChanged();
 		}
+		//设置服务位置成功
 		else if(requestType == NetworkAction.pos_in)
 		{
 			Toast.makeText(this, responseWrapper.getMsg(), Toast.LENGTH_SHORT).show();
+			getLocation();
+			createLayout.setVisibility(View.GONE);
+			topTitleView.setRightBtnText("修改", new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+		}
+		//获取服务位置
+		else if(requestType == NetworkAction.pos_list)
+		{
+			
 		}
 	}
 
+	/**
+	 * 获取服务地址信息
+	 */
+	private void getLocation()
+	{
+		RequestWrapper requestWrapper=new RequestWrapper();
+		requestWrapper.setOp("artificer");
+		requestWrapper.setPage("1");
+		requestWrapper.setPer("1");
+		requestWrapper.setPos("1");
+		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+		requestWrapper.setAid(MyApplication.getInfo().getAid());
+		sendData(requestWrapper, NetworkAction.pos_list);
+	}
+	
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {

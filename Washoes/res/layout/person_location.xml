@@ -7,6 +7,12 @@
 
     <include layout="@layout/top_title_layout" />
 
+    
+    <LinearLayout 
+        android:id="@+id/create_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -409,5 +415,5 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
+</LinearLayout>
 </LinearLayout>

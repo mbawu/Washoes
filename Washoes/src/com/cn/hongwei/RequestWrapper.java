@@ -41,9 +41,15 @@ public class RequestWrapper {
 	
 	private String file_num;//上传的文件个数
 	private Map<String,String> files;
-	
+	private String pos;//是否获取定点位置(1是 0否)(技师服务位置列表)
 	
 
+	public String getPos() {
+		return pos;
+	}
+	public void setPos(String pos) {
+		this.pos = pos;
+	}
 	public String getPos_json() {
 		return pos_json;
 	}
