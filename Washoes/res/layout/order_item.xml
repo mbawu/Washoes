@@ -62,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
                 android:paddingRight="@dimen/order_item_text_H_padding"
-                android:textSize="20sp" />
+                android:textColor="#8ccec4"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout

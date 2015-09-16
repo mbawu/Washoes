@@ -35,7 +35,6 @@
                 android:paddingLeft="@dimen/order_camare_content_padding"
                 android:paddingRight="@dimen/order_camare_content_padding"
                 android:paddingTop="6dp"
-                android:text="分发"
                 android:textColor="#646464"
                 android:textSize="18sp" />
 

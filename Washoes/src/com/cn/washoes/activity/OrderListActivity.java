@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -220,8 +222,22 @@ public class OrderListActivity extends BaseActivity implements
 		mPopupWindow.dismiss();
 		Intent intent = new Intent();
 		intent.putExtra(OrderCamareActivity.KEY_CAMARE_TYPE, type);
+		intent.putExtra("order_id", orderId);
+		intent.putExtra("flag", status);
 		intent.setClass(this, OrderCamareActivity.class);
 		startActivity(intent);
+
+	}
+
+	private Spanned getUserTypeHtml(String userType) {
+
+		String html = "";
+		if (userType != null) {
+			html = "<font color=\"#8ccec4\">" + userType
+					+ "/</font><font color=\"#e64626\">评</font>";
+
+		}
+		return Html.fromHtml(html);
 
 	}
 
@@ -267,10 +283,25 @@ public class OrderListActivity extends BaseActivity implements
 			viewHolder.textDate.setText(oItem.getServicetime());
 			viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
 			viewHolder.textUserName.setText(oItem.getRealname());
-			viewHolder.textUserType.setText("0".equals(oItem.getUtag()) ? "新用户"
-					: "老用户");
+			if (ORDER_STATUS_FINISH.equals(oItem.getFlag())
+					&& "1".equals(oItem.getIs_comment())) {
+				viewHolder.textUserType.setText(getUserTypeHtml("0"
+						.equals(oItem.getUtag()) ? "新用户" : "老用户"));
+			} else {
+				viewHolder.textUserType
+						.setText("0".equals(oItem.getUtag()) ? "新用户" : "老用户");
+			}
+
 			viewHolder.textPhone.setText(oItem.getMobile());
 			viewHolder.textID.setText(oItem.getUid());
+
+			if (ORDER_STATUS_CANCEL.equals(oItem.getFlag())) {
+				viewHolder.imgCamare.setVisibility(View.GONE);
+			} else {
+				viewHolder.imgCamare.setVisibility(View.VISIBLE);
+				viewHolder.imgCamare.setTag(oItem.getOrder_id());
+				viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
+			}
 			viewHolder.imgCamare.setTag(oItem.getOrder_id());
 			viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
 			convertView.setOnClickListener(new OnClickListener() {
