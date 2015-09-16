@@ -39,6 +39,9 @@ public class RequestWrapper {
 	private String address;
 	private String pos_json;//json格式字串(技师服务位置设置)
 	
+	private String file_num;//上传的文件个数
+	private Map<String,String> files;
+	
 	
 
 	public String getPos_json() {
@@ -206,6 +209,18 @@ public class RequestWrapper {
 	}
 	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
+	}
+	public String getFile_num() {
+		return file_num;
+	}
+	public void setFile_num(String file_num) {
+		this.file_num = file_num;
+	}
+	public Map<String, String> getFiles() {
+		return files;
+	}
+	public void setFiles(Map<String, String> files) {
+		this.files = files;
 	}
 
 }

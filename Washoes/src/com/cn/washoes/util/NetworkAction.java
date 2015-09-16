@@ -20,6 +20,7 @@ public enum NetworkAction {
 	area,//地区
 	distance,//获取服务距离列表
 	pos_in,//技师服务位置设置
+	ultu_upload_v2,//订单图片上传
 	;
 
 }

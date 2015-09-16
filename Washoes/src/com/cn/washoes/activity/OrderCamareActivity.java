@@ -3,7 +3,9 @@ package com.cn.washoes.activity;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,12 +21,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.MyGridView;
 import com.cn.hongwei.PhotoActivity;
+import com.cn.hongwei.RequestWrapper;
+import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.util.Cst;
+import com.cn.washoes.util.NetworkAction;
 
 public class OrderCamareActivity extends PhotoActivity implements
 		View.OnClickListener {
@@ -35,9 +42,13 @@ public class OrderCamareActivity extends PhotoActivity implements
 	private TopTitleView topTitleView;
 	private final String SELECTE = "select";
 	private final int photoCount = 5;
+	private TextView textPosition;
 	private LinearLayout rootLayout;
 
 	private CamareView camareViewTemp;
+
+	private String order_id;
+	private String flag;
 
 	private List<String> imgPaths = new ArrayList<String>();
 
@@ -45,10 +56,19 @@ public class OrderCamareActivity extends PhotoActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_camare_layout);
+		order_id = getIntent().getStringExtra("order_id");
+		flag = getIntent().getStringExtra("flag");
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("照片");
 		topTitleView.setRightBtnText("上传", this);
 		rootLayout = (LinearLayout) findViewById(R.id.order_img_root);
+		textPosition = (TextView)findViewById(R.id.order_camare_text_position);
+		int type = getIntent().getIntExtra(KEY_CAMARE_TYPE, CAMARE_TYPE_BEFORE);
+		if(CAMARE_TYPE_BEFORE ==type){
+			textPosition.setText("服务前");
+		}else{
+			textPosition.setText("服务后");
+		}
 		addCamaraViews();
 	}
 
@@ -68,13 +88,40 @@ public class OrderCamareActivity extends PhotoActivity implements
 				}
 			}
 		}
-		
+
 		if (imgPaths.size() > 0) {
+			int imgCount = imgPaths.size();
+			RequestWrapper request = new RequestWrapper();
+			request.setAid(MyApplication.getInfo().getAid());
+			request.setSeskey(MyApplication.getInfo().getSeskey());
+			request.setOp("order");
+			request.setOrder_id(order_id);
+			request.setFlag(flag);
+			request.setFile_num(imgCount + "");
+
+			String path;
+			Map<String, String> fileMap = new HashMap<String, String>();
+			for (int i = 0; i < imgPaths.size(); i++) {
+				path = imgPaths.get(i);
+				fileMap.put("file" + (i + 1), fileToString(path));
+			}
+			request.setFiles(fileMap);
+			sendData(request, NetworkAction.ultu_upload_v2);
 
 		} else {
-
+			Toast.makeText(this, "你还没有拍照哦，请拍照后在上传", Toast.LENGTH_SHORT).show();
 		}
 
+	}
+
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		super.showResualt(responseWrapper, requestType);
+		if (requestType == NetworkAction.ultu_upload_v2) {
+			Toast.makeText(this, "上传成功", Toast.LENGTH_SHORT).show();
+			finish();
+		}
 	}
 
 	private void addCamaraViews() {
