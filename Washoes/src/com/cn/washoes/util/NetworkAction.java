@@ -19,6 +19,7 @@ public enum NetworkAction {
 	city,//城市
 	area,//地区
 	ultu_upload_v2,//订单图片上传
+	ultu_list,//图片详情
 	;
 
 }

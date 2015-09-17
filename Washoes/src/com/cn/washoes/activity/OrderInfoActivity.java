@@ -2,10 +2,12 @@ package com.cn.washoes.activity;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -144,11 +146,11 @@ public class OrderInfoActivity extends BaseActivity {
 
 				}
 
-				if ("1408".equals(oid)) {
+				/*if ("1408".equals(oid)) {
 					orderInfo.setFlag(OrderListActivity.ORDER_STATUS_WAITING);
 				} else if ("1407".equals(oid)) {
 					orderInfo.setFlag(OrderListActivity.ORDER_STATUS_WORKING);
-				}
+				}*/
 
 				if (OrderListActivity.ORDER_STATUS_WAITING.equals(orderInfo
 						.getFlag())) {
@@ -161,7 +163,9 @@ public class OrderInfoActivity extends BaseActivity {
 				} else if (OrderListActivity.ORDER_STATUS_FINISH
 						.equals(orderInfo.getFlag())) {
 					initPic(orderInfo);
-					initEva(orderInfo);
+					if("1".equals(orderInfo.getIs_comment())){
+						initEva(orderInfo);
+					}
 				} else if (OrderListActivity.ORDER_STATUS_CANCEL
 						.equals(orderInfo.getFlag())) {
 					layoutCall.setVisibility(View.VISIBLE);
@@ -184,6 +188,15 @@ public class OrderInfoActivity extends BaseActivity {
 									false);
 					img.loadImage(item.getFile_path());
 					layoutPic.addView(img);
+					img.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent();
+							intent.putExtra("order_id", oid);
+							intent.setClass(OrderInfoActivity.this, ImgDetailActivity.class);
+							startActivity(intent);
+						}
+					});
 					if (layoutPic.getChildCount() >= 3) {
 						break;
 					}
