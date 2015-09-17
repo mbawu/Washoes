@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cn.washoes.model.Area;
 import com.cn.washoes.model.City;
+import com.cn.washoes.model.Distance;
 import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.model.OrderInfo;
@@ -35,19 +36,27 @@ public class ResponseWrapper {
 	private String all_onums;// 所有订单总数（已完成的订单 flag=5）
 	private String now_onums;// 本月订单总数（已完成的订单 flag=5）
 	private List<OrderItem> list;// 订单列表
-	private OrderInfo order_info;//订单信息
-	
-	private ArrayList<Province> province;//省份
-	private ArrayList<City> city;//省份
-	private ArrayList<Area> area;//地区
-	
-	private String be_time;//服务前照片上传时间
-	private List<ImgInfo> be_images;//服务前照片列表
-	
-	private String af_time;//服务后照片上传时间
-	private List<ImgInfo> af_images;//服务后照片列表
-	
-	
+	private OrderInfo order_info;// 订单信息
+
+	private ArrayList<Province> province;// 省份
+	private ArrayList<City> city;// 省份
+	private ArrayList<Area> area;// 地区
+
+	private String be_time;// 服务前照片上传时间
+	private List<ImgInfo> be_images;// 服务前照片列表
+
+	private String af_time;// 服务后照片上传时间
+	private List<ImgInfo> af_images;// 服务后照片列表
+
+	private ArrayList<Distance> distance;// 获取服务距离列表
+
+	public ArrayList<Distance> getDistance() {
+		return distance;
+	}
+
+	public void setDistance(ArrayList<Distance> distance) {
+		this.distance = distance;
+	}
 
 	public ArrayList<Province> getProvince() {
 		return province;
@@ -216,7 +225,5 @@ public class ResponseWrapper {
 	public void setAf_images(List<ImgInfo> af_images) {
 		this.af_images = af_images;
 	}
-
-
 
 }

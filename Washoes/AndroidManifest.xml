@@ -69,6 +69,7 @@
         <activity android:name="com.cn.washoes.person.ChangPhoneActivity" />
         <activity android:name="com.cn.washoes.person.RegisterActivity" />
         <activity android:name="com.cn.washoes.person.PersonActivity" />
+        <activity android:name="com.cn.washoes.person.LocationActivity" />
         <activity android:name="com.cn.washoes.activity.HomeActivity" />
         <activity android:name="com.cn.washoes.activity.LoadActivity" />
         <activity android:name="com.cn.washoes.activity.OrderListActivity" />

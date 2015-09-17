@@ -72,6 +72,7 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 		callLayout.setOnClickListener(this);
 		callLayout.setOnClickListener(this);
 		logout.setOnClickListener(this);
+		locationLayout.setOnClickListener(this);
 	}
 
 	@Override
@@ -100,7 +101,8 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 			break;
 		// 服务位置
 		case R.id.person_location:
-
+			intent = new Intent().setClass(PersonActivity.this,
+					LocationActivity.class);
 			break;
 		// 平台咨询
 		case R.id.person_call:

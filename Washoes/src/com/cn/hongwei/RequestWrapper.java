@@ -31,14 +31,55 @@ public class RequestWrapper {
 	
 	private String order_id	;
 	private String province_id;
+	private String province_name;
 	private String city_id;
+	private String city_name;
 	private String area_id;
+	private String area_name;
+	private String address;
+	private String pos_json;//json格式字串(技师服务位置设置)
 	
 	private String file_num;//上传的文件个数
 	private Map<String,String> files;
-	
+	private String pos;//是否获取定点位置(1是 0否)(技师服务位置列表)
 	
 
+	public String getPos() {
+		return pos;
+	}
+	public void setPos(String pos) {
+		this.pos = pos;
+	}
+	public String getPos_json() {
+		return pos_json;
+	}
+	public void setPos_json(String pos_json) {
+		this.pos_json = pos_json;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getProvince_name() {
+		return province_name;
+	}
+	public void setProvince_name(String province_name) {
+		this.province_name = province_name;
+	}
+	public String getCity_name() {
+		return city_name;
+	}
+	public void setCity_name(String city_name) {
+		this.city_name = city_name;
+	}
+	public String getArea_name() {
+		return area_name;
+	}
+	public void setArea_name(String area_name) {
+		this.area_name = area_name;
+	}
 	public String getProvince_id() {
 		return province_id;
 	}

@@ -7,6 +7,12 @@
 
     <include layout="@layout/top_title_layout" />
 
+    
+    <LinearLayout 
+        android:id="@+id/create_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
@@ -194,19 +200,30 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:visibility="gone" >
+                android:visibility="visible" >
 
-                <Spinner
-                    android:id="@+id/loc_area2"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:animationCache="true"
-                    android:background="@drawable/spinner_selector"
-                    android:drawSelectorOnTop="true"
-                    android:padding="0dip"
-                    android:textColor="#6d6d6d"
-                    android:textSize="18sp" />
+                    android:layout_weight="1" >
+
+                    <Spinner
+                        android:id="@+id/loc_area2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animationCache="true"
+                        android:background="@drawable/spinner_selector"
+                        android:drawSelectorOnTop="true"
+                        android:padding="0dip"
+                        android:textColor="#6d6d6d"
+                        android:textSize="18sp" />
+                    <TextView 
+                        android:id="@+id/loc_area2_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/delete_img"
+                        android:layout_gravity="right|top"/>
+                </FrameLayout>
 
                 <Spinner
                     android:id="@+id/loc_km2"
@@ -232,17 +249,28 @@
                 android:orientation="horizontal"
                 android:visibility="gone" >
 
-                <Spinner
-                    android:id="@+id/loc_area3"
+                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:animationCache="true"
-                    android:background="@drawable/spinner_selector"
-                    android:drawSelectorOnTop="true"
-                    android:padding="0dip"
-                    android:textColor="#6d6d6d"
-                    android:textSize="18sp" />
+                    android:layout_weight="1" >
+
+                    <Spinner
+                        android:id="@+id/loc_area3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animationCache="true"
+                        android:background="@drawable/spinner_selector"
+                        android:drawSelectorOnTop="true"
+                        android:padding="0dip"
+                        android:textColor="#6d6d6d"
+                        android:textSize="18sp" />
+                    <TextView 
+                        android:id="@+id/loc_area3_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/delete_img"
+                        android:layout_gravity="right|top"/>
+                </FrameLayout>
 
                 <Spinner
                     android:id="@+id/loc_km3"
@@ -265,20 +293,31 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal" 
-                android:visibility="gone">
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
-                <Spinner
-                    android:id="@+id/loc_area4"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:animationCache="true"
-                    android:background="@drawable/spinner_selector"
-                    android:drawSelectorOnTop="true"
-                    android:padding="0dip"
-                    android:textColor="#6d6d6d"
-                    android:textSize="18sp" />
+                    android:layout_weight="1" >
+
+                    <Spinner
+                        android:id="@+id/loc_area4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animationCache="true"
+                        android:background="@drawable/spinner_selector"
+                        android:drawSelectorOnTop="true"
+                        android:padding="0dip"
+                        android:textColor="#6d6d6d"
+                        android:textSize="18sp" />
+                    <TextView 
+                        android:id="@+id/loc_area4_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/delete_img"
+                        android:layout_gravity="right|top"/>
+                </FrameLayout>
 
                 <Spinner
                     android:id="@+id/loc_km4"
@@ -299,20 +338,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:orientation="horizontal" 
-                android:visibility="gone">
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
-                <Spinner
-                    android:id="@+id/loc_area5"
+                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:animationCache="true"
-                    android:background="@drawable/spinner_selector"
-                    android:drawSelectorOnTop="true"
-                    android:padding="0dip"
-                    android:textColor="#6d6d6d"
-                    android:textSize="18sp" />
+                    android:layout_weight="1" >
+
+                    <Spinner
+                        android:id="@+id/loc_area5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animationCache="true"
+                        android:background="@drawable/spinner_selector"
+                        android:drawSelectorOnTop="true"
+                        android:padding="0dip"
+                        android:textColor="#6d6d6d"
+                        android:textSize="18sp" />
+                    <TextView 
+                        android:id="@+id/loc_area5_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/delete_img"
+                        android:layout_gravity="right|top"/>
+                </FrameLayout>
 
                 <Spinner
                     android:id="@+id/loc_km5"
@@ -341,12 +391,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/green_red_selector"
                     android:drawableLeft="@drawable/loc_add_img"
                     android:drawablePadding="10dp"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/green_red_selector"
                     android:text="添加区域"
                     android:textColor="@color/green" />
 
@@ -354,16 +404,16 @@
                     android:id="@+id/btn_del"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginLeft="15dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                    android:layout_weight="1"
                     android:background="@drawable/red_green_selector"
                     android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
                     android:text="删除"
                     android:textColor="@color/red" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
+</LinearLayout>
 </LinearLayout>
