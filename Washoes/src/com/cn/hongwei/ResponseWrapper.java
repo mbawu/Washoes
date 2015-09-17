@@ -7,6 +7,8 @@ import com.cn.washoes.model.Area;
 import com.cn.washoes.model.City;
 import com.cn.washoes.model.Distance;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.model.LocArea;
+import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
 import com.cn.washoes.model.Province;
@@ -41,7 +43,26 @@ public class ResponseWrapper {
 	private ArrayList<City> city;//省份
 	private ArrayList<Area> area;//地区
 	private ArrayList<Distance> distance;//获取服务距离列表
+	private LocInfo apos_info;//定点位置信息
+	private ArrayList<LocArea> apos_list;//区域列表
+
 	
+	
+	public LocInfo getApos_info() {
+		return apos_info;
+	}
+
+	public void setApos_info(LocInfo apos_info) {
+		this.apos_info = apos_info;
+	}
+
+	public ArrayList<LocArea> getApos_list() {
+		return apos_list;
+	}
+
+	public void setApos_list(ArrayList<LocArea> apos_list) {
+		this.apos_list = apos_list;
+	}
 
 	public ArrayList<Distance> getDistance() {
 		return distance;

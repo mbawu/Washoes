@@ -102,7 +102,7 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 		// 服务位置
 		case R.id.person_location:
 			intent = new Intent().setClass(PersonActivity.this,
-					LocationActivity.class);
+					LocationActivity3.class);
 			break;
 		// 平台咨询
 		case R.id.person_call:

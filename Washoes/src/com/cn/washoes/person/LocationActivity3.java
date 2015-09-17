@@ -41,7 +41,7 @@ import com.cn.washoes.util.NetworkAction;
  * @author Wu Jiang
  * 
  */
-public class LocationActivity extends BaseActivity implements
+public class LocationActivity3 extends BaseActivity implements
 		OnItemSelectedListener, OnClickListener {
 	// 加载服务地址
 	private LinearLayout loadLayout;// 放置服务位置的layout
@@ -106,15 +106,18 @@ public class LocationActivity extends BaseActivity implements
 	private int areaNum = 1;
 	private boolean deleteModule = false;
 
+	
+	
 	private TopTitleView topTitleView;// 标题栏
-	private LocInfo info;
-	private ArrayList<LocArea> areas;
+	private LocInfo info;//位置信息
+	private ArrayList<LocArea> areaList;//设置的区域的数据集合
+	private ShowAreaAdapter showAreaAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.person_location);
+		setContentView(R.layout.person_location3);
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("服务位置");
 		createLayout = (LinearLayout) findViewById(R.id.create_layout);
@@ -293,7 +296,7 @@ public class LocationActivity extends BaseActivity implements
 	private void resetLoc() {
 		
 		//如果不是初次创建而是修改的情况下,初始化区域数据
-		if(areas!=null)
+		if(areaList!=null)
 		{
 //			areaNum=areas.size();
 //			if(areaNum==2)
@@ -412,58 +415,10 @@ public class LocationActivity extends BaseActivity implements
 			String address = info.getProvince_name() + info.getCity_name()
 					+ info.getArea_name() + info.getAddress();
 			loadAddress.setText(address);
-			areas = responseWrapper.getApos_list();
-			if (areas.size() == 1) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-			} else if (areas.size() == 2) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-			} else if (areas.size() == 3) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(2).getArea_name() + "  "
-						+ areas.get(2).getDistance() + "公里以内");
-			} else if (areas.size() == 4) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(2).getArea_name() + "  "
-						+ areas.get(2).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(3).getArea_name() + "  "
-						+ areas.get(3).getDistance() + "公里以内");
-			} else if (areas.size() == 5) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(2).getArea_name() + "  "
-						+ areas.get(2).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(3).getArea_name() + "  "
-						+ areas.get(3).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(4).getArea_name() + "  "
-						+ areas.get(4).getDistance() + "公里以内");
-			}
+			areaList = responseWrapper.getApos_list();
+			showAreaAdapter=new ShowAreaAdapter(this);
+			showAreaAdapter.setDataList(areaList);
+			showAreaAdapter.notifyDataSetChanged();
 
 			topTitleView.setRightBtnText("修改", new OnClickListener() {
 
@@ -748,6 +703,47 @@ public class LocationActivity extends BaseActivity implements
 		}
 
 	}
+	
+	/**
+	 * 区域适配器
+	 * 
+	 * @author Wu Jiang
+	 * 
+	 */
+	class ShowAreaAdapter extends WashoesBaseAdapter<LocArea> {
+
+		public ShowAreaAdapter(Activity activity) {
+			super(activity);
+			// TODO Auto-generated constructor stub
+		}
+
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+
+			ViewHolder viewHolder;
+			if (convertView == null) {
+				convertView = inflater.inflate(R.layout.show_area_item, null);
+				viewHolder = new ViewHolder();
+				viewHolder.areaTxt = (TextView) convertView
+						.findViewById(R.id.area_text);
+				convertView.setTag(viewHolder);
+			} else {
+				viewHolder = (ViewHolder) convertView.getTag();
+			}
+			LocArea areaItem=areaList.get(position);
+			String context=areaItem.getArea_name()+"  "+areaItem.getDistance()+"公里以内";
+			viewHolder.areaTxt.setText(context);
+			return convertView;
+		}
+
+		class ViewHolder {
+			private TextView areaTxt;
+		}
+
+	}
+	
 
 	/**
 	 * 检查哪个控件被关闭了按顺序往下打开
