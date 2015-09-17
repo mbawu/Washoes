@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/top_title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#d2d2d2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/order_camare_content_padding"
+            android:paddingRight="@dimen/order_camare_content_padding" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:gravity="left|center_vertical"
+                android:text="服务前"
+                android:textColor="#646464"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/order_camare_txt_before"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:gravity="right"
+                android:textColor="#646464"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d2d2d2" />
+
+        <com.cn.hongwei.MyGridView
+            android:id="@+id/order_camare_gridview_before"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:cacheColorHint="#00000000"
+            android:horizontalSpacing="5dp"
+            android:listSelector="#00000000"
+            android:numColumns="4"
+            android:paddingLeft="@dimen/order_camare_content_padding"
+            android:paddingRight="@dimen/order_camare_content_padding"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" >
+        </com.cn.hongwei.MyGridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="#d2d2d2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/order_camare_content_padding"
+            android:paddingRight="@dimen/order_camare_content_padding" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:gravity="left|center_vertical"
+                android:text="服务后"
+                android:textColor="#646464"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/order_camare_txt_after"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="7dp"
+                android:gravity="right"
+                android:textColor="#646464"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d2d2d2" />
+
+        <com.cn.hongwei.MyGridView
+            android:id="@+id/order_camare_gridview_after"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:cacheColorHint="#00000000"
+            android:horizontalSpacing="5dp"
+            android:listSelector="#00000000"
+            android:numColumns="4"
+            android:paddingLeft="@dimen/order_camare_content_padding"
+            android:paddingRight="@dimen/order_camare_content_padding"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" >
+        </com.cn.hongwei.MyGridView>
+    </LinearLayout>
+
+</LinearLayout>

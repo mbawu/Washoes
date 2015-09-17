@@ -6,6 +6,7 @@ import java.util.List;
 import com.cn.washoes.model.Area;
 import com.cn.washoes.model.City;
 import com.cn.washoes.model.Distance;
+import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.model.LocArea;
 import com.cn.washoes.model.LocInfo;
@@ -37,6 +38,7 @@ public class ResponseWrapper {
 	private String all_onums;// 所有订单总数（已完成的订单 flag=5）
 	private String now_onums;// 本月订单总数（已完成的订单 flag=5）
 	private List<OrderItem> list;// 订单列表
+
 	private OrderInfo order_info;//订单信息
 	
 	private ArrayList<Province> province;//省份
@@ -46,7 +48,11 @@ public class ResponseWrapper {
 	private LocInfo apos_info;//定点位置信息
 	private ArrayList<LocArea> apos_list;//区域列表
 
-	
+	private String be_time;// 服务前照片上传时间
+	private List<ImgInfo> be_images;// 服务前照片列表
+
+	private String af_time;// 服务后照片上传时间
+	private List<ImgInfo> af_images;// 服务后照片列表
 	
 	public LocInfo getApos_info() {
 		return apos_info;
@@ -208,6 +214,36 @@ public class ResponseWrapper {
 		this.order_info = order_info;
 	}
 
+	public String getBe_time() {
+		return be_time;
+	}
 
+	public void setBe_time(String be_time) {
+		this.be_time = be_time;
+	}
+
+	public List<ImgInfo> getBe_images() {
+		return be_images;
+	}
+
+	public void setBe_images(List<ImgInfo> be_images) {
+		this.be_images = be_images;
+	}
+
+	public String getAf_time() {
+		return af_time;
+	}
+
+	public void setAf_time(String af_time) {
+		this.af_time = af_time;
+	}
+
+	public List<ImgInfo> getAf_images() {
+		return af_images;
+	}
+
+	public void setAf_images(List<ImgInfo> af_images) {
+		this.af_images = af_images;
+	}
 
 }

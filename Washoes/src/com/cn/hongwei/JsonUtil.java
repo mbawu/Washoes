@@ -45,11 +45,8 @@ public class JsonUtil {
 	 */
 	public static <T> T fromJson(String json, Class<T> clazz){
 //		return getInstance().create().fromJson(json, clazz);
-		try {
+		
 			return getInstance().create().fromJson(json, clazz);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		
 	}
 }

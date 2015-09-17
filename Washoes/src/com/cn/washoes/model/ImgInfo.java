@@ -1,7 +1,13 @@
 package com.cn.washoes.model;
 
-public class ImgInfo {
+import java.io.Serializable;
 
+public class ImgInfo implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4979162078714581759L;
 	private String file_size;
 	private String file_name;
 	private String file_path;
