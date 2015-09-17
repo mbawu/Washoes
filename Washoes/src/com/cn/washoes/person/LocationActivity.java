@@ -1,10 +1,6 @@
 package com.cn.washoes.person;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,25 +40,14 @@ import com.cn.washoes.util.NetworkAction;
  */
 public class LocationActivity extends BaseActivity implements
 		OnItemSelectedListener, OnClickListener {
-	// 加载服务地址
-	private LinearLayout loadLayout;// 放置服务位置的layout
-	private TextView loadAddress;// 位置地址
-	private TextView loadArea1;// 区域1
-	private TextView loadArea2;// 区域2
-	private TextView loadArea3;// 区域3
-	private TextView loadArea4;// 区域4
-	private TextView loadArea5;// 区域5
 
-	// 新建服务地址
-	private LinearLayout createLayout;// 创建服务位置时候的整个layout
-	private Spinner pSpinner;// 显示省份控件
-	private ProvinceAdapter pAdapter;// 省份适配器
-	private Spinner cSpinner; // 显示城市控件
-	private CityAdapter cAdapter;// 城市适配器
-	private Spinner aSpinner;// 显示区域控件
-	private AreaAdapter aAdapter;// 地区适配器
-	private AreaAdapter noneAdapter;// 默认未添加适配器
+	// private AreaAdapter noneAdapter;// 默认未添加适配器
 	private KMAdapter kmAdapter;// 默认未添加公里数适配器
+
+	private LinearLayout layout6;// 按钮容器
+	private int areaNum = 1;
+	private boolean changeModule = false;//修改模式而不是新建模式
+
 	private String province_id;// 省级ID
 	private String province_name;// 省级名称
 	private String city_id;// 市级ID
@@ -71,44 +57,24 @@ public class LocationActivity extends BaseActivity implements
 	private EditText addressTxt;// 详细地址
 	private TextView addAreaBtn;// 添加区域按钮
 	private TextView deleteAreaBtn;// 删除区域按钮
-
-	private LinearLayout layout1;// 第一组服务区域
-	private Spinner area1;
-	private String area1_id;
-	private String km1_distance;
-	private Spinner km1;
-	// private TextView delete1;
-	private LinearLayout layout2;// 第二组服务区域
-	private Spinner area2;
-	private String area2_id;
-	private String km2_distance;
-	private Spinner km2;
-	private TextView delete2;
-	private LinearLayout layout3;// 第三组服务区域
-	private Spinner area3;
-	private String area3_id;
-	private String km3_distance;
-	private Spinner km3;
-	private TextView delete3;
-	private LinearLayout layout4;// 第四组服务区域
-	private Spinner area4;
-	private String area4_id;
-	private String km4_distance;
-	private Spinner km4;
-	private TextView delete4;
-	private LinearLayout layout5;// 第五组服务区域
-	private Spinner area5;
-	private String area5_id;
-	private String km5_distance;
-	private Spinner km5;
-	private TextView delete5;
-	private LinearLayout layout6;// 按钮容器
-	private int areaNum = 1;
-	private boolean deleteModule = false;
-
+	private Spinner pSpinner;// 显示省份控件
+	private ProvinceAdapter pAdapter;// 省份适配器
+	private Spinner cSpinner; // 显示城市控件
+	private CityAdapter cAdapter;// 城市适配器
+	private Spinner aSpinner;// 显示区域控件
+	private AreaAdapter aAdapter;// 地区适配器
+	private LinearLayout createLayout;// 创建服务位置时候的整个layout
+	private LinearLayout loadLayout;// 放置服务位置的layout
+	private TextView loadAddress;// 位置地址
 	private TopTitleView topTitleView;// 标题栏
-	private LocInfo info;
-	private ArrayList<LocArea> areas;
+	private LocInfo info;// 位置信息
+	private ArrayList<LocArea> areaList;// 未编辑时候设置的区域的数据集合
+	private ShowAreaAdapter showAreaAdapter;
+	private ListView showListView;// 未编辑时候显示区域的listview
+	private ListView areaListView;// 编辑时候显示区域的listview
+	private ArrayList<Area> areaData;// 所有的区域的集合
+	private ArrayList<Distance> disList;
+	private AreaLVAdapter areaLVAdapter;// 编辑时候的区域
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +83,7 @@ public class LocationActivity extends BaseActivity implements
 		setContentView(R.layout.person_location);
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("服务位置");
-		createLayout = (LinearLayout) findViewById(R.id.create_layout);
+
 		initViewNew();
 		// getData();
 		getLocation();
@@ -127,17 +93,11 @@ public class LocationActivity extends BaseActivity implements
 	 * 初始化界面
 	 */
 	private void initViewNew() {
-		// 加载服务位置
+		areaListView = (ListView) findViewById(R.id.area_listview);
 		loadLayout = (LinearLayout) findViewById(R.id.load_layout);
+		createLayout = (LinearLayout) findViewById(R.id.create_layout);
+		showListView = (ListView) findViewById(R.id.loc_show_area);
 		loadAddress = (TextView) findViewById(R.id.load_address);
-		loadArea1 = (TextView) findViewById(R.id.load_area1);
-		loadArea2 = (TextView) findViewById(R.id.load_area2);
-		loadArea3 = (TextView) findViewById(R.id.load_area3);
-		loadArea4 = (TextView) findViewById(R.id.load_area4);
-		loadArea5 = (TextView) findViewById(R.id.load_area5);
-		// 新建服务位置
-//		createLayout.setVisibility(View.VISIBLE);
-
 		pSpinner = (Spinner) findViewById(R.id.loc_province);
 		cSpinner = (Spinner) findViewById(R.id.loc_city);
 		aSpinner = (Spinner) findViewById(R.id.loc_area);
@@ -147,68 +107,20 @@ public class LocationActivity extends BaseActivity implements
 		addressTxt = (EditText) findViewById(R.id.loc_detail);
 		addAreaBtn = (TextView) findViewById(R.id.btn_add);
 		deleteAreaBtn = (TextView) findViewById(R.id.btn_del);
+		aAdapter = new AreaAdapter(this);
+		kmAdapter = new KMAdapter(this);
+		areaLVAdapter = new AreaLVAdapter(this);
+		areaList = new ArrayList<LocArea>();
+		layout6 = (LinearLayout) findViewById(R.id.loc_layout6);
 		addAreaBtn.setOnClickListener(this);
 		deleteAreaBtn.setOnClickListener(this);
-		// 区域默认值设置
-		noneAdapter = new AreaAdapter(this);
-		ArrayList<Area> defaultList = new ArrayList<Area>();
-		Area area = new Area();
-		area.setArea_id("1001");
-		area.setArea_name("未添加");
-		defaultList.add(area);
-		noneAdapter.setDataList(defaultList);
-		// 公里数适配器设置默认值
-		kmAdapter = new KMAdapter(this);
-		Distance distance = new Distance();
-		distance.setDistance("0");
-		distance.setDistance_name("未添加");
-		ArrayList<Distance> defaultList2 = new ArrayList<Distance>();
-		defaultList2.add(distance);
-		kmAdapter.setDataList(defaultList2);
-
-		layout1 = (LinearLayout) findViewById(R.id.loc_layout1);
-		area1 = (Spinner) findViewById(R.id.loc_area1);
-		km1 = (Spinner) findViewById(R.id.loc_km1);
-		// delete1= (TextView) findViewById(R.id.loc_area1_delete);
-		layout2 = (LinearLayout) findViewById(R.id.loc_layout2);
-		area2 = (Spinner) findViewById(R.id.loc_area2);
-		km2 = (Spinner) findViewById(R.id.loc_km2);
-		delete2 = (TextView) findViewById(R.id.loc_area2_delete);
-		layout3 = (LinearLayout) findViewById(R.id.loc_layout3);
-		area3 = (Spinner) findViewById(R.id.loc_area3);
-		km3 = (Spinner) findViewById(R.id.loc_km3);
-		delete3 = (TextView) findViewById(R.id.loc_area3_delete);
-		layout4 = (LinearLayout) findViewById(R.id.loc_layout4);
-		area4 = (Spinner) findViewById(R.id.loc_area4);
-		km4 = (Spinner) findViewById(R.id.loc_km4);
-		delete4 = (TextView) findViewById(R.id.loc_area4_delete);
-		layout5 = (LinearLayout) findViewById(R.id.loc_layout5);
-		area5 = (Spinner) findViewById(R.id.loc_area5);
-		km5 = (Spinner) findViewById(R.id.loc_km5);
-		delete5 = (TextView) findViewById(R.id.loc_area5_delete);
-		layout6 = (LinearLayout) findViewById(R.id.loc_layout6);
-		area1.setOnItemSelectedListener(this);
-		km1.setOnItemSelectedListener(this);
-		area2.setOnItemSelectedListener(this);
-		km2.setOnItemSelectedListener(this);
-		area3.setOnItemSelectedListener(this);
-		km3.setOnItemSelectedListener(this);
-		area4.setOnItemSelectedListener(this);
-		km4.setOnItemSelectedListener(this);
-		area5.setOnItemSelectedListener(this);
-		km5.setOnItemSelectedListener(this);
-		delete2.setOnClickListener(this);
-		delete3.setOnClickListener(this);
-		delete4.setOnClickListener(this);
-		delete5.setOnClickListener(this);
-
-		
 	}
 
 	/**
 	 * 保存服务位置方法
 	 */
 	private void saveLoc() {
+		changeModule=false;
 		if (addressTxt.getText().toString().equals("")) {
 			Toast.makeText(this, "请填写详细地址", Toast.LENGTH_SHORT).show();
 			return;
@@ -223,6 +135,7 @@ public class LocationActivity extends BaseActivity implements
 		requestWrapper.setArea_name(area_name);
 		requestWrapper.setAddress(addressTxt.getText().toString());
 		requestWrapper.setPos_json(getJson());
+		Log.i("test", "json-->" + getJson());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		sendData(requestWrapper, NetworkAction.pos_in);
@@ -234,42 +147,14 @@ public class LocationActivity extends BaseActivity implements
 	private String getJson() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("[");
-		if (area1_id != null) {
+		for (int i = 0; i < areaList.size(); i++) {
+			LocArea area = areaList.get(i);
 			builder.append("{");
-			builder.append("\"area_id\":" + area1_id + ",");
-			builder.append("\"distance\":" + km1_distance);
+			builder.append("\"area_id\":" + area.getArea_id() + ",");
+			builder.append("\"distance\":" + area.getDistance());
 			builder.append("}");
-
-		}
-		if (area2_id != null) {
-			builder.append(",");
-			builder.append("{");
-			builder.append("\"area_id\":" + area2_id + ",");
-			builder.append("\"distance\":" + km2_distance);
-			builder.append("}");
-		}
-		if (area3_id != null) {
-			builder.append(",");
-			builder.append("{");
-			builder.append("\"area_id\":" + area3_id + ",");
-			builder.append("\"distance\":" + km3_distance);
-			builder.append("}");
-
-		}
-		if (area4_id != null) {
-			builder.append(",");
-			builder.append("{");
-			builder.append("\"area_id\":" + area4_id + ",");
-			builder.append("\"distance\":" + km4_distance);
-			builder.append("}");
-
-		}
-		if (area5_id != null) {
-			builder.append(",");
-			builder.append("{");
-			builder.append("\"area_id\":" + area5_id + ",");
-			builder.append("\"distance\":" + km5_distance);
-			builder.append("}");
+			if (i != areaList.size() - 1)
+				builder.append(",");
 		}
 		builder.append("]");
 		return builder.toString();
@@ -290,57 +175,11 @@ public class LocationActivity extends BaseActivity implements
 	/**
 	 * 重置服务区域
 	 */
-	private void resetLoc() {
-		
-		//如果不是初次创建而是修改的情况下,初始化区域数据
-		if(areas!=null)
-		{
-//			areaNum=areas.size();
-//			if(areaNum==2)
-//			{
-//				layout2.setVisibility(View.VISIBLE);
-//				area2.setVisibility(View.VISIBLE);
-//				km1.setVisibility(View.VISIBLE);
-//			}
-//			else if(areaNum==3)
-//			{
-//				
-//			}
-		}
-		else
-		{
-			deleteAreaBtn.setText("删除");
-			deleteModule = false;
-			delete2.setVisibility(View.GONE);
-			delete3.setVisibility(View.GONE);
-			delete4.setVisibility(View.GONE);
-			delete5.setVisibility(View.GONE);
-			areaNum = 1;
-			layout1.setVisibility(View.VISIBLE);
-			area1.setAdapter(noneAdapter);
-			km1.setAdapter(kmAdapter);
-			layout2.setVisibility(View.GONE);
-			area2.setAdapter(noneAdapter);
-			km2.setAdapter(kmAdapter);
-			delete2.setVisibility(View.GONE);
-			layout3.setVisibility(View.GONE);
-			area3.setAdapter(noneAdapter);
-			km3.setAdapter(kmAdapter);
-			delete3.setVisibility(View.GONE);
-			layout4.setVisibility(View.GONE);
-			area4.setAdapter(noneAdapter);
-			km4.setAdapter(kmAdapter);
-			delete4.setVisibility(View.GONE);
-			layout5.setVisibility(View.GONE);
-			area5.setAdapter(noneAdapter);
-			km5.setAdapter(kmAdapter);
-			delete5.setVisibility(View.GONE);
-			layout6.setVisibility(View.VISIBLE);
-			addAreaBtn.setVisibility(View.VISIBLE);
-			deleteAreaBtn.setVisibility(View.INVISIBLE);
-			noneAdapter.notifyDataSetChanged();
-			kmAdapter.notifyDataSetChanged();
-		}
+	private void resetArea() {
+		areaList.clear();
+		LocArea area = new LocArea();
+		areaList.add(area);
+		areaLVAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -349,44 +188,50 @@ public class LocationActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.province) {
-			ArrayList<Province> pList=responseWrapper.getProvince();
+			ArrayList<Province> pList = responseWrapper.getProvince();
 			pAdapter = new ProvinceAdapter(this);
 			pAdapter.setDataList(pList);
 			pSpinner.setAdapter(pAdapter);
-			if(info!=null)
-			for (int i = 0; i < pList.size(); i++) {
-				if(info.getProvince_id()==pList.get(i).getProvince_id())
-				{
-					pSpinner.setSelection(i);
+			if (changeModule)
+				for (int i = 0; i < pList.size(); i++) {
+					if (info.getProvince_id().equals(pList.get(i).getProvince_id())) {
+						pSpinner.setSelection(i);
+					}
 				}
-			}
 			pAdapter.notifyDataSetChanged();
-			resetLoc();
+//			resetArea();
 		} else if (requestType == NetworkAction.city) {
+			ArrayList<City> cList= responseWrapper.getCity();
 			cAdapter = new CityAdapter(this);
-			cAdapter.setDataList(responseWrapper.getCity());
+			cAdapter.setDataList(cList);
 			cSpinner.setAdapter(cAdapter);
+			if (changeModule)
+				for (int i = 0; i < cList.size(); i++) {
+					if (info.getCity_id().equals(cList.get(i).getCity_id())) {
+						cSpinner.setSelection(i);
+					}
+				}
 			cAdapter.notifyDataSetChanged();
-			resetLoc();
+//			resetArea();
 		} else if (requestType == NetworkAction.area) {
-			aAdapter = new AreaAdapter(this);
-			aAdapter.setDataList(responseWrapper.getArea());
+
+			areaData = responseWrapper.getArea();
+			aAdapter.setDataList(areaData);
 			aSpinner.setAdapter(aAdapter);
-			area1.setAdapter(aAdapter);
-			area2.setAdapter(aAdapter);
-			area3.setAdapter(aAdapter);
-			area4.setAdapter(aAdapter);
-			area5.setAdapter(aAdapter);
+			if (changeModule)
+				for (int i = 0; i < areaData.size(); i++) {
+					if (info.getArea_id().equals(areaData.get(i).getArea_id())) {
+						aSpinner.setSelection(i);
+					}
+				}
 			aAdapter.notifyDataSetChanged();
+			areaLVAdapter.notifyDataSetChanged();
 		} else if (requestType == NetworkAction.distance) {
-			kmAdapter = new KMAdapter(this);
-			kmAdapter.setDataList(responseWrapper.getDistance());
-			km1.setAdapter(kmAdapter);
-			km2.setAdapter(kmAdapter);
-			km3.setAdapter(kmAdapter);
-			km4.setAdapter(kmAdapter);
-			km5.setAdapter(kmAdapter);
+			// kmAdapter = new KMAdapter(this);
+			disList = responseWrapper.getDistance();
+			kmAdapter.setDataList(disList);
 			kmAdapter.notifyDataSetChanged();
+			areaLVAdapter.notifyDataSetChanged();
 		}
 		// 设置服务位置成功
 		else if (requestType == NetworkAction.pos_in) {
@@ -408,63 +253,17 @@ public class LocationActivity extends BaseActivity implements
 		else if (requestType == NetworkAction.pos_list) {
 			createLayout.setVisibility(View.GONE);
 			loadLayout.setVisibility(View.VISIBLE);
+			// 显示定位信息
 			info = responseWrapper.getApos_info();
 			String address = info.getProvince_name() + info.getCity_name()
 					+ info.getArea_name() + info.getAddress();
 			loadAddress.setText(address);
-			areas = responseWrapper.getApos_list();
-			if (areas.size() == 1) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-			} else if (areas.size() == 2) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-			} else if (areas.size() == 3) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(2).getArea_name() + "  "
-						+ areas.get(2).getDistance() + "公里以内");
-			} else if (areas.size() == 4) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(2).getArea_name() + "  "
-						+ areas.get(2).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(3).getArea_name() + "  "
-						+ areas.get(3).getDistance() + "公里以内");
-			} else if (areas.size() == 5) {
-				loadArea1.setVisibility(View.VISIBLE);
-				loadArea1.setText(areas.get(0).getArea_name() + "  "
-						+ areas.get(0).getDistance() + "公里以内");
-				loadArea2.setVisibility(View.VISIBLE);
-				loadArea2.setText(areas.get(1).getArea_name() + "  "
-						+ areas.get(1).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(2).getArea_name() + "  "
-						+ areas.get(2).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(3).getArea_name() + "  "
-						+ areas.get(3).getDistance() + "公里以内");
-				loadArea3.setVisibility(View.VISIBLE);
-				loadArea3.setText(areas.get(4).getArea_name() + "  "
-						+ areas.get(4).getDistance() + "公里以内");
-			}
-
+			// 显示区域信息
+			areaList = responseWrapper.getApos_list();
+			showAreaAdapter = new ShowAreaAdapter(this);
+			showAreaAdapter.setDataList(areaList);
+			showAreaAdapter.notifyDataSetChanged();
+			showListView.setAdapter(showAreaAdapter);
 			topTitleView.setRightBtnText("修改", new OnClickListener() {
 
 				@Override
@@ -480,8 +279,8 @@ public class LocationActivity extends BaseActivity implements
 	/**
 	 * 修改服务位置
 	 */
-	private void changeLoc()
-	{
+	private void changeLoc() {
+		changeModule=true;
 		createLayout.setVisibility(View.VISIBLE);
 		loadLayout.setVisibility(View.GONE);
 		topTitleView.setRightBtnText("保存", new OnClickListener() {
@@ -493,9 +292,12 @@ public class LocationActivity extends BaseActivity implements
 			}
 
 		});
+		areaLVAdapter.setDataList(areaList);
+		areaListView.setAdapter(areaLVAdapter);
+		areaLVAdapter.notifyDataSetChanged();
 		getData();
 	}
-	
+
 	@Override
 	public void getErrorMsg(NetworkAction requestType) {
 		// TODO Auto-generated method stub
@@ -503,9 +305,9 @@ public class LocationActivity extends BaseActivity implements
 		// 如果获取服务位置失败或者没有服务位置的时候
 		if (requestType == NetworkAction.pos_list) {
 			createLayout.setVisibility(View.VISIBLE);
-			resetLoc();
 			loadLayout.setVisibility(View.GONE);
-			getData();
+			// resetLoc();
+			
 			topTitleView.setRightBtnText("保存", new OnClickListener() {
 
 				@Override
@@ -515,6 +317,15 @@ public class LocationActivity extends BaseActivity implements
 				}
 
 			});
+			if(!changeModule)
+			{
+				LocArea area = new LocArea();
+				areaList.add(area);
+				areaLVAdapter.setDataList(areaList);
+				areaListView.setAdapter(areaLVAdapter);
+				getData();
+			}
+			
 		}
 	}
 
@@ -557,36 +368,7 @@ public class LocationActivity extends BaseActivity implements
 			area_id = ((Area) object).getArea_id();
 			area_name = ((Area) object).getArea_name();
 			break;
-		case R.id.loc_area1:
-			area1_id = ((Area) object).getArea_id();
-			break;
-		case R.id.loc_area2:
-			area2_id = ((Area) object).getArea_id();
-			break;
-		case R.id.loc_area3:
-			area3_id = ((Area) object).getArea_id();
-			break;
-		case R.id.loc_area4:
-			area4_id = ((Area) object).getArea_id();
-			break;
-		case R.id.loc_area5:
-			area5_id = ((Area) object).getArea_id();
-			break;
-		case R.id.loc_km1:
-			km1_distance = ((Distance) object).getDistance();
-			break;
-		case R.id.loc_km2:
-			km2_distance = ((Distance) object).getDistance();
-			break;
-		case R.id.loc_km3:
-			km3_distance = ((Distance) object).getDistance();
-			break;
-		case R.id.loc_km4:
-			km4_distance = ((Distance) object).getDistance();
-			break;
-		case R.id.loc_km5:
-			km5_distance = ((Distance) object).getDistance();
-			break;
+
 		}
 
 	}
@@ -717,6 +499,119 @@ public class LocationActivity extends BaseActivity implements
 	 * @author Wu Jiang
 	 * 
 	 */
+	class AreaLVAdapter extends WashoesBaseAdapter<LocArea> {
+
+		public AreaLVAdapter(Activity activity) {
+			super(activity);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
+			// TODO Auto-generated method stub
+
+			ViewHolder viewHolder;
+			if (convertView == null) {
+				convertView = inflater
+						.inflate(R.layout.area_adapter_item, null);
+				viewHolder = new ViewHolder();
+				viewHolder.item_area = (Spinner) convertView
+						.findViewById(R.id.item_area);
+				viewHolder.item_area_delete = (TextView) convertView
+						.findViewById(R.id.item_area_delete);
+				viewHolder.item_km = (Spinner) convertView
+						.findViewById(R.id.item_km);
+				convertView.setTag(viewHolder);
+			} else {
+				viewHolder = (ViewHolder) convertView.getTag();
+			}
+
+			AreaAdapter aAdapter = new AreaAdapter(LocationActivity.this);
+			aAdapter.setDataList(areaData);
+			viewHolder.item_area.setAdapter(aAdapter);
+
+			KMAdapter kmAdapter = new KMAdapter(LocationActivity.this);
+			kmAdapter.setDataList(disList);
+			viewHolder.item_km.setAdapter(kmAdapter);
+
+			if (areaList.get(position).isDelete())
+				viewHolder.item_area_delete.setVisibility(View.VISIBLE);
+			else
+				viewHolder.item_area_delete.setVisibility(View.GONE);
+
+			viewHolder.item_area_delete
+					.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							if (areaList.size() == 1) {
+								Toast.makeText(LocationActivity.this,
+										"至少需要一个服务区域，无法删除", Toast.LENGTH_SHORT)
+										.show();
+								return;
+							}
+							areaList.remove(position);
+
+							notifyDataSetChanged();
+						}
+					});
+			
+
+			
+			viewHolder.item_km
+					.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+						@Override
+						public void onItemSelected(AdapterView<?> arg0,
+								View arg1, int arg2, long arg3) {
+							areaList.get(position).setDistance(
+									disList.get(arg2).getDistance());
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+
+			viewHolder.item_area
+					.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+						@Override
+						public void onItemSelected(AdapterView<?> arg0,
+								View arg1, int arg2, long arg3) {
+							areaList.get(position).setArea_id(
+									areaData.get(arg2).getArea_id());
+							areaList.get(position).setArea_name(
+									areaData.get(arg2).getArea_name());
+
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+			return convertView;
+		}
+
+		class ViewHolder {
+			private Spinner item_area;
+			private TextView item_area_delete;
+			private Spinner item_km;
+		}
+
+	}
+
+	/**
+	 * 公里数适配器
+	 * 
+	 * @author Wu Jiang
+	 * 
+	 */
 	class KMAdapter extends WashoesBaseAdapter<Distance> {
 
 		public KMAdapter(Activity activity) {
@@ -750,17 +645,43 @@ public class LocationActivity extends BaseActivity implements
 	}
 
 	/**
-	 * 检查哪个控件被关闭了按顺序往下打开
+	 * 区域适配器
+	 * 
+	 * @author Wu Jiang
+	 * 
 	 */
-	private void checkLayout() {
-		if (layout2.getVisibility() != View.VISIBLE)
-			layout2.setVisibility(View.VISIBLE);
-		else if (layout3.getVisibility() != View.VISIBLE)
-			layout3.setVisibility(View.VISIBLE);
-		else if (layout4.getVisibility() != View.VISIBLE)
-			layout4.setVisibility(View.VISIBLE);
-		else if (layout5.getVisibility() != View.VISIBLE)
-			layout5.setVisibility(View.VISIBLE);
+	class ShowAreaAdapter extends WashoesBaseAdapter<LocArea> {
+
+		public ShowAreaAdapter(Activity activity) {
+			super(activity);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+
+			ViewHolder viewHolder;
+			if (convertView == null) {
+				convertView = inflater.inflate(R.layout.show_area_item, null);
+				viewHolder = new ViewHolder();
+				viewHolder.areaTxt = (TextView) convertView
+						.findViewById(R.id.area_text);
+				convertView.setTag(viewHolder);
+			} else {
+				viewHolder = (ViewHolder) convertView.getTag();
+			}
+			LocArea areaItem = areaList.get(position);
+			String context = areaItem.getArea_name() + "  "
+					+ areaItem.getDistance() + "公里以内";
+			viewHolder.areaTxt.setText(context);
+			return convertView;
+		}
+
+		class ViewHolder {
+			private TextView areaTxt;
+		}
+
 	}
 
 	@Override
@@ -768,95 +689,41 @@ public class LocationActivity extends BaseActivity implements
 		switch (v.getId()) {
 		// 添加区域按钮
 		case R.id.btn_add:
-
-			// 在删除模式下无法添加
-			if (!deleteModule) {
-				checkLayout();
-				areaNum++;
-			} else {
-				Toast.makeText(this, "请先取消删除模式", Toast.LENGTH_SHORT).show();
+			deleteAreaBtn.setText("删除");
+			for (int i = 0; i < areaList.size(); i++) {
+				LocArea areaItem = areaList.get(i);
+				areaItem.setDelete(false);
 			}
-
-			checkBtn();
+			LocArea area = new LocArea();
+			areaList.add(area);
+			Log.i("test", "areaList.size()-->"+areaList.size());
+			areaLVAdapter.notifyDataSetChanged();
 			break;
 		// 删除区域按钮
 		case R.id.btn_del:
 			if (deleteAreaBtn.getText().toString().equals("删除")) {
 				deleteAreaBtn.setText("取消");
-				deleteModule = true;
-				delete2.setVisibility(View.VISIBLE);
-				delete3.setVisibility(View.VISIBLE);
-				delete4.setVisibility(View.VISIBLE);
-				delete5.setVisibility(View.VISIBLE);
-			} else {
-				deleteAreaBtn.setText("删除");
-				deleteModule = false;
-				delete2.setVisibility(View.GONE);
-				delete3.setVisibility(View.GONE);
-				delete4.setVisibility(View.GONE);
-				delete5.setVisibility(View.GONE);
+				for (int i = 0; i < areaList.size(); i++) {
+					LocArea areaItem = areaList.get(i);
+					areaItem.setDelete(true);
+				}
 			}
 
+			else {
+				deleteAreaBtn.setText("删除");
+				for (int i = 0; i < areaList.size(); i++) {
+					LocArea areaItem = areaList.get(i);
+					areaItem.setDelete(false);
+				}
+			}
+
+			areaLVAdapter.notifyDataSetChanged();
 			break;
-		// 删除区域组2
-		case R.id.loc_area2_delete:
-			areaNum--;
-			layout2.setVisibility(View.GONE);
-			delete2.setVisibility(View.GONE);
-			area2.setSelection(0);
-			km2.setSelection(0);
-			area2_id = null;
-			checkBtn();
-			break;
-		// 删除区域组3
-		case R.id.loc_area3_delete:
-			areaNum--;
-			delete3.setVisibility(View.GONE);
-			layout3.setVisibility(View.GONE);
-			area3.setSelection(0);
-			km3.setSelection(0);
-			area3_id = null;
-			checkBtn();
-			break;
-		// 删除区域组4
-		case R.id.loc_area4_delete:
-			areaNum--;
-			delete4.setVisibility(View.GONE);
-			layout4.setVisibility(View.GONE);
-			area4.setSelection(0);
-			km4.setSelection(0);
-			area4_id = null;
-			checkBtn();
-			break;
-		// 删除区域组5
-		case R.id.loc_area5_delete:
-			areaNum--;
-			delete5.setVisibility(View.GONE);
-			layout5.setVisibility(View.GONE);
-			area5.setSelection(0);
-			km5.setSelection(0);
-			area5_id = null;
-			checkBtn();
-			break;
+
 		}
 
 	}
 
-	/**
-	 * 检查添加和删除按钮的状态
-	 */
-	private void checkBtn() {
-		if (areaNum == 1) {
-			addAreaBtn.setVisibility(View.VISIBLE);
-			deleteAreaBtn.setVisibility(View.INVISIBLE);
-			deleteAreaBtn.setText("删除");
-			deleteModule = false;
-		} else if (areaNum > 1 && areaNum < 5) {
-			deleteAreaBtn.setVisibility(View.VISIBLE);
-			addAreaBtn.setVisibility(View.VISIBLE);
-		} else if (areaNum == 5) {
-			deleteAreaBtn.setVisibility(View.VISIBLE);
-			addAreaBtn.setVisibility(View.INVISIBLE);
-		}
-	}
+   
+	
 }

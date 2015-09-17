@@ -7,6 +7,8 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1" >
 
         <Spinner
@@ -33,6 +35,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:animationCache="true"
         android:background="@drawable/spinner_selector"
