@@ -45,8 +45,6 @@ public class LocationActivity extends BaseActivity implements
 	private KMAdapter kmAdapter;// 默认未添加公里数适配器
 
 	private LinearLayout layout6;// 按钮容器
-	private int areaNum = 1;
-	private boolean changeModule = false;//修改模式而不是新建模式
 
 	private String province_id;// 省级ID
 	private String province_name;// 省级名称
@@ -62,8 +60,8 @@ public class LocationActivity extends BaseActivity implements
 	private Spinner cSpinner; // 显示城市控件
 	private CityAdapter cAdapter;// 城市适配器
 	private Spinner aSpinner;// 显示区域控件
-	private AreaAdapter aAdapter;// 地区适配器
 	private LinearLayout createLayout;// 创建服务位置时候的整个layout
+	private AreaAdapter aAdapter;// 地区适配器
 	private LinearLayout loadLayout;// 放置服务位置的layout
 	private TextView loadAddress;// 位置地址
 	private TopTitleView topTitleView;// 标题栏
@@ -75,6 +73,7 @@ public class LocationActivity extends BaseActivity implements
 	private ArrayList<Area> areaData;// 所有的区域的集合
 	private ArrayList<Distance> disList;
 	private AreaLVAdapter areaLVAdapter;// 编辑时候的区域
+	private boolean loadArea = false;// 是否是加载区域的时候，如果是的话则在选择城市的时候不刷新区域
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +119,6 @@ public class LocationActivity extends BaseActivity implements
 	 * 保存服务位置方法
 	 */
 	private void saveLoc() {
-		changeModule=false;
 		if (addressTxt.getText().toString().equals("")) {
 			Toast.makeText(this, "请填写详细地址", Toast.LENGTH_SHORT).show();
 			return;
@@ -176,6 +174,10 @@ public class LocationActivity extends BaseActivity implements
 	 * 重置服务区域
 	 */
 	private void resetArea() {
+		if (loadArea) {
+			return;
+		}
+
 		areaList.clear();
 		LocArea area = new LocArea();
 		areaList.add(area);
@@ -192,40 +194,43 @@ public class LocationActivity extends BaseActivity implements
 			pAdapter = new ProvinceAdapter(this);
 			pAdapter.setDataList(pList);
 			pSpinner.setAdapter(pAdapter);
-			if (changeModule)
+			if (loadArea)
 				for (int i = 0; i < pList.size(); i++) {
-					if (info.getProvince_id().equals(pList.get(i).getProvince_id())) {
+					if (info.getProvince_id().equals(
+							pList.get(i).getProvince_id())) {
 						pSpinner.setSelection(i);
 					}
 				}
 			pAdapter.notifyDataSetChanged();
-//			resetArea();
+			resetArea();
 		} else if (requestType == NetworkAction.city) {
-			ArrayList<City> cList= responseWrapper.getCity();
+			ArrayList<City> cList = responseWrapper.getCity();
 			cAdapter = new CityAdapter(this);
 			cAdapter.setDataList(cList);
 			cSpinner.setAdapter(cAdapter);
-			if (changeModule)
+			if (loadArea)
 				for (int i = 0; i < cList.size(); i++) {
 					if (info.getCity_id().equals(cList.get(i).getCity_id())) {
 						cSpinner.setSelection(i);
 					}
 				}
 			cAdapter.notifyDataSetChanged();
-//			resetArea();
+			resetArea();
 		} else if (requestType == NetworkAction.area) {
 
 			areaData = responseWrapper.getArea();
 			aAdapter.setDataList(areaData);
 			aSpinner.setAdapter(aAdapter);
-			if (changeModule)
+			if (loadArea)
 				for (int i = 0; i < areaData.size(); i++) {
 					if (info.getArea_id().equals(areaData.get(i).getArea_id())) {
 						aSpinner.setSelection(i);
 					}
 				}
+
 			aAdapter.notifyDataSetChanged();
 			areaLVAdapter.notifyDataSetChanged();
+			loadArea = false;
 		} else if (requestType == NetworkAction.distance) {
 			// kmAdapter = new KMAdapter(this);
 			disList = responseWrapper.getDistance();
@@ -280,7 +285,7 @@ public class LocationActivity extends BaseActivity implements
 	 * 修改服务位置
 	 */
 	private void changeLoc() {
-		changeModule=true;
+		loadArea = true;
 		createLayout.setVisibility(View.VISIBLE);
 		loadLayout.setVisibility(View.GONE);
 		topTitleView.setRightBtnText("保存", new OnClickListener() {
@@ -295,6 +300,8 @@ public class LocationActivity extends BaseActivity implements
 		areaLVAdapter.setDataList(areaList);
 		areaListView.setAdapter(areaLVAdapter);
 		areaLVAdapter.notifyDataSetChanged();
+		if(info!=null)
+			addressTxt.setText(info.getAddress());
 		getData();
 	}
 
@@ -307,7 +314,7 @@ public class LocationActivity extends BaseActivity implements
 			createLayout.setVisibility(View.VISIBLE);
 			loadLayout.setVisibility(View.GONE);
 			// resetLoc();
-			
+
 			topTitleView.setRightBtnText("保存", new OnClickListener() {
 
 				@Override
@@ -317,15 +324,12 @@ public class LocationActivity extends BaseActivity implements
 				}
 
 			});
-			if(!changeModule)
-			{
-				LocArea area = new LocArea();
-				areaList.add(area);
-				areaLVAdapter.setDataList(areaList);
-				areaListView.setAdapter(areaLVAdapter);
-				getData();
-			}
-			
+			LocArea area = new LocArea();
+			areaList.add(area);
+			areaLVAdapter.setDataList(areaList);
+			areaListView.setAdapter(areaLVAdapter);
+			getData();
+
 		}
 	}
 
@@ -463,6 +467,25 @@ public class LocationActivity extends BaseActivity implements
 	 */
 	class AreaAdapter extends WashoesBaseAdapter<Area> {
 
+		private String area_id = null;// 县级ID
+		private Spinner spinner;
+
+		public Spinner getSpinner() {
+			return spinner;
+		}
+
+		public void setSpinner(Spinner spinner) {
+			this.spinner = spinner;
+		}
+
+		public String getArea_id() {
+			return area_id;
+		}
+
+		public void setArea_id(String area_id) {
+			this.area_id = area_id;
+		}
+
 		public AreaAdapter(Activity activity) {
 			super(activity);
 			// TODO Auto-generated constructor stub
@@ -484,6 +507,9 @@ public class LocationActivity extends BaseActivity implements
 			}
 			Area area = getDataList().get(position);
 			viewHolder.name.setText(area.getArea_name());
+			if (area.getArea_id().equals(area_id) && spinner != null) {
+				spinner.setSelection(position);
+			}
 			return convertView;
 		}
 
@@ -527,11 +553,15 @@ public class LocationActivity extends BaseActivity implements
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 
-			AreaAdapter aAdapter = new AreaAdapter(LocationActivity.this);
+			final AreaAdapter aAdapter = new AreaAdapter(LocationActivity.this);
+			aAdapter.setArea_id(areaList.get(position).getArea_id());
+			aAdapter.setSpinner(viewHolder.item_area);
 			aAdapter.setDataList(areaData);
 			viewHolder.item_area.setAdapter(aAdapter);
 
-			KMAdapter kmAdapter = new KMAdapter(LocationActivity.this);
+			final KMAdapter kmAdapter = new KMAdapter(LocationActivity.this);
+			kmAdapter.setDistance(areaList.get(position).getDistance());
+			kmAdapter.setSpinner(viewHolder.item_km);
 			kmAdapter.setDataList(disList);
 			viewHolder.item_km.setAdapter(kmAdapter);
 
@@ -556,9 +586,7 @@ public class LocationActivity extends BaseActivity implements
 							notifyDataSetChanged();
 						}
 					});
-			
 
-			
 			viewHolder.item_km
 					.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -567,6 +595,8 @@ public class LocationActivity extends BaseActivity implements
 								View arg1, int arg2, long arg3) {
 							areaList.get(position).setDistance(
 									disList.get(arg2).getDistance());
+							kmAdapter.setDistance(null);
+							kmAdapter.setSpinner(null);
 						}
 
 						@Override
@@ -586,7 +616,8 @@ public class LocationActivity extends BaseActivity implements
 									areaData.get(arg2).getArea_id());
 							areaList.get(position).setArea_name(
 									areaData.get(arg2).getArea_name());
-
+							aAdapter.setArea_id(null);
+							aAdapter.setSpinner(null);
 						}
 
 						@Override
@@ -614,6 +645,25 @@ public class LocationActivity extends BaseActivity implements
 	 */
 	class KMAdapter extends WashoesBaseAdapter<Distance> {
 
+		private String distance;
+		private Spinner spinner;
+
+		public String getDistance() {
+			return distance;
+		}
+
+		public void setDistance(String distance) {
+			this.distance = distance;
+		}
+
+		public Spinner getSpinner() {
+			return spinner;
+		}
+
+		public void setSpinner(Spinner spinner) {
+			this.spinner = spinner;
+		}
+
 		public KMAdapter(Activity activity) {
 			super(activity);
 			// TODO Auto-generated constructor stub
@@ -635,6 +685,10 @@ public class LocationActivity extends BaseActivity implements
 			}
 			Distance distance = getDataList().get(position);
 			viewHolder.name.setText(distance.getDistance_name());
+
+			if (distance.getDistance().equals(this.distance) && spinner != null) {
+				spinner.setSelection(position);
+			}
 			return convertView;
 		}
 
@@ -696,7 +750,7 @@ public class LocationActivity extends BaseActivity implements
 			}
 			LocArea area = new LocArea();
 			areaList.add(area);
-			Log.i("test", "areaList.size()-->"+areaList.size());
+			Log.i("test", "areaList.size()-->" + areaList.size());
 			areaLVAdapter.notifyDataSetChanged();
 			break;
 		// 删除区域按钮
@@ -724,6 +778,4 @@ public class LocationActivity extends BaseActivity implements
 
 	}
 
-   
-	
 }
