@@ -340,7 +340,7 @@ public class LocationActivity extends BaseActivity implements
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setOp("artificer");
 		requestWrapper.setPage("1");
-		requestWrapper.setPer("1");
+		requestWrapper.setPer("100");
 		requestWrapper.setPos("1");
 		requestWrapper.setShowDialog(true);
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
