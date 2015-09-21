@@ -16,6 +16,8 @@ import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
 import com.cn.washoes.R;
+import com.cn.washoes.activity.MenuTable;
+import com.cn.washoes.model.Info;
 import com.cn.washoes.person.PersonActivity;
 import com.cn.washoes.util.Cst;
 
@@ -27,31 +29,28 @@ import com.cn.washoes.util.Cst;
 public class MyReceiver extends BroadcastReceiver {
 	private static final String TAG = "JPush";
 
-	public void notifyMsg(Context context, String msg) {
-		NotificationManager mNotificationManager = MyApplication.mNotificationManager;
-		//定义通知栏展现的内容信息
-        int icon = R.drawable.ic_launcher;
-        CharSequence tickerText = msg;
-        long when = System.currentTimeMillis();
-        Notification notification = new Notification(icon, tickerText, when);
-         
-        //定义下拉通知栏时要展现的内容信息
-//        Context context = getApplicationContext();
-        notification.flags = Notification.FLAG_AUTO_CANCEL; // 设置默认声音
-        notification.defaults |= Notification.DEFAULT_SOUND; // 设定震动(需加VIBRATE权限)
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-        CharSequence contentTitle = msg;
-        CharSequence contentText = msg;
-        Intent notificationIntent = new Intent(context, PersonActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                notificationIntent, 0);
-        notification.setLatestEventInfo(context, contentTitle, contentText,
-                contentIntent);
-         
-        //用mNotificationManager的notify方法通知用户生成标题栏消息通知
-        mNotificationManager.notify(1, notification);
-        mNotificationManager.cancel(-5);
-	}
+//	public void notifyMsg(Context context, String msg) {
+//		NotificationManager mNotificationManager = MyApplication.mNotificationManager;
+//		// 定义通知栏展现的内容信息
+//		int icon = R.drawable.ic_launcher;
+//		CharSequence tickerText = msg;
+//		long when = System.currentTimeMillis();
+//		Notification notification = new Notification(icon, tickerText, when);
+//		notification.flags = Notification.FLAG_AUTO_CANCEL;
+//		notification.defaults |= Notification.DEFAULT_ALL;
+//		CharSequence contentTitle = context.getResources().getString(
+//				R.string.app_name);
+//		CharSequence contentText = msg;
+//		Intent notificationIntent = new Intent(context, MenuTable.class);
+//		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+//				notificationIntent, 0);
+//		notification.setLatestEventInfo(context, contentTitle, contentText,
+//				contentIntent);
+//
+//		// 用mNotificationManager的notify方法通知用户生成标题栏消息通知
+//		mNotificationManager.notify(1, notification);
+//		// mNotificationManager.cancel(-5);
+//	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -66,81 +65,61 @@ public class MyReceiver extends BroadcastReceiver {
 
 		} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
 				.getAction())) {
-			String message = bundle.getString(JPushInterface.EXTRA_ALERT);
-			notifyMsg(context,message);
-//			Log.d(TAG,
-//					"[MyReceiver] 接收到推送下来的自定义消息: "
-//							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
-//			
-//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-////			notifyMsg(context,message);
-//			String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-//			Log.i("test", "extras-->" + extras);
-//			JSONObject ob;
-//			try {
-//				ob = new JSONObject(extras);
-//				// 推送给部分人
-//				if (!ob.getBoolean("isAll")) {
-//					// 用户在登录状态下
-//					if (MyApplication.loginStat) {
-//						MyApplication myApp = (MyApplication) context
-//								.getApplicationContext();
-//						UserInfo user = myApp.getUserInfo();
-//						Car car = myApp.getCar();
-//						// 根据性别和车型推送
-//						if (!ob.isNull("sex") && !ob.isNull("bid")) {
-//							if(car==null)
-//								return;
-//							if (!ob.getString("sex").equals(user.getSex())
-//									|| !ob.getString("bid")
-//											.equals(car.getBid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())) {
-//								return;
-//							}
-//						} else if (!ob.isNull("sex") && ob.isNull("bid")) {
-//							if (!user.getSex().equals(ob.getString("sex"))) {
-//								return;
-//							}
-//						} else if (ob.isNull("sex") && !ob.isNull("bid")) {
-//							if(car==null)
-//								return;
-//							if (!ob.getString("bid").equals(car.getBid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())
-//									|| !ob.getString("sid")
-//											.equals(car.getSid())) {
-//								return;
-//							}
-//						} else if (!ob.isNull("uid")) {
-//							JSONArray uidArray=ob.getJSONArray("uid");
-//							int count=0;
-//							for (int i = 0; i < uidArray.length(); i++) {
-////								uidArray.get(i).toString();
-//								if (user.getUid().equals(uidArray.get(i).toString())) {
-//									count++;
-//								}
-//							}
-//							if(count==0)
-//								return;
-//						}
-//					}
-//					// 用户未登录不显示在通知栏
-//					else {
-//						return;
-//					}
-//
-//				}
-//
-//			} catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				Toast.makeText(context, "推送消息格式出错，请后台人员修正", Toast.LENGTH_SHORT).show();
-//			}
-//
-//			notifyMsg(context,message);
+			String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
+			String content = null;//消息内容
+			String title = null;//消息标题
+			Log.i("test", "message-->" + message);
+			//还剩下临近消息提醒
+			JSONObject ob;
+			try {
+				ob = new JSONObject(message);
+				content=ob.getString("content");
+				title=ob.getString("title");
+				JSONObject filter=ob.getJSONObject("jwhere");
+				String isAll=filter.getString("is_all");
+				//发给部分用户
+				if(isAll.equals("0"))
+				{
+					Info info=MyApplication.getInfo();
+					//如果登录过的话才需要显示消息，否则收不到任何消息，前提是后台发送的不是针对所有用户的消息
+					if(info!=null)
+					{
+						JSONArray userArray=filter.getJSONArray("aid");
+						for (int i = 0; i < userArray.length(); i++) {
+							//如果在选择的用户列表里有本地所保存的用户信息则进行推送
+							if(info.getAid().equals(userArray.getString(i)))
+							{
+								String isOrder=filter.getString("is_order");
+								if(isOrder.equals("1"))
+								{
+									// 接收到消息推送以后通知改变消息数量
+									Intent mIntent = new Intent(Cst.GET_RECEIVE);
+									// 发送广播
+									context.sendBroadcast(mIntent);
+								}
+								MyApplication.notifyMsg(context, content,title);
+							}
+						}
+						
+					}
+					
+				}
+				//发给所有用户
+				else
+				{
+					MyApplication.notifyMsg(context, content,title);
+				}
+
+				
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Toast.makeText(context, "推送消息格式出错，请后台人员修正", Toast.LENGTH_SHORT)
+						.show();
+			}
+
+//			MyApplication.notifyMsg(context, content,title);
 //			// 接收到消息推送以后通知改变消息数量
 //			Intent mIntent = new Intent(Cst.GET_RECEIVE);
 //			// 发送广播
@@ -149,17 +128,17 @@ public class MyReceiver extends BroadcastReceiver {
 		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
 				.getAction())) {
 			String message = bundle.getString(JPushInterface.EXTRA_ALERT);
-			notifyMsg(context,message);
+			// notifyMsg(context,message);
 			Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-//			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-//			notifyMsg(context,message);
+			// String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+			// notifyMsg(context,message);
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
-//			Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-//			//打开自定义的Activity
-//			Intent i = new Intent(context, MessageActivity.class);
-//			MyApplication.list.get(0).startActivity(i);
+			// Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+			// //打开自定义的Activity
+			// Intent i = new Intent(context, MessageActivity.class);
+			// MyApplication.list.get(0).startActivity(i);
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
 			Log.d(TAG,
@@ -193,6 +172,5 @@ public class MyReceiver extends BroadcastReceiver {
 		}
 		return sb.toString();
 	}
-
 
 }
