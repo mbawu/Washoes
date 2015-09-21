@@ -248,6 +248,7 @@ public class MyApplication extends Application {
 			contentTitle=title;
 		CharSequence contentText = msg;
 		Intent notificationIntent = new Intent(context, MenuTable.class);
+		MenuTable.tabHost.setCurrentTab(1);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
 		notification.setLatestEventInfo(context, contentTitle, contentText,
