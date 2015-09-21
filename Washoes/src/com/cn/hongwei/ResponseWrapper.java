@@ -9,6 +9,8 @@ import com.cn.washoes.model.City;
 import com.cn.washoes.model.Distance;
 import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.model.LocArea;
+import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
 import com.cn.washoes.model.Province;
@@ -37,21 +39,38 @@ public class ResponseWrapper {
 	private String all_onums;// 所有订单总数（已完成的订单 flag=5）
 	private String now_onums;// 本月订单总数（已完成的订单 flag=5）
 	private List<OrderItem> list;// 订单列表
-	private OrderInfo order_info;// 订单信息
 
-	private ArrayList<Province> province;// 省份
-	private ArrayList<City> city;// 省份
-	private ArrayList<Area> area;// 地区
+	private OrderInfo order_info;//订单信息
+	
+	private ArrayList<Province> province;//省份
+	private ArrayList<City> city;//省份
+	private ArrayList<Area> area;//地区
+	private ArrayList<Distance> distance;//获取服务距离列表
+	private LocInfo apos_info;//定点位置信息
+	private ArrayList<LocArea> apos_list;//区域列表
 
 	private String be_time;// 服务前照片上传时间
 	private List<ImgInfo> be_images;// 服务前照片列表
 
 	private String af_time;// 服务后照片上传时间
 	private List<ImgInfo> af_images;// 服务后照片列表
-
-	private ArrayList<Distance> distance;// 获取服务距离列表
 	
-	private AposInfo apos_info; //技师位置
+	public LocInfo getApos_info() {
+		return apos_info;
+	}
+	
+
+	public void setApos_info(LocInfo apos_info) {
+		this.apos_info = apos_info;
+	}
+
+	public ArrayList<LocArea> getApos_list() {
+		return apos_list;
+	}
+
+	public void setApos_list(ArrayList<LocArea> apos_list) {
+		this.apos_list = apos_list;
+	}
 
 	public ArrayList<Distance> getDistance() {
 		return distance;
@@ -228,13 +247,4 @@ public class ResponseWrapper {
 	public void setAf_images(List<ImgInfo> af_images) {
 		this.af_images = af_images;
 	}
-
-	public AposInfo getApos_info() {
-		return apos_info;
-	}
-
-	public void setApos_info(AposInfo apos_info) {
-		this.apos_info = apos_info;
-	}
-
 }

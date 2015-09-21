@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
+
+        <Spinner
+            android:id="@+id/item_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animationCache="true"
+            android:background="@drawable/spinner_selector"
+            android:drawSelectorOnTop="true"
+            android:padding="0dip"
+            android:textColor="#6d6d6d"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/item_area_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:background="@drawable/delete_img" />
+    </FrameLayout>
+
+    <Spinner
+        android:id="@+id/item_km"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:animationCache="true"
+        android:background="@drawable/spinner_selector"
+        android:drawSelectorOnTop="true"
+        android:padding="0dip"
+        android:textColor="#6d6d6d"
+        android:textSize="18sp" />
+
+</LinearLayout>

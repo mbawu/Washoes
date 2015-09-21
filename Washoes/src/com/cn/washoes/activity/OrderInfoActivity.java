@@ -26,6 +26,7 @@ import com.cn.washoes.R;
 import com.cn.washoes.model.AposInfo;
 import com.cn.washoes.model.ComInfo;
 import com.cn.washoes.model.ImgInfo;
+import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderAddress;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.SS_Info;
@@ -402,7 +403,7 @@ public class OrderInfoActivity extends BaseActivity {
 	 * @param info
 	 *            技师位置
 	 */
-	private void navigate(AposInfo info) {
+	private void navigate(LocInfo info) {
 		if (info != null
 				&& !StringUtils.isEmpty(info.getCity_name())
 				&& !StringUtils.isEmpty(info.getAddress())

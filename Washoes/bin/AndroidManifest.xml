@@ -8,10 +8,10 @@
         android:minSdkVersion="12"
         android:targetSdkVersion="18" />
 
+
     <permission
         android:name="com.cn.washoes.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.cn.washoes.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -200,7 +200,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="8a37916c38534348b4d01413" /> <!-- </>值来自开发者平台取得的AppKey -->
+            android:value="99ceddbc1a746bfaa92d9979" /> <!-- </>值来自开发者平台取得的AppKey -->
     </application>
 
 </manifest>
