@@ -60,8 +60,7 @@ public class OrderListActivity extends BaseActivity implements
 	public static final String ORDER_STATUS_WORKING = "4"; // 服务中
 	public static final String ORDER_STATUS_FINISH = "5"; // 已完成
 	public static final String ORDER_STATUS_CANCEL = "3"; // 已取消
-	// public static String aid;
-	// public static String seskey;
+	public static boolean REQ_REFRESH = false;
 	private String orderId;
 
 	/**
@@ -73,6 +72,7 @@ public class OrderListActivity extends BaseActivity implements
 		setContentView(R.layout.order_list_layout);
 		topTitleView = new TopTitleView(this);
 		topTitleView.setTitle("订单");
+		topTitleView.setBackImageViewVisable(View.GONE);
 		nodata = (TextView) findViewById(R.id.nodataTxt);
 		listView = (ListView) findViewById(R.id.listview);
 		layoutOrderNum = (LinearLayout) findViewById(R.id.order_num_layout);
@@ -114,8 +114,8 @@ public class OrderListActivity extends BaseActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (EVALUATE_SUCCESS) {
-			EVALUATE_SUCCESS = false;
+		if (REQ_REFRESH) {
+			REQ_REFRESH = false;
 			getOrder();
 		}
 	}
@@ -128,7 +128,7 @@ public class OrderListActivity extends BaseActivity implements
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
 		requestWrapper.setOp("order");
-		requestWrapper.setPer(Cst.PER + "");
+		requestWrapper.setPer("10000");
 		requestWrapper.setPage(page);
 		requestWrapper.setFlag(status);
 
@@ -138,23 +138,6 @@ public class OrderListActivity extends BaseActivity implements
 			requestWrapper.setIs_onum("0");
 		}
 		sendData(requestWrapper, NetworkAction.list);
-
-		/*
-		 * ConfirmDialog dlg = new ConfirmDialog(this); dlg.setTitle("提示");
-		 * dlg.setMessage("请确认您已完成了服务，确定确认吗？"); dlg.setOkButton("确认", new
-		 * ConfirmDialog.OnClickListener() {
-		 * 
-		 * @Override public void onClick(Dialog dialog, View view) {
-		 * 
-		 * } });
-		 * 
-		 * dlg.setCancelButton("暂不确认", new ConfirmDialog.OnClickListener() {
-		 * 
-		 * @Override public void onClick(Dialog dialog, View view) {
-		 * 
-		 * } }); dlg.setSigleBtn(); dlg.show();
-		 */
-
 	}
 
 	/**

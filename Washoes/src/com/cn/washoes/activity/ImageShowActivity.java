@@ -13,6 +13,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.cn.hongwei.CarImageView;
 import com.cn.hongwei.CarouselAdapter;
@@ -21,7 +22,7 @@ import com.cn.washoes.model.ImgInfo;
 
 public class ImageShowActivity extends Activity {
 
-	private RadioGroup radioGroup;// 轮播图标
+	//private RadioGroup radioGroup;// 轮播图标
 	private ViewPager viewPager;// 轮播容器
 	private ArrayList<View> carouseImageViews = new ArrayList<View>();// 轮播数据源
 
@@ -29,6 +30,8 @@ public class ImageShowActivity extends Activity {
 	private List<ImgInfo> images;// 服务前照片列表
 
 	private int index = 0;
+	
+	private TextView textCurrentImg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,8 @@ public class ImageShowActivity extends Activity {
 		images = (List<ImgInfo>) getIntent().getSerializableExtra("images");
 		index = getIntent().getIntExtra("index", 0);
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
-		radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
+		//radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
+		textCurrentImg =  (TextView) findViewById(R.id.viewpager_text);
 		initViewPager();
 	}
 
@@ -55,28 +59,29 @@ public class ImageShowActivity extends Activity {
 			imageView.loadImage(url);
 
 			carouseImageViews.add(imageView);
-			if (images.size() == 2 && i == 1 && repat) {
+			/*if (images.size() == 2 && i == 1 && repat) {
 				i = -1;
 				repat = false;
-			}
+			}*/
 		}
 		CarouselAdapter homeAdapter = new CarouselAdapter(this);
 		homeAdapter.setArrayList(carouseImageViews);
 		viewPager.setAdapter(homeAdapter);
 
-		for (int i = 0; i < images.size(); i++) {
+/*		for (int i = 0; i < images.size(); i++) {
 			RadioButton rb = (RadioButton) getLayoutInflater().inflate(
 					R.layout.homepage_radio_item, radioGroup, false);
 			rb.setId(i);
 			radioGroup.addView(rb);
 			rb.setChecked(i == 0);
-		}
+		}*/
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				((RadioButton) radioGroup.getChildAt(arg0
-						% radioGroup.getChildCount())).setChecked(true);
+//				((RadioButton) radioGroup.getChildAt(arg0
+//						% radioGroup.getChildCount())).setChecked(true);
+				textCurrentImg.setText((arg0%images.size()+1)+"/"+images.size());
 			}
 
 			@Override

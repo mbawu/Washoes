@@ -19,10 +19,11 @@
             android:id="@+id/confirm_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dip"
+            android:padding="10dip"
             android:gravity="left|center_vertical"
             android:text="提示"
-            android:textColor="#909090"
+             android:background="#323232"
+            android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
         <View

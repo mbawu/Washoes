@@ -29,15 +29,9 @@ public class ImgDetailActivity extends BaseActivity {
 	private TextView textDataAfter;
 	private TextView textDataBefore;
 	private MyGridView beGridView;
-
 	private MyGridView afGridView;
-
 	private String order_id;
-
-	private String be_time;// 服务前照片上传时间
 	private List<ImgInfo> be_images;// 服务前照片列表
-
-	private String af_time;// 服务后照片上传时间
 	private List<ImgInfo> af_images;// 服务后照片列表
 
 	@Override

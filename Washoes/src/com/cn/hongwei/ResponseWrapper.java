@@ -3,6 +3,7 @@ package com.cn.hongwei;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cn.washoes.model.AposInfo;
 import com.cn.washoes.model.Area;
 import com.cn.washoes.model.City;
 import com.cn.washoes.model.Distance;
@@ -49,6 +50,8 @@ public class ResponseWrapper {
 	private List<ImgInfo> af_images;// 服务后照片列表
 
 	private ArrayList<Distance> distance;// 获取服务距离列表
+	
+	private AposInfo apos_info; //技师位置
 
 	public ArrayList<Distance> getDistance() {
 		return distance;
@@ -224,6 +227,14 @@ public class ResponseWrapper {
 
 	public void setAf_images(List<ImgInfo> af_images) {
 		this.af_images = af_images;
+	}
+
+	public AposInfo getApos_info() {
+		return apos_info;
+	}
+
+	public void setApos_info(AposInfo apos_info) {
+		this.apos_info = apos_info;
 	}
 
 }

@@ -334,7 +334,9 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/btn_green_bg"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="onViewClick"
                 android:text="确认完成"
                 android:textColor="@color/wihte"
                 android:textSize="20sp"
@@ -354,11 +356,14 @@
                 android:visibility="gone" >
 
                 <TextView
+                    android:id="@+id/order_info_text_call_u"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:drawableLeft="@drawable/order_info_call"
                     android:drawablePadding="5dp"
                     android:gravity="center"
+                    android:onClick="onViewClick"
                     android:text="联系"
                     android:textColor="@color/wihte"
                     android:textSize="20sp" />
@@ -401,11 +406,14 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/order_info_text_navig"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:clickable="true"
                         android:drawableLeft="@drawable/order_info_dh"
                         android:drawablePadding="5dp"
+                        android:onClick="onViewClick"
                         android:padding="15dp"
                         android:text="导航"
                         android:textColor="#31b9e0"
@@ -424,11 +432,14 @@
                     android:orientation="vertical" >
 
                     <TextView
+                        android:id="@+id/order_info_text_call_kf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:clickable="true"
                         android:drawableLeft="@drawable/order_info_call1"
                         android:drawablePadding="5dp"
+                        android:onClick="onViewClick"
                         android:padding="15dp"
                         android:text="联系"
                         android:textColor="#31b9e0"
