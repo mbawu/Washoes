@@ -225,6 +225,13 @@ public class MyApplication extends Application {
 		return isValid;
 	}
 	
+	
+	/**
+	 * 通知栏显示消息
+	 * @param context  Context
+	 * @param msg  内容
+	 * @param title  可为空，可为null
+	 */
 	public static void notifyMsg(Context context, String msg,String title) {
 		NotificationManager mNotificationManager = MyApplication.mNotificationManager;
 		// 定义通知栏展现的内容信息
@@ -234,7 +241,11 @@ public class MyApplication extends Application {
 		Notification notification = new Notification(icon, tickerText, when);
 		notification.flags = Notification.FLAG_AUTO_CANCEL;
 		notification.defaults |= Notification.DEFAULT_ALL;
-		CharSequence contentTitle = title;
+		CharSequence contentTitle =null;
+		if(title==null ||title.equals(""))
+			contentTitle = context.getResources().getString(R.string.app_name);
+		else
+			contentTitle=title;
 		CharSequence contentText = msg;
 		Intent notificationIntent = new Intent(context, MenuTable.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
