@@ -33,11 +33,12 @@ public class CarouselAdapter extends PagerAdapter {
 
 	@Override
 	public int getCount() {
-		if (arrayList.size() == 1) {
+		/*if (arrayList.size() == 1) {
 			return arrayList.size();
 		} else {
 			return Integer.MAX_VALUE;
-		}
+		}*/
+		return arrayList.size();
 	}
 
 	@Override

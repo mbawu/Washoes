@@ -1,8 +1,12 @@
 package com.cn.washoes.activity;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -10,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.CarImageView;
@@ -18,13 +23,22 @@ import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
+import com.cn.washoes.model.AposInfo;
 import com.cn.washoes.model.ComInfo;
 import com.cn.washoes.model.ImgInfo;
+import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderAddress;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.SS_Info;
 import com.cn.washoes.util.NetworkAction;
+import com.ta.utdid2.android.utils.StringUtils;
 
+/**
+ * 订单详情界面
+ * 
+ * @author Administrator
+ * 
+ */
 public class OrderInfoActivity extends BaseActivity {
 
 	private TopTitleView topTitleView;
@@ -57,6 +71,9 @@ public class OrderInfoActivity extends BaseActivity {
 	private LinearLayout layoutCall;
 	private LinearLayout layoutDetail;
 
+	/**
+	 * 界面初始化
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,6 +108,9 @@ public class OrderInfoActivity extends BaseActivity {
 		getOrderInfo();
 	}
 
+	/**
+	 * 发送订单详情请求
+	 */
 	private void getOrderInfo() {
 
 		RequestWrapper requestWrapper = new RequestWrapper();
@@ -105,6 +125,9 @@ public class OrderInfoActivity extends BaseActivity {
 		sendData(requestWrapper, NetworkAction.detail);
 	}
 
+	/**
+	 * 数据解析
+	 */
 	@Override
 	public void showResualt(ResponseWrapper responseWrapper,
 			NetworkAction requestType) {
@@ -146,11 +169,11 @@ public class OrderInfoActivity extends BaseActivity {
 
 				}
 
-				/*if ("1408".equals(oid)) {
+				if ("1408".equals(oid)) {
 					orderInfo.setFlag(OrderListActivity.ORDER_STATUS_WAITING);
 				} else if ("1407".equals(oid)) {
 					orderInfo.setFlag(OrderListActivity.ORDER_STATUS_WORKING);
-				}*/
+				}
 
 				if (OrderListActivity.ORDER_STATUS_WAITING.equals(orderInfo
 						.getFlag())) {
@@ -163,19 +186,29 @@ public class OrderInfoActivity extends BaseActivity {
 				} else if (OrderListActivity.ORDER_STATUS_FINISH
 						.equals(orderInfo.getFlag())) {
 					initPic(orderInfo);
-					if("1".equals(orderInfo.getIs_comment())){
+					if ("1".equals(orderInfo.getIs_comment())) {
 						initEva(orderInfo);
 					}
 				} else if (OrderListActivity.ORDER_STATUS_CANCEL
 						.equals(orderInfo.getFlag())) {
 					layoutCall.setVisibility(View.VISIBLE);
 				}
-
 			}
 
+		} else if (requestType == NetworkAction.pos_list) {
+			navigate(responseWrapper.getApos_info());
+		} else if (requestType == NetworkAction.confirm_e) {
+			Toast.makeText(this, "订单确认成功", Toast.LENGTH_SHORT).show();
+			OrderListActivity.REQ_REFRESH = true;
+			finish();
 		}
 	}
 
+	/**
+	 * 初始化图片
+	 * 
+	 * @param orderInfo
+	 */
 	private void initPic(OrderInfo orderInfo) {
 		layoutPicH.setVisibility(View.VISIBLE);
 		if (orderInfo.getUltu_def() != null
@@ -193,7 +226,8 @@ public class OrderInfoActivity extends BaseActivity {
 						public void onClick(View v) {
 							Intent intent = new Intent();
 							intent.putExtra("order_id", oid);
-							intent.setClass(OrderInfoActivity.this, ImgDetailActivity.class);
+							intent.setClass(OrderInfoActivity.this,
+									ImgDetailActivity.class);
 							startActivity(intent);
 						}
 					});
@@ -205,6 +239,11 @@ public class OrderInfoActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 设置评论数据
+	 * 
+	 * @param orderInfo
+	 */
 	private void initEva(OrderInfo orderInfo) {
 		layoutEva.setVisibility(View.VISIBLE);
 		if (orderInfo.getCom_info() != null
@@ -222,6 +261,11 @@ public class OrderInfoActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 设置洗护数据
+	 * 
+	 * @param info
+	 */
 	private void setDataColorService(com.cn.washoes.model.ServiceInfo info) {
 
 		findViewById(R.id.xh).setVisibility(View.VISIBLE);
@@ -255,6 +299,12 @@ public class OrderInfoActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 设置修理数据
+	 * 
+	 * @param typeName
+	 * @param ss_Infos
+	 */
 	private void setDataRepairService(String typeName, List<SS_Info> ss_Infos) {
 		findViewById(R.id.xL).setVisibility(View.VISIBLE);
 		if (ss_Infos == null || ss_Infos.size() == 0) {
@@ -265,6 +315,13 @@ public class OrderInfoActivity extends BaseActivity {
 		}
 	}
 
+	/**
+	 * 获取服务字体
+	 * 
+	 * @param sName
+	 * @param num
+	 * @return
+	 */
 	private Spanned getServiceHtml(String sName, String num) {
 
 		String html = "";
@@ -278,4 +335,107 @@ public class OrderInfoActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 按钮点击事件
+	 * 
+	 * @param v
+	 */
+	public void onViewClick(View v) {
+		if (v.getId() == R.id.order_info_text_call_kf) {
+			Intent phoneIntent = new Intent("android.intent.action.CALL",
+					Uri.parse("tel:4000918189"));
+			startActivity(phoneIntent);
+		} else if (v.getId() == R.id.order_info_text_call_u) {
+			String phone = textPhone.getText().toString();
+			if (phone != null && !"".equals(phone)) {
+				Intent phoneIntent = new Intent("android.intent.action.CALL",
+						Uri.parse("tel:" + phone));
+				startActivity(phoneIntent);
+			} else {
+				Toast.makeText(this, "用户未填写电话", Toast.LENGTH_SHORT).show();
+			}
+
+		} else if (v.getId() == R.id.order_info_text_navig) {
+
+			RequestWrapper requestWrapper = new RequestWrapper();
+			requestWrapper.setOp("artificer");
+			requestWrapper.setPage("1");
+			requestWrapper.setPer("1");
+			requestWrapper.setPos("1");
+			requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+			requestWrapper.setAid(MyApplication.getInfo().getAid());
+			sendData(requestWrapper, NetworkAction.pos_list);
+
+		} else if (v.getId() == R.id.order_info_confirm_btn) {
+
+			ConfirmDialog dlg = new ConfirmDialog(this);
+			dlg.setTitle("提示");
+			dlg.setMessage("请确认您已完成了服务，确定确认吗？");
+			dlg.setOkButton("确认", new ConfirmDialog.OnClickListener() {
+
+				@Override
+				public void onClick(Dialog dialog, View view) {
+					RequestWrapper requestWrapper = new RequestWrapper();
+					requestWrapper.setOp("order");
+					requestWrapper.setOrder_id(oid);
+					requestWrapper.setSeskey(MyApplication.getInfo()
+							.getSeskey());
+					requestWrapper.setAid(MyApplication.getInfo().getAid());
+					sendData(requestWrapper, NetworkAction.confirm_e);
+				}
+			});
+
+			dlg.setCancelButton("暂不确认", new ConfirmDialog.OnClickListener() {
+
+				@Override
+				public void onClick(Dialog dialog, View view) {
+
+				}
+			});
+			dlg.show();
+
+		}
+	}
+
+	/**
+	 * 路径导航
+	 * 
+	 * @param info
+	 *            技师位置
+	 */
+	private void navigate(LocInfo info) {
+		if (info != null
+				&& !StringUtils.isEmpty(info.getCity_name())
+				&& !StringUtils.isEmpty(info.getAddress())
+				&& !StringUtils
+						.isEmpty(textAddress.getText().toString().trim())) {
+			try {
+				if (new File("/data/data/com.baidu.BaiduMap").exists()) {
+					String fromAdd = info.getAddress();
+					String toAdd = textAddress.getText().toString();
+					String city = info.getCity_name();
+
+					Intent intent = Intent
+							.parseUri(
+									"intent://map/direction?origin=name:"
+											+ fromAdd
+											+ "&destination="
+											+ toAdd
+											+ "&mode=driving&region="
+											+ city
+											+ "&src=洗豆豆#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end",
+									android.content.Intent.URI_INTENT_SCHEME);
+					startActivity(intent);
+				} else {
+					Toast.makeText(this, "你还未安装百度地图", Toast.LENGTH_SHORT)
+							.show();
+				}
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			Toast.makeText(this, "地址错误", Toast.LENGTH_SHORT).show();
+		}
+	}
 }
