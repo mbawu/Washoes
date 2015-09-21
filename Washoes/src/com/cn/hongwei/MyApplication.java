@@ -9,8 +9,11 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 
 import android.app.Application;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
@@ -22,6 +25,8 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
 import com.cn.hongwei.BaiduLoction.LocationCallback;
+import com.cn.washoes.R;
+import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
@@ -218,6 +223,29 @@ public class MyApplication extends Application {
 			isValid = true;
 		}
 		return isValid;
+	}
+	
+	public static void notifyMsg(Context context, String msg) {
+		NotificationManager mNotificationManager = MyApplication.mNotificationManager;
+		// 定义通知栏展现的内容信息
+		int icon = R.drawable.ic_launcher;
+		CharSequence tickerText = msg;
+		long when = System.currentTimeMillis();
+		Notification notification = new Notification(icon, tickerText, when);
+		notification.flags = Notification.FLAG_AUTO_CANCEL;
+		notification.defaults |= Notification.DEFAULT_ALL;
+		CharSequence contentTitle = context.getResources().getString(
+				R.string.app_name);
+		CharSequence contentText = msg;
+		Intent notificationIntent = new Intent(context, MenuTable.class);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
+				notificationIntent, 0);
+		notification.setLatestEventInfo(context, contentTitle, contentText,
+				contentIntent);
+
+		// 用mNotificationManager的notify方法通知用户生成标题栏消息通知
+		mNotificationManager.notify(1, notification);
+		// mNotificationManager.cancel(-5);
 	}
 
 }
