@@ -42,6 +42,9 @@ public class RequestWrapper {
 	private String file_num;//上传的文件个数
 	private Map<String,String> files;
 	private String pos;//是否获取定点位置(1是 0否)(技师服务位置列表)
+	private String days;
+	private String date;
+	private String time_id	;
 	
 
 	public String getPos() {
@@ -227,6 +230,24 @@ public class RequestWrapper {
 	}
 	public void setFiles(Map<String, String> files) {
 		this.files = files;
+	}
+	public String getDays() {
+		return days;
+	}
+	public void setDays(String days) {
+		this.days = days;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getTime_id() {
+		return time_id;
+	}
+	public void setTime_id(String time_id) {
+		this.time_id = time_id;
 	}
 
 }

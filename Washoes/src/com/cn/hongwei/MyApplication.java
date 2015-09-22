@@ -144,7 +144,7 @@ public class MyApplication extends Application {
 		String infoJson = sp.getString("info", null);
 		if (infoJson != null && !"".equals(infoJson)) {
 			info = JsonUtil.fromJson(infoJson, Info.class);
-			MyApplication.loginStat = info.isLoginState();
+			//MyApplication.loginStat = info.isLoginState();
 		}
 		
 	};

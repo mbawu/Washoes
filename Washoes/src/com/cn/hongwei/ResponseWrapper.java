@@ -3,9 +3,9 @@ package com.cn.hongwei;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cn.washoes.model.AposInfo;
 import com.cn.washoes.model.Area;
 import com.cn.washoes.model.City;
+import com.cn.washoes.model.DateInfo;
 import com.cn.washoes.model.Distance;
 import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.Info;
@@ -14,6 +14,7 @@ import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
 import com.cn.washoes.model.Province;
+import com.cn.washoes.model.TimeInfo;
 
 /**
  * 
@@ -54,6 +55,10 @@ public class ResponseWrapper {
 
 	private String af_time;// 服务后照片上传时间
 	private List<ImgInfo> af_images;// 服务后照片列表
+	
+	private List<DateInfo> date_list;
+	
+	private List<TimeInfo> time_list;
 	
 	public LocInfo getApos_info() {
 		return apos_info;
@@ -247,4 +252,27 @@ public class ResponseWrapper {
 	public void setAf_images(List<ImgInfo> af_images) {
 		this.af_images = af_images;
 	}
+
+
+	public List<DateInfo> getDate_list() {
+		return date_list;
+	}
+
+
+	public void setDate_list(List<DateInfo> date_list) {
+		this.date_list = date_list;
+	}
+
+
+	public List<TimeInfo> getTime_list() {
+		return time_list;
+	}
+
+
+	public void setTime_list(List<TimeInfo> time_list) {
+		this.time_list = time_list;
+	}
+
+	
+	
 }

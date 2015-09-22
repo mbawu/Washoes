@@ -16,6 +16,7 @@ import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.LoadActivity;
+import com.cn.washoes.activity.MyTimeActivity;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.util.NetworkAction;
 
@@ -81,7 +82,8 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		// 我的时间
 		case R.id.person_time:
-
+			intent = new Intent().setClass(PersonActivity.this,
+					MyTimeActivity.class);
 			break;
 		// 我的消息
 		case R.id.person_msg:

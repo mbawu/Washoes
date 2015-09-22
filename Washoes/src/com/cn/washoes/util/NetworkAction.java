@@ -23,6 +23,10 @@ public enum NetworkAction {
 	pos_in, // 技师服务位置设置
 	ultu_upload_v2, // 订单图片上传
 	pos_list, // 技师服务位置列表
-	confirm_e;//订单确认
+	confirm_e,//订单确认
+	date_list,
+	time_list,
+	time_set_d,
+	time_set_h
 
 }
