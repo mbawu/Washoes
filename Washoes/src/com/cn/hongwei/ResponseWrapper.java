@@ -11,6 +11,7 @@ import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.model.LocArea;
 import com.cn.washoes.model.LocInfo;
+import com.cn.washoes.model.Msg;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
 import com.cn.washoes.model.Province;
@@ -55,11 +56,24 @@ public class ResponseWrapper {
 
 	private String af_time;// 服务后照片上传时间
 	private List<ImgInfo> af_images;// 服务后照片列表
-	
+
 	private List<DateInfo> date_list;
 	
 	private List<TimeInfo> time_list;
+
+	private List<Msg> msg_list;//我的消息列表
+
 	
+	public List<Msg> getMsg_list() {
+		return msg_list;
+	}
+
+
+	public void setMsg_list(List<Msg> msg_list) {
+		this.msg_list = msg_list;
+	}
+
+
 	public LocInfo getApos_info() {
 		return apos_info;
 	}

@@ -42,11 +42,20 @@ public class RequestWrapper {
 	private String file_num;//上传的文件个数
 	private Map<String,String> files;
 	private String pos;//是否获取定点位置(1是 0否)(技师服务位置列表)
+
 	private String days;
 	private String date;
 	private String time_id	;
+
+	private String msg_id;//消息ID
 	
 
+	public String getMsg_id() {
+		return msg_id;
+	}
+	public void setMsg_id(String msg_id) {
+		this.msg_id = msg_id;
+	}
 	public String getPos() {
 		return pos;
 	}

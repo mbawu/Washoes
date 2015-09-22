@@ -24,9 +24,14 @@ public enum NetworkAction {
 	ultu_upload_v2, // 订单图片上传
 	pos_list, // 技师服务位置列表
 	confirm_e,//订单确认
+
 	date_list,
 	time_list,
 	time_set_d,
-	time_set_h
+	time_set_h,
+
+
+	msg_list,//我的消息列表
+	msg_detail,//我的消息详情
 
 }

@@ -87,7 +87,8 @@ public class PersonActivity extends BaseActivity implements OnClickListener {
 			break;
 		// 我的消息
 		case R.id.person_msg:
-
+			intent = new Intent().setClass(PersonActivity.this,
+					MessageActivity.class);
 			break;
 		// 修改手机号
 		case R.id.person_change:
