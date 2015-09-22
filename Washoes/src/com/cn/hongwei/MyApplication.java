@@ -147,7 +147,7 @@ public class MyApplication extends Application {
 
 	private void initSharePreferenceData() {
 		String infoJson = sp.getString("info", null);
-		if (infoJson != null && !"".equals(infoJson)) {
+		if (infoJson != null && !"".equals(infoJson) && !"null".equals(infoJson)) {
 			info = JsonUtil.fromJson(infoJson, Info.class);
 			MyApplication.loginStat = info.isLoginState();
 		}

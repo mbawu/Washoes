@@ -3,6 +3,7 @@ package com.cn.washoes.person;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,8 @@ public class MessageActivity extends BaseActivity {
 	private TextView nodata;
 	private ListView listView;
 	private MsgAdapter adapter;
+	private String content;
+	private String msgID;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +95,32 @@ public class MessageActivity extends BaseActivity {
 				nodata.setVisibility(View.VISIBLE);
 			}
 		}
+		else if(requestType==NetworkAction.msg_detail)
+		{
+			Intent intent=new Intent();
+			intent.setClass(MessageActivity.this, MessageDetailActivity.class);
+			intent.putExtra("msg", content);
+			startActivity(intent);
+		}
 	}
 	
+	/**
+	 * 获取消息详情
+	 * @param msg_id
+	 */
+	public void getMsgDetail(String msg_id)
+	{
+		RequestWrapper requestWrapper=new RequestWrapper();
+		requestWrapper.setOp("artificer");
+		requestWrapper.setAid(MyApplication.getInfo().getAid());
+		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+		requestWrapper.setShowDialog(true);
+		requestWrapper.setMsg_id(msg_id);
+		sendData(requestWrapper, NetworkAction.msg_detail);
+	}
 	
 	/**
-	 * 省份适配器
+	 * 消息适配器
 	 * 
 	 * @author Wu Jiang
 	 * 
@@ -125,7 +149,7 @@ public class MessageActivity extends BaseActivity {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 		
-			Msg msg=getDataList().get(position);
+			final Msg msg=getDataList().get(position);
 			viewHolder.content.setText(msg.getContent());
 			if(msg.getIs_read().equals("1"))
 				viewHolder.layout.setBackgroundResource(R.drawable.box_disable);
@@ -137,7 +161,10 @@ public class MessageActivity extends BaseActivity {
 				@Override
 				public void onClick(View v) {
 					//打开消息详情页面
-					
+					getMsgDetail(msg.getMsg_id());
+					content=msg.getContent();
+					msg.setIs_read("1");
+					notifyDataSetChanged();
 				}
 			});
 			

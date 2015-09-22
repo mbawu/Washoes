@@ -25,4 +25,5 @@ public enum NetworkAction {
 	pos_list, // 技师服务位置列表
 	confirm_e,//订单确认
 	msg_list,//我的消息列表
+	msg_detail,//我的消息详情
 }
