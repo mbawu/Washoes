@@ -33,13 +33,13 @@
             android:textSize="20dp" >
         </TextView>
 
-        <Button
+        <TextView
             android:id="@+id/my_time_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/my_time_close" />
+            android:background="@drawable/my_time_open" />
     </LinearLayout>
 
     <View
@@ -73,7 +73,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="我的时间"
             android:textColor="#323232"
             android:textSize="18dp" >
         </TextView>
@@ -83,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/next_data_selector" />
+            android:background="@drawable/next_data_selector_enable" />
 
     </LinearLayout>
 
