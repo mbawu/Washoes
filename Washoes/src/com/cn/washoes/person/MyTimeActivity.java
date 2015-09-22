@@ -188,8 +188,6 @@ public class MyTimeActivity extends BaseActivity {
 	
 	private void checkMyTimeBtn()
 	{
-		if(day!=0)
-		{
 			int count=0;
 			for (int i = 0; i < timeInfos.size(); i++) {
 				if(timeInfos.get(i).getIs_server().equals("1"))
@@ -205,7 +203,6 @@ public class MyTimeActivity extends BaseActivity {
 				dayFlag="1";
 				myTimeBtn.setBackground(getResources().getDrawable(R.drawable.my_time_open));
 			}
-		}
 		
 	}
 	/**
