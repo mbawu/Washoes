@@ -150,7 +150,8 @@ public class MyApplication extends Application {
 		if (infoJson != null && !"".equals(infoJson) && !"null".equals(infoJson)) {
 			info = JsonUtil.fromJson(infoJson, Info.class);
 			MyApplication.loginStat = info.isLoginState();
-		}
+		}else
+			info=null;
 		
 	};
 
