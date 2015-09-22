@@ -57,41 +57,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/wihte"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp" >
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:gravity="center" >
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <CheckBox
+        <TextView
             android:id="@+id/my_time_pre_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/pre_date_selector" />
+            android:layout_marginRight="10dp"
+            android:background="@drawable/pre_date_selector" />
 
         <TextView
             android:id="@+id/my_time_date_text"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="我的时间"
             android:textColor="#323232"
-            android:textSize="20dp" >
+            android:textSize="18dp" >
         </TextView>
 
-        <CheckBox
+        <TextView
             android:id="@+id/my_time_next_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:button="@drawable/next_data_selector" />
+            android:background="@drawable/next_data_selector" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
     </LinearLayout>
 
     <View
@@ -103,13 +96,11 @@
         android:id="@+id/my_time_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:cacheColorHint="#00000000"
-        android:horizontalSpacing="5dp"
         android:listSelector="#00000000"
+        android:background="@color/wihte"
         android:numColumns="4"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" >
+        android:stretchMode="columnWidth" >
     </com.cn.hongwei.MyGridView>
 
 </LinearLayout>

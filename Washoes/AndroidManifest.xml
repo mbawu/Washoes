@@ -76,7 +76,7 @@
         <activity android:name="com.cn.washoes.activity.OrderCamareActivity" />
         <activity android:name="com.cn.washoes.activity.ImgDetailActivity" />
 
-        <activity android:name="com.cn.washoes.activity.MyTimeActivity" />
+        <activity android:name="com.cn.washoes.person.MyTimeActivity" />
 
         <activity android:name="com.cn.washoes.person.MessageActivity" />
         <activity android:name="com.cn.washoes.person.MessageDetailActivity" />

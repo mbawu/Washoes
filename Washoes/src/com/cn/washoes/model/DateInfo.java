@@ -1,10 +1,10 @@
 package com.cn.washoes.model;
 
 public class DateInfo {
-	private String week_str;
-	private String date;
-	private String date_str;
-	private String week;
+	private String week_str;//周几（中文）
+	private String date;//完整日期
+	private String date_str;//格式化日期
+	private String week;//周几（阿拉伯数字）
 	public String getWeek_str() {
 		return week_str;
 	}
