@@ -2,9 +2,19 @@ package com.cn.washoes.model;
 
 public class TimeInfo {
 
-	private String is_server;
-	private String time_hour;
-	private String time_id;
+	private String is_server;//时间ID
+	private String time_hour;//时间
+	private String time_id;//服务状态（-1已失效 0已预约 1未预约 2流失）
+	private String flag;
+	
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	public String getIs_server() {
 		return is_server;

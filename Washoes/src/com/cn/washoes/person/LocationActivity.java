@@ -256,29 +256,62 @@ public class LocationActivity extends BaseActivity implements
 		}
 		// 获取服务位置并且有服务位置的时候
 		else if (requestType == NetworkAction.pos_list) {
-			createLayout.setVisibility(View.GONE);
-			loadLayout.setVisibility(View.VISIBLE);
-			// 显示定位信息
-			info = responseWrapper.getApos_info();
-			String address = info.getProvince_name() + info.getCity_name()
-					+ info.getArea_name() + info.getAddress();
-			loadAddress.setText(address);
-			// 显示区域信息
 			areaList = responseWrapper.getApos_list();
-			showAreaAdapter = new ShowAreaAdapter(this);
-			showAreaAdapter.setDataList(areaList);
-			showAreaAdapter.notifyDataSetChanged();
-			showListView.setAdapter(showAreaAdapter);
-			topTitleView.setRightBtnText("修改", new OnClickListener() {
+			info = responseWrapper.getApos_info();
+			// 进入创建环节
+			if (areaList.size() == 0) {
+				createModule();
+			}
+			// 进入修改环节
+			else {
+				changeModule();
+			}
 
-				@Override
-				public void onClick(View v) {
-					changeLoc();
-
-				}
-
-			});
 		}
+	}
+
+	private void changeModule() {
+		createLayout.setVisibility(View.GONE);
+		loadLayout.setVisibility(View.VISIBLE);
+		// 显示定位信息
+		String address = info.getProvince_name() + info.getCity_name()
+				+ info.getArea_name() + info.getAddress();
+		loadAddress.setText(address);
+		// 显示区域信息
+		showAreaAdapter = new ShowAreaAdapter(this);
+		showAreaAdapter.setDataList(areaList);
+		showAreaAdapter.notifyDataSetChanged();
+		showListView.setAdapter(showAreaAdapter);
+		topTitleView.setRightBtnText("修改", new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				changeLoc();
+
+			}
+
+		});
+	}
+
+	private void createModule() {
+		createLayout.setVisibility(View.VISIBLE);
+		loadLayout.setVisibility(View.GONE);
+		// resetLoc();
+
+		topTitleView.setRightBtnText("保存", new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				saveLoc();
+
+			}
+
+		});
+		LocArea area = new LocArea();
+		areaList.add(area);
+		areaLVAdapter.setDataList(areaList);
+		areaListView.setAdapter(areaLVAdapter);
+		getData();
 	}
 
 	/**
@@ -300,7 +333,7 @@ public class LocationActivity extends BaseActivity implements
 		areaLVAdapter.setDataList(areaList);
 		areaListView.setAdapter(areaLVAdapter);
 		areaLVAdapter.notifyDataSetChanged();
-		if(info!=null)
+		if (info != null)
 			addressTxt.setText(info.getAddress());
 		getData();
 	}
@@ -311,25 +344,7 @@ public class LocationActivity extends BaseActivity implements
 		super.getErrorMsg(requestType);
 		// 如果获取服务位置失败或者没有服务位置的时候
 		if (requestType == NetworkAction.pos_list) {
-			createLayout.setVisibility(View.VISIBLE);
-			loadLayout.setVisibility(View.GONE);
-			// resetLoc();
-
-			topTitleView.setRightBtnText("保存", new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					saveLoc();
-
-				}
-
-			});
-			LocArea area = new LocArea();
-			areaList.add(area);
-			areaLVAdapter.setDataList(areaList);
-			areaListView.setAdapter(areaLVAdapter);
-			getData();
-
+			createModule();
 		}
 	}
 
