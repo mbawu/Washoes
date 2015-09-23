@@ -150,7 +150,19 @@ public class OrderListActivity extends BaseActivity implements
 		super.showResualt(responseWrapper, requestType);
 
 		if (requestType == NetworkAction.list) {
+			
 			if (responseWrapper.getList() != null) {
+				if(responseWrapper.getList().size()==0)
+				{
+					nodata.setVisibility(View.VISIBLE);
+					listView.setVisibility(View.GONE);
+					return;
+				}
+				else
+				{
+					nodata.setVisibility(View.GONE);
+					listView.setVisibility(View.VISIBLE);
+				}
 				if ("1".equals(responseWrapper.getPage())) {
 					orderList.clear();
 				}
