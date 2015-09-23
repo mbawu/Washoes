@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -106,7 +109,24 @@ public class OrderListActivity extends BaseActivity implements
 		listView.setAdapter(adapter);
 		// MyApplication.getKey(this);
 		getOrder();
+		registerReceiver(receiver, new IntentFilter(Cst.GET_RECEIVE));
 	}
+
+	protected void onDestroy() {
+		unregisterReceiver(receiver);
+		super.onDestroy();
+	};
+
+	BroadcastReceiver receiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (Cst.GET_RECEIVE.equals(intent.getAction())) {
+				getOrder();
+			}
+		}
+
+	};
 
 	/**
 	 * 评价成功后重新刷新订单列表
@@ -278,6 +298,8 @@ public class OrderListActivity extends BaseActivity implements
 						.findViewById(R.id.order_item_text_id);
 				viewHolder.imgCamare = (ImageView) convertView
 						.findViewById(R.id.order_item_img_camare);
+				viewHolder.viewNoRead = convertView
+						.findViewById(R.id.order_item_view_no_read);
 				convertView.setTag(viewHolder);
 			} else {
 				viewHolder = (ViewHolder) convertView.getTag();
@@ -298,6 +320,12 @@ public class OrderListActivity extends BaseActivity implements
 			viewHolder.textPhone.setText(oItem.getMobile());
 			viewHolder.textID.setText(oItem.getUid());
 
+			if ("0".equals(oItem.getIs_read())) {
+				viewHolder.viewNoRead.setVisibility(View.VISIBLE);
+			} else {
+				viewHolder.viewNoRead.setVisibility(View.GONE);
+			}
+
 			if (ORDER_STATUS_CANCEL.equals(oItem.getFlag())) {
 				viewHolder.imgCamare.setVisibility(View.GONE);
 			} else {
@@ -316,6 +344,8 @@ public class OrderListActivity extends BaseActivity implements
 							OrderInfoActivity.class);
 					intent.putExtra("oid", oItem.getOrder_id());
 					OrderListActivity.this.startActivity(intent);
+					oItem.setIs_read("1");
+					adapter.notifyDataSetChanged();
 				}
 			});
 			return convertView;
@@ -330,6 +360,7 @@ public class OrderListActivity extends BaseActivity implements
 			TextView textPhone;
 			TextView textID;
 			ImageView imgCamare;
+			View viewNoRead;
 		}
 
 	}

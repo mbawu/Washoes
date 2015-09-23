@@ -16,6 +16,7 @@ public class OrderItem {
 	private String pay_price;// 订单金额
 	private String order_code;// 订单号（编码）
 	private String mobile;// 用户手机号
+	private String is_read;
 
 	public String getCreatetime() {
 		return createtime;
@@ -119,6 +120,14 @@ public class OrderItem {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getIs_read() {
+		return is_read;
+	}
+
+	public void setIs_read(String is_read) {
+		this.is_read = is_read;
 	}
 
 }

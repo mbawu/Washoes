@@ -28,21 +28,37 @@
             android:textColor="#FFFFFF"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/order_item_text_price"
-            style="@style/orderItem"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
-            android:paddingRight="@dimen/order_item_text_H_padding"
-            android:textColor="#FFFFFF" />
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/order_item_text_price"
+                style="@style/orderItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/order_item_text_H_padding"
+                android:textColor="#FFFFFF" />
+
+            <View
+                android:id="@+id/order_item_view_no_read"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/order_no_read"
+                android:visibility="gone"
+                />
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/order_item_bg" 
-        android:orientation="vertical">
+        android:background="@drawable/order_item_bg"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
