@@ -131,7 +131,7 @@ public class OrderListActivity extends BaseActivity implements
 		requestWrapper.setPer("10000");
 		requestWrapper.setPage(page);
 		requestWrapper.setFlag(status);
-
+		requestWrapper.setShowDialog(true);
 		if (status == ORDER_STATUS_FINISH && "1".equals(page)) {
 			requestWrapper.setIs_onum("1");
 		} else {
@@ -156,7 +156,7 @@ public class OrderListActivity extends BaseActivity implements
 				{
 					nodata.setVisibility(View.VISIBLE);
 					listView.setVisibility(View.GONE);
-					return;
+					
 				}
 				else
 				{
@@ -179,6 +179,14 @@ public class OrderListActivity extends BaseActivity implements
 		}
 	}
 
+	@Override
+	public void getErrorMsg(NetworkAction requestType) {
+		// TODO Auto-generated method stub
+		super.getErrorMsg(requestType);
+		nodata.setVisibility(View.VISIBLE);
+		listView.setVisibility(View.GONE);
+	}
+	
 	/**
 	 * 订单操作点击响应事件
 	 */
