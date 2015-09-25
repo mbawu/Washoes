@@ -341,11 +341,8 @@ public class OrderInfoActivity extends BaseActivity {
 	 * @param v
 	 */
 	public void onViewClick(View v) {
-		if (v.getId() == R.id.order_info_text_call_kf) {
-			Intent phoneIntent = new Intent("android.intent.action.CALL",
-					Uri.parse("tel:4000918189"));
-			startActivity(phoneIntent);
-		} else if (v.getId() == R.id.order_info_text_call_u) {
+		if (v.getId() == R.id.order_info_text_call_u
+				|| v.getId() == R.id.order_info_text_call_kf) {
 			String phone = textPhone.getText().toString();
 			if (phone != null && !"".equals(phone)) {
 				Intent phoneIntent = new Intent("android.intent.action.CALL",

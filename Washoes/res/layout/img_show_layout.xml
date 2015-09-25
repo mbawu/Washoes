@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18sp"
-            android:text="3/4" />
+            android:layout_gravity="bottom"
+            android:text="1/1" />
     </FrameLayout>
 
 </LinearLayout>

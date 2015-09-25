@@ -286,6 +286,7 @@ public class OrderCamareActivity extends PhotoActivity implements
 							Uri uri = Uri.fromFile(vFile);
 							Intent intent = new Intent(
 									MediaStore.ACTION_IMAGE_CAPTURE);
+							intent.setPackage("com.android.camera");
 							intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//
 							OrderCamareActivity.this.startActivityForResult(
 									intent, PhotoActivity.REQUEST_CODE_CAMERA);
