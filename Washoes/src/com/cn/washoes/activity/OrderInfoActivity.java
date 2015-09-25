@@ -155,7 +155,7 @@ public class OrderInfoActivity extends BaseActivity {
 							.getList()) {
 						if ("3".equals(sInfo.getCategory_id())) {// 修理
 							setDataRepairService(sInfo.getProject_name(),
-									sInfo.getSs_info());
+									sInfo.getBuy_num());
 						} else {
 							setDataColorService(sInfo);
 							/*
@@ -305,14 +305,11 @@ public class OrderInfoActivity extends BaseActivity {
 	 * @param typeName
 	 * @param ss_Infos
 	 */
-	private void setDataRepairService(String typeName, List<SS_Info> ss_Infos) {
+	private void setDataRepairService(String typeName, String num) {
 		findViewById(R.id.xL).setVisibility(View.VISIBLE);
-		if (ss_Infos == null || ss_Infos.size() == 0) {
-			textHeel.setText(getServiceHtml("鞋跟", "0"));
-		} else {
-			textHeel.setText(getServiceHtml(ss_Infos.get(0).getSs_name(),
-					ss_Infos.get(0).getSs_buy_num()));
-		}
+
+		textHeel.setText(getServiceHtml(typeName, num));
+
 	}
 
 	/**
