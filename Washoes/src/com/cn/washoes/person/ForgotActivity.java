@@ -62,7 +62,7 @@ public class ForgotActivity extends BaseActivity {
 		} else if (getIntent().getStringExtra("changephone") != null) {
 			topTitleView.setTitle("修改手机号");
 			String text = getString(R.string.change_phone).replace("{0}",
-					"1592071696");
+					MyApplication.getInfo().getMobile());
 			comment.setText(text);
 			imgLog.setVisibility(View.GONE);
 			comment.setVisibility(View.VISIBLE);
