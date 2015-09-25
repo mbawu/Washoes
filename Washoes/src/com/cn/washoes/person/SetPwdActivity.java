@@ -154,7 +154,7 @@ public class SetPwdActivity extends BaseActivity {
 			Info info = responseWrapper.getInfo();
 			info.setLoginState(true);
 			MyApplication.loginStat = true;
-
+			MyApplication.setInfo(info);
 			Toast.makeText(this, responseWrapper.getMsg(), Toast.LENGTH_SHORT);
 			return;
 		}

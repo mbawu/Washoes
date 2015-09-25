@@ -90,14 +90,20 @@ public class MyReceiver extends BroadcastReceiver {
 							if(info.getAid().equals(userArray.getString(i)))
 							{
 								String isOrder=filter.getString("is_order");
+								String isWarining=filter.getString("is_new");
 								if(isOrder.equals("1"))
 								{
 									// 接收到消息推送以后通知改变消息数量
 									Intent mIntent = new Intent(Cst.GET_RECEIVE);
 									// 发送广播
 									context.sendBroadcast(mIntent);
+									MyApplication.notifyMsg(context, content,title);
 								}
-								MyApplication.notifyMsg(context, content,title);
+								
+								if(isWarining.equals("1"))
+								{
+									MyApplication.notifyMsg(context, content,title);
+								}
 							}
 						}
 						

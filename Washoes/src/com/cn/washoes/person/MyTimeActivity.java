@@ -338,9 +338,9 @@ public class MyTimeActivity extends BaseActivity {
 				time.setFlag("0");
 				viewHolder.state.setText("未预约");
 				viewHolder.state.setTextColor(getResources().getColor(
-						R.color.blank));
+						R.color.wihte));
 				viewHolder.hour.setTextColor(getResources().getColor(
-						R.color.blank));
+						R.color.wihte));
 				viewHolder.layout.setBackgroundColor(getResources().getColor(
 						R.color.green));
 				viewHolder.layout.setOnClickListener(new OnClickListener() {

@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -22,6 +23,7 @@ public class MenuTable extends TabActivity {
 	public static TabHost tabHost; // 底部菜单栏
 	public static RadioGroup radioGroup;
 	private Resources resources; //获取资源文件
+	private static RadioButton orderBtn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MenuTable extends TabActivity {
 	
 	private void initData() {
 		tabHost = this.getTabHost();
+		orderBtn=(RadioButton) findViewById(R.id.main_tab_search);
 		TabHost.TabSpec spec;
 		Intent intent;
 		// 首页菜单
@@ -127,7 +130,10 @@ public class MenuTable extends TabActivity {
 		}
 	}
 
-	
+	public static void setOrderChecked()
+	{
+		orderBtn.setChecked(true);
+	}
 	private long exitTime = 0;
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
