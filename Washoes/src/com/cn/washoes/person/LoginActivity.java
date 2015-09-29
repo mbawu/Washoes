@@ -17,6 +17,7 @@ import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
 
 /**
@@ -114,6 +115,11 @@ public class LoginActivity extends BaseActivity {
 			MyApplication.setInfo(info);
 			Intent intent=new Intent().setClass(this, MenuTable.class);
 			startActivity(intent);
+			
+			// 登录成功以后刷新一次订单列表
+			Intent mIntent = new Intent(Cst.GET_RECEIVE);
+			// 发送广播
+			sendBroadcast(mIntent);
 		
 		}
 	}
