@@ -21,7 +21,7 @@
     <EditText 
         android:id="@+id/login_pwd"
         style="@style/editTextStyle"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:inputType="textPassword"
         android:hint="密码"/>
