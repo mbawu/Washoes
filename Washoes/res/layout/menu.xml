@@ -48,8 +48,8 @@
                     style="@style/MMTabButton"
                     android:layout_weight="1.0"
                     android:checked="true"
-                    android:drawableTop="@drawable/main_menu_home"
                     android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/main_menu_home"
                     android:paddingTop="7dp"
                     android:text="@string/main_menu_home"
                     android:textColor="@color/color_radiobutton" />
@@ -60,15 +60,30 @@
                     android:layout_height="match_parent"
                     android:background="#d2d2d2" />
 
-                <RadioButton
-                    android:id="@+id/main_tab_search"
-                    style="@style/MMTabButton"
-                    android:layout_weight="1.0"
-                    android:drawableTop="@drawable/main_menu_order"
-                    android:paddingTop="7dp"
-                    android:drawablePadding="5dp"
-                    android:text="@string/main_menu_order"
-                    android:textColor="@color/color_radiobutton" />
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0" >
+
+                    <RadioButton
+                        android:id="@+id/main_tab_search"
+                        style="@style/MMTabButton"
+                        android:drawablePadding="5dp"
+                        android:drawableTop="@drawable/main_menu_order"
+                        android:paddingTop="7dp"
+                        android:text="@string/main_menu_order"
+                        android:textColor="@color/color_radiobutton" />
+
+                    <View
+                        android:id="@+id/order_item_view_no_read"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/order_no_read"
+                        android:visibility="gone" />
+                </FrameLayout>
 
                 <View
                     android:layout_width="0.5dp"
@@ -80,9 +95,9 @@
                     android:id="@+id/main_tab_personcenter"
                     style="@style/MMTabButton"
                     android:layout_weight="1.0"
+                    android:drawablePadding="5dp"
                     android:drawableTop="@drawable/main_menu_person"
                     android:paddingTop="7dp"
-                    android:drawablePadding="5dp"
                     android:text="@string/main_menu_person"
                     android:textColor="@color/color_radiobutton" />
             </RadioGroup>

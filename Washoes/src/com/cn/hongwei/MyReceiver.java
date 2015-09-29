@@ -69,7 +69,6 @@ public class MyReceiver extends BroadcastReceiver {
 			String content = null;//消息内容
 			String title = null;//消息标题
 			Log.i("test", "message-->" + message);
-			//还剩下临近消息提醒
 			JSONObject ob;
 			try {
 				ob = new JSONObject(message);
@@ -91,8 +90,12 @@ public class MyReceiver extends BroadcastReceiver {
 							{
 								String isOrder=filter.getString("is_order");
 								String isWarining=filter.getString("is_new");
-								if(isOrder.equals("1"))
+								if(isOrder.equals("1") || isOrder.equals("2"))
 								{
+									//如果是新订单的话显示未读图标
+									if(isOrder.equals("1"))
+										MenuTable.openMsgView();
+									
 									// 接收到消息推送以后通知改变消息数量
 									Intent mIntent = new Intent(Cst.GET_RECEIVE);
 									// 发送广播

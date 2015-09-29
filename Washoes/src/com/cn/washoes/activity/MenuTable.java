@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,6 +25,7 @@ public class MenuTable extends TabActivity {
 	public static RadioGroup radioGroup;
 	private Resources resources; //获取资源文件
 	private static RadioButton orderBtn;
+	private static View msgView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MenuTable extends TabActivity {
 	
 	private void initData() {
 		tabHost = this.getTabHost();
+		msgView=(View) findViewById(R.id.order_item_view_no_read);
 		orderBtn=(RadioButton) findViewById(R.id.main_tab_search);
 		TabHost.TabSpec spec;
 		Intent intent;
@@ -130,6 +133,16 @@ public class MenuTable extends TabActivity {
 		}
 	}
 
+	public static void openMsgView()
+	{
+		msgView.setVisibility(View.VISIBLE);
+	}
+	
+	public static void closeMsgView()
+	{
+		msgView.setVisibility(View.GONE);
+	}
+	
 	public static void setOrderChecked()
 	{
 		orderBtn.setChecked(true);
