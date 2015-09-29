@@ -318,7 +318,7 @@ public class OrderListActivity extends BaseActivity implements
 			}
 
 			viewHolder.textPhone.setText(oItem.getMobile());
-			viewHolder.textID.setText(oItem.getUid());
+			viewHolder.textID.setText(oItem.getOrder_id());
 
 			if ("0".equals(oItem.getIs_read())) {
 				viewHolder.viewNoRead.setVisibility(View.VISIBLE);
