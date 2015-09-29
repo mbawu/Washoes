@@ -66,8 +66,10 @@ public class OrderCamareActivity extends PhotoActivity implements
 		int type = getIntent().getIntExtra(KEY_CAMARE_TYPE, CAMARE_TYPE_BEFORE);
 		if(CAMARE_TYPE_BEFORE ==type){
 			textPosition.setText("服务前");
+			flag = "4";
 		}else{
 			textPosition.setText("服务后");
+			flag = "5";
 		}
 		addCamaraViews();
 	}

@@ -415,7 +415,7 @@ public class OrderInfoActivity extends BaseActivity {
 											+ fromAdd
 											+ "&destination="
 											+ toAdd
-											+ "&mode=driving&region="
+											+ "&mode=walking&region="
 											+ city
 											+ "&src=洗豆豆#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end",
 									android.content.Intent.URI_INTENT_SCHEME);
