@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:background="#FFFFFF"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -75,16 +76,18 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="8dp"
+        
         android:background="@color/province_line_border" />
 
     <LinearLayout
         android:id="@+id/order_num_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:background="#FFFFFF"
         android:visibility="gone" >
 
         <TextView
