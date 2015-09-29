@@ -40,7 +40,7 @@ public class MenuTable extends TabActivity {
 	private void initData() {
 		tabHost = this.getTabHost();
 		msgView=(View) findViewById(R.id.order_item_view_no_read);
-		orderBtn=(RadioButton) findViewById(R.id.main_tab_search);
+		orderBtn=(RadioButton) findViewById(R.id.main_tab_order);
 		TabHost.TabSpec spec;
 		Intent intent;
 		// 首页菜单
@@ -89,7 +89,7 @@ public class MenuTable extends TabActivity {
 					tabHost.setCurrentTabByTag(resources
 							.getString(R.string.main_menu_home));
 					break;
-				case R.id.main_tab_search:
+				case R.id.main_tab_order:
 					tabHost.setCurrentTabByTag(resources
 							.getString(R.string.main_menu_order));
 					break;
