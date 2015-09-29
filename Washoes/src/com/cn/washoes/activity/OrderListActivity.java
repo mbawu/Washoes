@@ -344,8 +344,12 @@ public class OrderListActivity extends BaseActivity implements
 							OrderInfoActivity.class);
 					intent.putExtra("oid", oItem.getOrder_id());
 					OrderListActivity.this.startActivity(intent);
-					oItem.setIs_read("1");
-					adapter.notifyDataSetChanged();
+					if("0".equals(oItem.getIs_read())){
+						MenuTable.closeMsgView();
+						oItem.setIs_read("1");
+						adapter.notifyDataSetChanged();
+					}
+					
 				}
 			});
 			return convertView;
