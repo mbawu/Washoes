@@ -35,7 +35,7 @@
                 android:id="@+id/setpwd_pwd2"
                 style="@style/editTextStyle"
                 android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:hint="再次输入密码" 
                 android:inputType="textPassword"/>
 
