@@ -305,53 +305,56 @@ public class OrderListActivity extends BaseActivity implements
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 			final OrderItem oItem = orderList.get(position);
-			viewHolder.textDate.setText(oItem.getServicetime());
-			viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
-			viewHolder.textUserName.setText(oItem.getRealname());
-			if (ORDER_STATUS_FINISH.equals(oItem.getFlag())
-					&& "1".equals(oItem.getIs_comment())) {
-				viewHolder.textUserType.setText(getUserTypeHtml("0"
-						.equals(oItem.getUtag()) ? "新用户" : "老用户"));
-			} else {
-				viewHolder.textUserType
-						.setText("0".equals(oItem.getUtag()) ? "新用户" : "老用户");
-			}
+			if(oItem != null){
+				viewHolder.textDate.setText(oItem.getServicetime());
+				viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
+				viewHolder.textUserName.setText(oItem.getRealname());
+				if (ORDER_STATUS_FINISH.equals(oItem.getFlag())
+						&& "1".equals(oItem.getIs_comment())) {
+					viewHolder.textUserType.setText(getUserTypeHtml("0"
+							.equals(oItem.getUtag()) ? "新用户" : "老用户"));
+				} else {
+					viewHolder.textUserType
+							.setText("0".equals(oItem.getUtag()) ? "新用户" : "老用户");
+				}
 
-			viewHolder.textPhone.setText(oItem.getMobile());
-			viewHolder.textID.setText(oItem.getOrder_id());
+				viewHolder.textPhone.setText(oItem.getMobile());
+				viewHolder.textID.setText(oItem.getOrder_id());
 
-			if ("0".equals(oItem.getIs_read())) {
-				viewHolder.viewNoRead.setVisibility(View.VISIBLE);
-			} else {
-				viewHolder.viewNoRead.setVisibility(View.GONE);
-			}
+				if ("0".equals(oItem.getIs_read())) {
+					viewHolder.viewNoRead.setVisibility(View.VISIBLE);
+				} else {
+					viewHolder.viewNoRead.setVisibility(View.GONE);
+				}
 
-			if (ORDER_STATUS_CANCEL.equals(oItem.getFlag())) {
-				viewHolder.imgCamare.setVisibility(View.GONE);
-			} else {
-				viewHolder.imgCamare.setVisibility(View.VISIBLE);
+				if (ORDER_STATUS_CANCEL.equals(oItem.getFlag())) {
+					viewHolder.imgCamare.setVisibility(View.GONE);
+				} else {
+					viewHolder.imgCamare.setVisibility(View.VISIBLE);
+					viewHolder.imgCamare.setTag(oItem.getOrder_id());
+					viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
+				}
 				viewHolder.imgCamare.setTag(oItem.getOrder_id());
 				viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
-			}
-			viewHolder.imgCamare.setTag(oItem.getOrder_id());
-			viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
-			convertView.setOnClickListener(new OnClickListener() {
+				convertView.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent();
-					intent.setClass(OrderListActivity.this,
-							OrderInfoActivity.class);
-					intent.putExtra("oid", oItem.getOrder_id());
-					OrderListActivity.this.startActivity(intent);
-					if("0".equals(oItem.getIs_read())){
-						MenuTable.closeMsgView();
-						oItem.setIs_read("1");
-						adapter.notifyDataSetChanged();
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+						intent.setClass(OrderListActivity.this,
+								OrderInfoActivity.class);
+						intent.putExtra("oid", oItem.getOrder_id());
+						OrderListActivity.this.startActivity(intent);
+						if("0".equals(oItem.getIs_read())){
+							MenuTable.closeMsgView();
+							oItem.setIs_read("1");
+							adapter.notifyDataSetChanged();
+						}
+						
 					}
-					
-				}
-			});
+				});
+			}
+			
 			return convertView;
 		}
 
