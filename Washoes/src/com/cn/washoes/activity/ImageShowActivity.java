@@ -3,6 +3,7 @@ package com.cn.washoes.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.color;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -55,7 +56,8 @@ public class ImageShowActivity extends Activity {
 			final String url = images.get(i).getFile_path();
 			imageView.setLayoutParams(new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-			imageView.setScaleType(ScaleType.FIT_XY);
+			imageView.setScaleType(ScaleType.FIT_CENTER);
+			imageView.setBackgroundColor(color.black);
 			imageView.loadImage(url);
 
 			carouseImageViews.add(imageView);
