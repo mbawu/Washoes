@@ -23,7 +23,7 @@ public class MenuTable extends TabActivity {
 	/** Called when the activity is first created. */
 	public static TabHost tabHost; // 底部菜单栏
 	public static RadioGroup radioGroup;
-	private Resources resources; //获取资源文件
+	private Resources resources; // 获取资源文件
 	private static RadioButton orderBtn;
 	private static View msgView;
 
@@ -36,11 +36,10 @@ public class MenuTable extends TabActivity {
 		initData();
 	}
 
-	
 	private void initData() {
 		tabHost = this.getTabHost();
-		msgView=(View) findViewById(R.id.order_item_view_no_read);
-		orderBtn=(RadioButton) findViewById(R.id.main_tab_order);
+		msgView = (View) findViewById(R.id.order_item_view_no_read);
+		orderBtn = (RadioButton) findViewById(R.id.main_tab_order);
 		TabHost.TabSpec spec;
 		Intent intent;
 		// 首页菜单
@@ -57,28 +56,24 @@ public class MenuTable extends TabActivity {
 				.setContent(intent);
 		tabHost.addTab(spec);
 
-
 		// 个人中心菜单
 		intent = new Intent().setClass(this, PersonActivity.class);
 		spec = tabHost
-				.newTabSpec(
-						resources.getString(R.string.main_menu_person))
-				.setIndicator(
-						resources.getString(R.string.main_menu_person))
+				.newTabSpec(resources.getString(R.string.main_menu_person))
+				.setIndicator(resources.getString(R.string.main_menu_person))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
-//		// 登录界面
-//					intent = new Intent().setClass(this, PersonLogin.class);
-//					spec = tabHost
-//							.newTabSpec(resources.getString(R.string.person_login))
-//							.setIndicator(resources.getString(R.string.person_login))
-//							.setContent(intent);
-//					tabHost.addTab(spec);
+		// // 登录界面
+		// intent = new Intent().setClass(this, PersonLogin.class);
+		// spec = tabHost
+		// .newTabSpec(resources.getString(R.string.person_login))
+		// .setIndicator(resources.getString(R.string.person_login))
+		// .setContent(intent);
+		// tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);
-		radioGroup = (RadioGroup) this
-				.findViewById(R.id.main_tab_group);
+		radioGroup = (RadioGroup) this.findViewById(R.id.main_tab_group);
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -102,52 +97,54 @@ public class MenuTable extends TabActivity {
 				}
 			}
 		});
-		 getInfo();
-	}
-	@Override
-    protected void onResume() {
-        super.onResume();
-        JPushInterface.onResume(this);
-        if(MyApplication.exit)
-        {
-        	finish();
-			System.exit(0);
-        }
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        JPushInterface.onPause(this);
-    }
 
-    
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.onResume(this);
+
+		if (MyApplication.exit) {
+			finish();
+			System.exit(0);
+		} else {
+			getInfo();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+
 	/**
 	 * 获取用户信息，判断是否登录过
 	 */
 	private void getInfo() {
-		Info info=MyApplication.getInfo();
-		if(info==null)
-		{
-			Intent intent=new Intent().setClass(MenuTable.this, LoadActivity.class);
+		Info info = MyApplication.getInfo();
+		if (info == null) {
+			Intent intent = new Intent().setClass(MenuTable.this,
+					LoadActivity.class);
 			startActivity(intent);
 		}
 	}
 
-	public static void openMsgView()
-	{
+	public static void openMsgView() {
 		msgView.setVisibility(View.VISIBLE);
 	}
-	
-	public static void closeMsgView()
-	{
+
+	public static void closeMsgView() {
 		msgView.setVisibility(View.GONE);
 	}
-	
-	public static void setOrderChecked()
-	{
+
+	public static void setOrderChecked() {
 		orderBtn.setChecked(true);
 	}
+
 	private long exitTime = 0;
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK
