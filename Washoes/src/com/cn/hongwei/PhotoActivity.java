@@ -141,17 +141,18 @@ public abstract class PhotoActivity extends BaseActivity {
 	protected void startPhotoZoom(Uri uri) {
 
 		Intent intent = new Intent("com.android.camera.action.CROP");
+
 		intent.setDataAndType(uri, "image/*");
 		intent.putExtra("crop", "true");
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
+		intent.putExtra("aspectX", MyApplication.width);
+		intent.putExtra("aspectY", MyApplication.width);
+		intent.putExtra("outputX", MyApplication.width);
+		intent.putExtra("outputY", MyApplication.width);
 		intent.putExtra("scale", true);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT,
 				Uri.fromFile(new File(imgPath)));
 		intent.putExtra("return-data", false);
-		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+		intent.putExtra("outputFormat", Bitmap.CompressFormat.WEBP.toString());
 		intent.putExtra("noFaceDetection", true); // no face detection
 		startActivityForResult(intent, PhotoActivity.REQUEST_CODE_CORP);
 	}

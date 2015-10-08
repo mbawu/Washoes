@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -46,6 +47,10 @@ public class MenuTable extends TabActivity {
 		registerReceiver(receiver, new IntentFilter(Cst.OPEN_ORDER));
 		registerReceiver(receiver, new IntentFilter(Cst.CLOSE_MSG));
 		registerReceiver(receiver, new IntentFilter(Cst.CLOSE_ORDER));
+		DisplayMetrics dm = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(dm);
+		MyApplication.width = dm.widthPixels;// 宽度
+		MyApplication.height = dm.heightPixels ;//高度
 	}
 
 	private void initData() {

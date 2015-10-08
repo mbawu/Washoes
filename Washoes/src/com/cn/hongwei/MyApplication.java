@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
@@ -47,6 +48,8 @@ public class MyApplication extends Application {
 	public static String detail = "";
 	public static int msgId = 0;
 	public static int msgType = 0;// 0 打开我的订单列表页面 1打开我的消息页面
+	public static int width = 1;
+	public static int height = 1;
 
 	@Override
 	public void onCreate() {
@@ -75,6 +78,7 @@ public class MyApplication extends Application {
 		// 初始化JPUSH
 		JPushInterface.init(getApplicationContext());
 		getLocation();
+
 	}
 
 	public static void getKey(BaseActivity activity) {
@@ -257,15 +261,13 @@ public class MyApplication extends Application {
 		Intent notificationIntent = null;
 		// if(MenuTable.)
 		if (msgType == 0) {
-			Intent intent1 = new Intent(
-					Cst.SET_ORDER);
+			Intent intent1 = new Intent(Cst.SET_ORDER);
 			// 发送广播
 			context.sendBroadcast(intent1);
 			notificationIntent = new Intent(context, MenuTable.class);
 
 		} else if (msgType == 1) {
-			Intent intent1 = new Intent(
-					Cst.SET_PERSON);
+			Intent intent1 = new Intent(Cst.SET_PERSON);
 			// 发送广播
 			context.sendBroadcast(intent1);
 			notificationIntent = new Intent(context, MessageActivity.class);
