@@ -1,7 +1,10 @@
 package com.cn.washoes.activity;
 
 import android.app.TabActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -18,16 +21,19 @@ import com.cn.hongwei.MyApplication;
 import com.cn.washoes.R;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.person.PersonActivity;
+import com.cn.washoes.util.Cst;
 
 public class MenuTable extends TabActivity {
 	/** Called when the activity is first created. */
-	public static TabHost tabHost; // 底部菜单栏
-	public static RadioGroup radioGroup;
+	public TabHost tabHost; // 底部菜单栏
+	public RadioGroup radioGroup;
 	private Resources resources; // 获取资源文件
-	private static RadioButton orderBtn;
-	private static RadioButton personBtn;
-	private static View orderView;
-	private static View msgView;
+	private RadioButton orderBtn;
+	private RadioButton personBtn;
+	private View orderView;
+	private View msgView;
+
+	// public int isReceive=-1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,10 @@ public class MenuTable extends TabActivity {
 		setContentView(R.layout.menu);
 		resources = getResources();
 		initData();
+		registerReceiver(receiver, new IntentFilter(Cst.OPEN_MSG));
+		registerReceiver(receiver, new IntentFilter(Cst.OPEN_ORDER));
+		registerReceiver(receiver, new IntentFilter(Cst.CLOSE_MSG));
+		registerReceiver(receiver, new IntentFilter(Cst.CLOSE_ORDER));
 	}
 
 	private void initData() {
@@ -108,6 +118,11 @@ public class MenuTable extends TabActivity {
 	protected void onResume() {
 		super.onResume();
 		JPushInterface.onResume(this);
+		// if(isReceive>0){
+		// MenuTable.tabHost.setCurrentTab(isReceive);
+		// MenuTable.setOrderChecked();
+		// isReceive=-1;
+		// }
 
 		if (MyApplication.exit) {
 			finish();
@@ -137,33 +152,34 @@ public class MenuTable extends TabActivity {
 		}
 	}
 
-	public static void openOrderView() {
+	public void openOrderView() {
 		if (orderView != null)
 			orderView.setVisibility(View.VISIBLE);
 	}
 
-	public static void closeOrderView() {
+	public void closeOrderView() {
 		if (orderView != null)
 			orderView.setVisibility(View.GONE);
 	}
 
-	public static void openMsgView() {
+	public void openMsgView() {
 		if (msgView != null)
 			msgView.setVisibility(View.VISIBLE);
 	}
 
-	public static void closeMsgView() {
+	public void closeMsgView() {
 		if (msgView != null)
 			msgView.setVisibility(View.GONE);
 	}
-	
-	public static void setOrderChecked() {
+
+	public void setOrderChecked() {
 		orderBtn.setChecked(true);
 	}
-	public static void setPersonChecked() {
+
+	public void setPersonChecked() {
 		personBtn.setChecked(true);
 	}
-	
+
 	private long exitTime = 0;
 
 	@Override
@@ -182,4 +198,35 @@ public class MenuTable extends TabActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
+	BroadcastReceiver receiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (Cst.OPEN_MSG.equals(intent.getAction())) {
+				openMsgView();
+			} else if (Cst.OPEN_ORDER.equals(intent.getAction())) {
+				openOrderView();
+			} else if (Cst.CLOSE_MSG.equals(intent.getAction())) {
+				closeMsgView();
+			} else if (Cst.CLOSE_ORDER.equals(intent.getAction())) {
+				closeOrderView();
+			}
+			else if (Cst.SET_ORDER.equals(intent.getAction())) {
+				tabHost.setCurrentTab(1);
+				orderBtn.setChecked(true);
+			}
+			else if (Cst.SET_PERSON.equals(intent.getAction())) {
+				tabHost.setCurrentTab(2);
+				personBtn.setChecked(true);
+			}
+		}
+
+	};
+
+	protected void onDestroy() {
+		unregisterReceiver(receiver);
+		super.onDestroy();
+
+	};
 }

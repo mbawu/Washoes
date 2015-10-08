@@ -194,8 +194,16 @@ public class MessageActivity extends BaseActivity {
 			if("0".equals(msgTemp.getIs_read()))
 					count++;
 		}
+		Intent intent1 = null;
+		// 发送广播
+		
 		if(count<=1)
-			MenuTable.closeMsgView();
+			intent1 = new Intent(
+					Cst.CLOSE_MSG);
+		else
+			intent1 = new Intent(
+					Cst.OPEN_MSG);
+		sendBroadcast(intent1);
 	}
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 

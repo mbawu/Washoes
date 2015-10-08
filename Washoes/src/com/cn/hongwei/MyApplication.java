@@ -25,6 +25,7 @@ import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.person.MessageActivity;
 import com.cn.washoes.util.CrashHandler;
+import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,13 +40,13 @@ public class MyApplication extends Application {
 	public static Editor ed; // 本地存储编辑器Editor
 	public static NotificationManager mNotificationManager;
 	public static boolean loginStat = false;
-	public static boolean exit=false;//是否退出应用
+	public static boolean exit = false;// 是否退出应用
 	public static String lng = "0";
 	public static String lat = "0";
 	public static String address = "";
 	public static String detail = "";
-	public static int msgId=0;
-	public static int msgType=0;//0 打开我的订单列表页面 1打开我的消息页面
+	public static int msgId = 0;
+	public static int msgType = 0;// 0 打开我的订单列表页面 1打开我的消息页面
 
 	@Override
 	public void onCreate() {
@@ -69,7 +70,7 @@ public class MyApplication extends Application {
 		// 初始化SharedPreferences
 		sp = getSharedPreferences("Washoes", MODE_PRIVATE);
 		ed = sp.edit();
-		initSharePreferenceData() ;
+		initSharePreferenceData();
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		// 初始化JPUSH
 		JPushInterface.init(getApplicationContext());
@@ -84,15 +85,15 @@ public class MyApplication extends Application {
 		activity.sendData(requestWrapper, NetworkAction.login);
 	}
 
-	public static void getKey(BaseActivity activity,String mobile,String pwd) {
+	public static void getKey(BaseActivity activity, String mobile, String pwd) {
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setOp(NetworkAction.login.toString());
 		requestWrapper.setMobile(mobile);
 		requestWrapper.setPassword(pwd);
 		activity.sendData(requestWrapper, NetworkAction.login);
-		
+
 	}
-	
+
 	private void getLocation() {
 		BaiduLoction.getInstance().startLocation();
 
@@ -147,32 +148,33 @@ public class MyApplication extends Application {
 
 	private void initSharePreferenceData() {
 		String infoJson = sp.getString("info", null);
-		if (infoJson != null && !"".equals(infoJson) && !"null".equals(infoJson)) {
+		if (infoJson != null && !"".equals(infoJson)
+				&& !"null".equals(infoJson)) {
 			info = JsonUtil.fromJson(infoJson, Info.class);
 
 			MyApplication.loginStat = info.isLoginState();
-		}else
-			info=null;
+		} else
+			info = null;
 
-		
 	};
 
-//	private String guide;
-//
-//	public String getGuide() {
-//		return guide;
-//	}
-//
-//	public void setGuide(String guide) {
-//		this.guide = guide;
-//		ed.putString("guide", guide);
-//		ed.commit();
-//	}
+	// private String guide;
+	//
+	// public String getGuide() {
+	// return guide;
+	// }
+	//
+	// public void setGuide(String guide) {
+	// this.guide = guide;
+	// ed.putString("guide", guide);
+	// ed.commit();
+	// }
 
-	private static Info info;//用户信息保存类
+	private static Info info;// 用户信息保存类
 
 	/**
 	 * 设置用户信息
+	 * 
 	 * @param infoin
 	 */
 	public static void setInfo(Info infoin) {
@@ -184,14 +186,14 @@ public class MyApplication extends Application {
 	/**
 	 * 清除用户信息
 	 */
-	public static void clearInfo()
-	{
+	public static void clearInfo() {
 		ed.remove("info");
 		ed.commit();
 	}
-	
+
 	/**
 	 * 获取用户信息
+	 * 
 	 * @return
 	 */
 	public static Info getInfo() {
@@ -227,15 +229,18 @@ public class MyApplication extends Application {
 		}
 		return isValid;
 	}
-	
-	
+
 	/**
 	 * 通知栏显示消息
-	 * @param context  Context
-	 * @param msg  内容
-	 * @param title  可为空，可为null
+	 * 
+	 * @param context
+	 *            Context
+	 * @param msg
+	 *            内容
+	 * @param title
+	 *            可为空，可为null
 	 */
-	public static void notifyMsg(Context context, String msg,String title) {
+	public static void notifyMsg(Context context, String msg, String title) {
 		// 定义通知栏展现的内容信息
 		int icon = R.drawable.ic_launcher;
 		CharSequence tickerText = msg;
@@ -243,24 +248,28 @@ public class MyApplication extends Application {
 		Notification notification = new Notification(icon, tickerText, when);
 		notification.flags = Notification.FLAG_AUTO_CANCEL;
 		notification.defaults |= Notification.DEFAULT_ALL;
-		CharSequence contentTitle =null;
-		if(title==null ||title.equals(""))
+		CharSequence contentTitle = null;
+		if (title == null || title.equals(""))
 			contentTitle = context.getResources().getString(R.string.app_name);
 		else
-			contentTitle=title;
+			contentTitle = title;
 		CharSequence contentText = msg;
 		Intent notificationIntent = null;
-		if(msgType==0)
-		{
+		// if(MenuTable.)
+		if (msgType == 0) {
+			Intent intent1 = new Intent(
+					Cst.SET_ORDER);
+			// 发送广播
+			context.sendBroadcast(intent1);
 			notificationIntent = new Intent(context, MenuTable.class);
-			MenuTable.tabHost.setCurrentTab(1);
-			MenuTable.setOrderChecked();
-		}
-		else if(msgType==1)
-		{
+
+		} else if (msgType == 1) {
+			Intent intent1 = new Intent(
+					Cst.SET_PERSON);
+			// 发送广播
+			context.sendBroadcast(intent1);
 			notificationIntent = new Intent(context, MessageActivity.class);
-			MenuTable.tabHost.setCurrentTab(2);
-			MenuTable.setPersonChecked();
+
 		}
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);

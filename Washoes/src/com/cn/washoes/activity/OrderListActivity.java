@@ -207,7 +207,10 @@ public class OrderListActivity extends BaseActivity implements
 		super.getErrorMsg(requestType);
 		nodata.setVisibility(View.VISIBLE);
 		listView.setVisibility(View.GONE);
-		MenuTable.closeOrderView();
+		Intent intent1 = new Intent(
+				Cst.CLOSE_ORDER);
+		// 发送广播
+		sendBroadcast(intent1);
 	}
 	
 	/**
@@ -280,10 +283,17 @@ public class OrderListActivity extends BaseActivity implements
 			if("0".equals(oItemTemp.getIs_read()))
 					count++;
 		}
+		
+		Intent intent1 = null;
+		// 发送广播
+		
 		if(count<=1)
-			MenuTable.closeOrderView();
+			intent1 = new Intent(
+					Cst.CLOSE_ORDER);
 		else
-			MenuTable.openMsgView();
+			intent1 = new Intent(
+					Cst.OPEN_ORDER);
+		sendBroadcast(intent1);
 	}
 
 	/**

@@ -95,7 +95,10 @@ public class MyReceiver extends BroadcastReceiver {
 									String isNew = filter.getString("is_new");
 									// 如果是新订单的话显示未读图标
 									if (isNew.equals("1")) {
-										MenuTable.openOrderView();
+										Intent intent1 = new Intent(
+												Cst.OPEN_ORDER);
+										// 发送广播
+										context.sendBroadcast(intent1);
 										// 接收到消息推送以后通知改变消息数量
 										Intent mIntent = new Intent(
 												Cst.GET_ORDER);
@@ -107,7 +110,10 @@ public class MyReceiver extends BroadcastReceiver {
 								// 消息推送
 								else if (isOrder.equals("0")) {
 									MyApplication.msgType=1;
-									MenuTable.openMsgView();
+									Intent intent1 = new Intent(
+											Cst.OPEN_MSG);
+									// 发送广播
+									context.sendBroadcast(intent1);
 									// 接收到消息推送以后通知改变消息数量
 									Intent mIntent = new Intent(Cst.GET_MSG);
 									// 发送广播
