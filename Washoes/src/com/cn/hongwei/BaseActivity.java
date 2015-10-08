@@ -257,9 +257,7 @@ public class BaseActivity extends Activity {
 	}
 
 	
-	 /**
-	 * 当访问服务器返回code不为1000时候的处理方法，前提是在没有使用全局进度条的情况下
-	 */
+
 	 public void getErrorMsg(NetworkAction requestType) {
 	
 	 }

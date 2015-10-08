@@ -25,6 +25,8 @@ public class MenuTable extends TabActivity {
 	public static RadioGroup radioGroup;
 	private Resources resources; // 获取资源文件
 	private static RadioButton orderBtn;
+	private static RadioButton personBtn;
+	private static View orderView;
 	private static View msgView;
 
 	@Override
@@ -38,8 +40,10 @@ public class MenuTable extends TabActivity {
 
 	private void initData() {
 		tabHost = this.getTabHost();
-		msgView = (View) findViewById(R.id.order_item_view_no_read);
+		orderView = (View) findViewById(R.id.order_item_view_no_read);
+		msgView = (View) findViewById(R.id.msg_item_view_no_read);
 		orderBtn = (RadioButton) findViewById(R.id.main_tab_order);
+		personBtn = (RadioButton) findViewById(R.id.main_tab_personcenter);
 		TabHost.TabSpec spec;
 		Intent intent;
 		// 首页菜单
@@ -109,6 +113,8 @@ public class MenuTable extends TabActivity {
 			finish();
 			System.exit(0);
 		} else {
+			orderView = (View) findViewById(R.id.order_item_view_no_read);
+			msgView = (View) findViewById(R.id.msg_item_view_no_read);
 			getInfo();
 		}
 	}
@@ -131,18 +137,33 @@ public class MenuTable extends TabActivity {
 		}
 	}
 
+	public static void openOrderView() {
+		if (orderView != null)
+			orderView.setVisibility(View.VISIBLE);
+	}
+
+	public static void closeOrderView() {
+		if (orderView != null)
+			orderView.setVisibility(View.GONE);
+	}
+
 	public static void openMsgView() {
-		msgView.setVisibility(View.VISIBLE);
+		if (msgView != null)
+			msgView.setVisibility(View.VISIBLE);
 	}
 
 	public static void closeMsgView() {
-		msgView.setVisibility(View.GONE);
+		if (msgView != null)
+			msgView.setVisibility(View.GONE);
 	}
-
+	
 	public static void setOrderChecked() {
 		orderBtn.setChecked(true);
 	}
-
+	public static void setPersonChecked() {
+		personBtn.setChecked(true);
+	}
+	
 	private long exitTime = 0;
 
 	@Override

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 
@@ -22,6 +23,7 @@ import com.cn.hongwei.BaiduLoction.LocationCallback;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.person.MessageActivity;
 import com.cn.washoes.util.CrashHandler;
 import com.cn.washoes.util.NetworkAction;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -42,6 +44,8 @@ public class MyApplication extends Application {
 	public static String lat = "0";
 	public static String address = "";
 	public static String detail = "";
+	public static int msgId=0;
+	public static int msgType=0;//0 打开我的订单列表页面 1打开我的消息页面
 
 	@Override
 	public void onCreate() {
@@ -232,7 +236,6 @@ public class MyApplication extends Application {
 	 * @param title  可为空，可为null
 	 */
 	public static void notifyMsg(Context context, String msg,String title) {
-		NotificationManager mNotificationManager = MyApplication.mNotificationManager;
 		// 定义通知栏展现的内容信息
 		int icon = R.drawable.ic_launcher;
 		CharSequence tickerText = msg;
@@ -246,16 +249,25 @@ public class MyApplication extends Application {
 		else
 			contentTitle=title;
 		CharSequence contentText = msg;
-		Intent notificationIntent = new Intent(context, MenuTable.class);
-		MenuTable.tabHost.setCurrentTab(1);
-		MenuTable.setOrderChecked();
+		Intent notificationIntent = null;
+		if(msgType==0)
+		{
+			notificationIntent = new Intent(context, MenuTable.class);
+			MenuTable.tabHost.setCurrentTab(1);
+			MenuTable.setOrderChecked();
+		}
+		else if(msgType==1)
+		{
+			notificationIntent = new Intent(context, MessageActivity.class);
+			MenuTable.tabHost.setCurrentTab(2);
+			MenuTable.setPersonChecked();
+		}
 		PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
 		notification.setLatestEventInfo(context, contentTitle, contentText,
 				contentIntent);
-
 		// 用mNotificationManager的notify方法通知用户生成标题栏消息通知
-		mNotificationManager.notify(1, notification);
+		mNotificationManager.notify(msgId, notification);
 		// mNotificationManager.cancel(-5);
 	}
 

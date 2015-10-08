@@ -117,7 +117,7 @@ public class LoginActivity extends BaseActivity {
 			startActivity(intent);
 			
 			// 登录成功以后刷新一次订单列表
-			Intent mIntent = new Intent(Cst.GET_RECEIVE);
+			Intent mIntent = new Intent(Cst.GET_ORDER);
 			// 发送广播
 			sendBroadcast(mIntent);
 		

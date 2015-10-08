@@ -96,6 +96,15 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/order_no_read"
                 android:visibility="gone" />
+            <View
+                android:id="@+id/msg_item_view_no_read"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/order_no_read"
+                android:visibility="gone" />
         </FrameLayout>
     </LinearLayout>
 

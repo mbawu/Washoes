@@ -109,7 +109,7 @@ public class OrderListActivity extends BaseActivity implements
 		listView.setAdapter(adapter);
 		// MyApplication.getKey(this);
 		getOrder();
-		registerReceiver(receiver, new IntentFilter(Cst.GET_RECEIVE));
+		registerReceiver(receiver, new IntentFilter(Cst.GET_ORDER));
 	}
 
 	protected void onDestroy() {
@@ -121,7 +121,7 @@ public class OrderListActivity extends BaseActivity implements
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (Cst.GET_RECEIVE.equals(intent.getAction())) {
+			if (Cst.GET_ORDER.equals(intent.getAction())) {
 				getOrder();
 			}
 		}
@@ -196,6 +196,8 @@ public class OrderListActivity extends BaseActivity implements
 			} else {
 				layoutOrderNum.setVisibility(View.GONE);
 			}
+			
+			checkOrderNum();
 		}
 	}
 
@@ -205,6 +207,7 @@ public class OrderListActivity extends BaseActivity implements
 		super.getErrorMsg(requestType);
 		nodata.setVisibility(View.VISIBLE);
 		listView.setVisibility(View.GONE);
+		MenuTable.closeOrderView();
 	}
 	
 	/**
@@ -263,6 +266,25 @@ public class OrderListActivity extends BaseActivity implements
 		return Html.fromHtml(html);
 
 	}
+	
+	/**
+	 * 检查是否还有未查看的订单
+	 */
+	private void checkOrderNum()
+	{
+		if(orderList==null)
+			return;
+		int count=0;
+		for (int i = 0; i < orderList.size(); i++) {
+			OrderItem oItemTemp = orderList.get(i);
+			if("0".equals(oItemTemp.getIs_read()))
+					count++;
+		}
+		if(count<=1)
+			MenuTable.closeOrderView();
+		else
+			MenuTable.openMsgView();
+	}
 
 	/**
 	 * 订单列表适配器
@@ -277,7 +299,7 @@ public class OrderListActivity extends BaseActivity implements
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			ViewHolder viewHolder;
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.order_item, null);
@@ -346,7 +368,7 @@ public class OrderListActivity extends BaseActivity implements
 						intent.putExtra("oid", oItem.getOrder_id());
 						OrderListActivity.this.startActivity(intent);
 						if("0".equals(oItem.getIs_read())){
-							MenuTable.closeMsgView();
+							checkOrderNum();
 							oItem.setIs_read("1");
 							adapter.notifyDataSetChanged();
 						}
