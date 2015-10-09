@@ -108,6 +108,7 @@ public class OrderCamareActivity extends PhotoActivity implements
 				fileMap.put("file" + (i + 1), fileToString(path));
 			}
 			request.setFiles(fileMap);
+			request.setShowDialog(true);
 			sendData(request, NetworkAction.ultu_upload_v2);
 
 		} else {

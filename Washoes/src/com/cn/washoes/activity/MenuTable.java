@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -47,6 +48,8 @@ public class MenuTable extends TabActivity {
 		registerReceiver(receiver, new IntentFilter(Cst.OPEN_ORDER));
 		registerReceiver(receiver, new IntentFilter(Cst.CLOSE_MSG));
 		registerReceiver(receiver, new IntentFilter(Cst.CLOSE_ORDER));
+		registerReceiver(receiver, new IntentFilter(Cst.SET_ORDER));
+		registerReceiver(receiver, new IntentFilter(Cst.SET_PERSON));
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		MyApplication.width = dm.widthPixels;// 宽度
@@ -133,12 +136,15 @@ public class MenuTable extends TabActivity {
 			finish();
 			System.exit(0);
 		} else {
-			orderView = (View) findViewById(R.id.order_item_view_no_read);
-			msgView = (View) findViewById(R.id.msg_item_view_no_read);
 			getInfo();
 		}
 	}
 
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	}
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -213,6 +219,7 @@ public class MenuTable extends TabActivity {
 			} else if (Cst.OPEN_ORDER.equals(intent.getAction())) {
 				openOrderView();
 			} else if (Cst.CLOSE_MSG.equals(intent.getAction())) {
+				Log.i("test", "onReceive-->Cst.CLOSE_MSG");
 				closeMsgView();
 			} else if (Cst.CLOSE_ORDER.equals(intent.getAction())) {
 				closeOrderView();

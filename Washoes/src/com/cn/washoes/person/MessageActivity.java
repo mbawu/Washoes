@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class MessageActivity extends BaseActivity {
 		requestWrapper.setOp("artificer");
 		requestWrapper.setPage("1");
 		requestWrapper.setPer("10000");
+		requestWrapper.setShowDialog(true);
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
 		sendData(requestWrapper, NetworkAction.msg_list);
@@ -86,7 +88,7 @@ public class MessageActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.showResualt(responseWrapper, requestType);
 		if (requestType == NetworkAction.msg_list) {
-			datas= responseWrapper.getMsg_list();
+			datas = responseWrapper.getMsg_list();
 			if (datas.size() > 0) {
 				listView.setVisibility(View.VISIBLE);
 				nodata.setVisibility(View.GONE);
@@ -97,6 +99,7 @@ public class MessageActivity extends BaseActivity {
 				listView.setVisibility(View.GONE);
 				nodata.setVisibility(View.VISIBLE);
 			}
+			checkMsgNum();
 		} else if (requestType == NetworkAction.msg_detail) {
 			Intent intent = new Intent();
 			intent.setClass(MessageActivity.this, MessageDetailActivity.class);
@@ -134,7 +137,8 @@ public class MessageActivity extends BaseActivity {
 		}
 
 		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			// TODO Auto-generated method stub
 
 			ViewHolder viewHolder;
@@ -150,7 +154,7 @@ public class MessageActivity extends BaseActivity {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 
-			final Msg msg = getDataList().get(position);
+			final Msg msg = datas.get(position);
 			viewHolder.content.setText(msg.getContent());
 			if (msg.getIs_read().equals("1"))
 				viewHolder.layout.setBackgroundResource(R.drawable.box_disable);
@@ -164,12 +168,11 @@ public class MessageActivity extends BaseActivity {
 					// 打开消息详情页面
 					getMsgDetail(msg.getMsg_id());
 					content = msg.getContent();
-					if (msg.getIs_read().equals("0"))
-					{
-						checkMsgNum();
+					if (msg.getIs_read().equals("0")) {
 						msg.setIs_read("1");
+						checkMsgNum();
 					}
-						
+
 					notifyDataSetChanged();
 				}
 			});
@@ -184,32 +187,31 @@ public class MessageActivity extends BaseActivity {
 
 	}
 
-	private void checkMsgNum()
-	{
-		if(datas==null)
+	private void checkMsgNum() {
+		if (datas == null)
 			return;
-		int count=0;
+		int count = 0;
 		for (int i = 0; i < datas.size(); i++) {
 			Msg msgTemp = datas.get(i);
-			if("0".equals(msgTemp.getIs_read()))
-					count++;
+			if ("0".equals(msgTemp.getIs_read()))
+				count++;
 		}
+		Log.i("test", "count-->"+count);
 		Intent intent1 = null;
 		// 发送广播
-		
-		if(count<=1)
-			intent1 = new Intent(
-					Cst.CLOSE_MSG);
+
+		if (count < 1)
+			intent1 = new Intent(Cst.CLOSE_MSG);
 		else
-			intent1 = new Intent(
-					Cst.OPEN_MSG);
+			intent1 = new Intent(Cst.OPEN_MSG);
 		sendBroadcast(intent1);
 	}
+
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (Cst.GET_ORDER.equals(intent.getAction())) {
+			if (Cst.GET_MSG.equals(intent.getAction())) {
 				getMsg();
 			}
 		}
