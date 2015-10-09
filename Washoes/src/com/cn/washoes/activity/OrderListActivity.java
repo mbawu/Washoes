@@ -66,6 +66,9 @@ public class OrderListActivity extends BaseActivity implements
 	public static boolean REQ_REFRESH = false;
 	private String orderId;
 
+	private boolean isLeader=false;//是否是组长
+	private String sdate;//下单起始日期
+	private String edate;//下单结束日期
 	/**
 	 * 界面初始化
 	 */
@@ -86,7 +89,13 @@ public class OrderListActivity extends BaseActivity implements
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId) {
+						if(checkedId==R.id.order_list_search_radiobtn && sdate!=null)
+						{
+							searchOrder();
+							return;
+						}
 						switch (checkedId) {
+						
 						case R.id.order_list_watting_radiobtn:
 							status = ORDER_STATUS_WAITING;
 							break;
@@ -101,7 +110,11 @@ public class OrderListActivity extends BaseActivity implements
 							break;
 						}
 						getOrder();
+						
+						
 					}
+
+					
 				});
 
 		adapter = new OrderListAdapter(this);
@@ -109,9 +122,48 @@ public class OrderListActivity extends BaseActivity implements
 		listView.setAdapter(adapter);
 		// MyApplication.getKey(this);
 		getOrder();
+		
 		registerReceiver(receiver, new IntentFilter(Cst.GET_ORDER));
 	}
 
+	/**
+	 * 查询订单
+	 */
+	private void searchOrder() {
+		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setAid(MyApplication.getInfo().getAid());
+		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+		requestWrapper.setOp("order");
+		requestWrapper.setPer("10000");
+		requestWrapper.setPage(page);
+		requestWrapper.setSdate(sdate);
+		requestWrapper.setEdate(edate);
+		requestWrapper.setShowDialog(true);
+		sendData(requestWrapper, NetworkAction.list2);
+		
+	}
+	
+	/**
+	 * 判断是否是组长
+	 */
+	private void checkInfo()
+	{
+		String s=MyApplication.getInfo().getRank_id();
+		if(s.equals("2"))
+		{
+			isLeader=true;
+			findViewById(R.id.order_list_search_radiobtn).setVisibility(View.VISIBLE);
+			findViewById(R.id.order_list_cancel_radiobtn).setVisibility(View.GONE);
+		}	
+		else
+		{
+			isLeader=false;
+			findViewById(R.id.order_list_search_radiobtn).setVisibility(View.GONE);
+			findViewById(R.id.order_list_cancel_radiobtn).setVisibility(View.VISIBLE);
+		}
+			
+	}
+	
 	protected void onDestroy() {
 		unregisterReceiver(receiver);
 		super.onDestroy();
@@ -144,6 +196,7 @@ public class OrderListActivity extends BaseActivity implements
 	 * 向后台发送订单列表请求
 	 */
 	private void getOrder() {
+		checkInfo();
 		RequestWrapper requestWrapper = new RequestWrapper();
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
@@ -170,16 +223,13 @@ public class OrderListActivity extends BaseActivity implements
 		super.showResualt(responseWrapper, requestType);
 
 		if (requestType == NetworkAction.list) {
-			
+
 			if (responseWrapper.getList() != null) {
-				if(responseWrapper.getList().size()==0)
-				{
+				if (responseWrapper.getList().size() == 0) {
 					nodata.setVisibility(View.VISIBLE);
 					listView.setVisibility(View.GONE);
-					
-				}
-				else
-				{
+
+				} else {
 					nodata.setVisibility(View.GONE);
 					listView.setVisibility(View.VISIBLE);
 				}
@@ -196,7 +246,7 @@ public class OrderListActivity extends BaseActivity implements
 			} else {
 				layoutOrderNum.setVisibility(View.GONE);
 			}
-			
+
 			checkOrderNum();
 		}
 	}
@@ -207,12 +257,11 @@ public class OrderListActivity extends BaseActivity implements
 		super.getErrorMsg(requestType);
 		nodata.setVisibility(View.VISIBLE);
 		listView.setVisibility(View.GONE);
-		Intent intent1 = new Intent(
-				Cst.CLOSE_ORDER);
+		Intent intent1 = new Intent(Cst.CLOSE_ORDER);
 		// 发送广播
 		sendBroadcast(intent1);
 	}
-	
+
 	/**
 	 * 订单操作点击响应事件
 	 */
@@ -269,30 +318,27 @@ public class OrderListActivity extends BaseActivity implements
 		return Html.fromHtml(html);
 
 	}
-	
+
 	/**
 	 * 检查是否还有未查看的订单
 	 */
-	private void checkOrderNum()
-	{
-		if(orderList==null)
+	private void checkOrderNum() {
+		if (orderList == null)
 			return;
-		int count=0;
+		int count = 0;
 		for (int i = 0; i < orderList.size(); i++) {
 			OrderItem oItemTemp = orderList.get(i);
-			if("0".equals(oItemTemp.getIs_read()))
-					count++;
+			if ("0".equals(oItemTemp.getIs_read()))
+				count++;
 		}
-		
+
 		Intent intent1 = null;
 		// 发送广播
-		
-		if(count<=1)
-			intent1 = new Intent(
-					Cst.CLOSE_ORDER);
+
+		if (count < 1)
+			intent1 = new Intent(Cst.CLOSE_ORDER);
 		else
-			intent1 = new Intent(
-					Cst.OPEN_ORDER);
+			intent1 = new Intent(Cst.OPEN_ORDER);
 		sendBroadcast(intent1);
 	}
 
@@ -309,7 +355,8 @@ public class OrderListActivity extends BaseActivity implements
 		}
 
 		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			ViewHolder viewHolder;
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.order_item, null);
@@ -337,18 +384,29 @@ public class OrderListActivity extends BaseActivity implements
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 			final OrderItem oItem = orderList.get(position);
-			if(oItem != null){
+			if (oItem != null) {
 				viewHolder.textDate.setText(oItem.getServicetime());
 				viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
 				viewHolder.textUserName.setText(oItem.getRealname());
-				if (ORDER_STATUS_FINISH.equals(oItem.getFlag())
-						&& "1".equals(oItem.getIs_comment())) {
-					viewHolder.textUserType.setText(getUserTypeHtml("0"
-							.equals(oItem.getUtag()) ? "新用户" : "老用户"));
-				} else {
-					viewHolder.textUserType
-							.setText("0".equals(oItem.getUtag()) ? "新用户" : "老用户");
+				//组长的界面
+				if(isLeader)
+				{
+					viewHolder.textUserType.setText(oItem.getArt_nickname());
 				}
+				//组员的界面
+				else
+				{
+					if (ORDER_STATUS_FINISH.equals(oItem.getFlag())
+							&& "1".equals(oItem.getIs_comment())) {
+						viewHolder.textUserType.setText(getUserTypeHtml("0"
+								.equals(oItem.getUtag()) ? "新用户" : "老用户"));
+					} else {
+						viewHolder.textUserType
+								.setText("0".equals(oItem.getUtag()) ? "新用户"
+										: "老用户");
+					}
+				}
+				
 
 				viewHolder.textPhone.setText(oItem.getMobile());
 				viewHolder.textID.setText(oItem.getOrder_id());
@@ -364,7 +422,8 @@ public class OrderListActivity extends BaseActivity implements
 				} else {
 					viewHolder.imgCamare.setVisibility(View.VISIBLE);
 					viewHolder.imgCamare.setTag(oItem.getOrder_id());
-					viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
+					viewHolder.imgCamare
+							.setOnClickListener(OrderListActivity.this);
 				}
 				viewHolder.imgCamare.setTag(oItem.getOrder_id());
 				viewHolder.imgCamare.setOnClickListener(OrderListActivity.this);
@@ -377,16 +436,16 @@ public class OrderListActivity extends BaseActivity implements
 								OrderInfoActivity.class);
 						intent.putExtra("oid", oItem.getOrder_id());
 						OrderListActivity.this.startActivity(intent);
-						if("0".equals(oItem.getIs_read())){
-							checkOrderNum();
+						if ("0".equals(oItem.getIs_read())) {
 							oItem.setIs_read("1");
 							adapter.notifyDataSetChanged();
+							checkOrderNum();
 						}
-						
+
 					}
 				});
 			}
-			
+
 			return convertView;
 		}
 

@@ -12,9 +12,18 @@ public class Info {
 	private String lastlogin;  //最后登录时间
 	private String logintimes;  //登录次数
 	private boolean loginState;//登录状态
+	private String rank_id; //技师头衔（1组员 2组长）
 	
-	
-	
+	/**
+	 * 技师头衔（1组员 2组长）
+	 * @return
+	 */
+	public String getRank_id() {
+		return rank_id;
+	}
+	public void setRank_id(String rank_id) {
+		this.rank_id = rank_id;
+	}
 	public boolean isLoginState() {
 		return loginState;
 	}

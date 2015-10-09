@@ -17,6 +17,34 @@ public class OrderItem {
 	private String order_code;// 订单号（编码）
 	private String mobile;// 用户手机号
 	private String is_read;
+	
+	private String art_nickname;//技师昵称
+	private String rank_id;//技师头衔（1组员 2组长）
+
+	
+	/**
+	 * 技师头衔（1组员 2组长）
+	 * @return
+	 */
+	public String getArt_nickname() {
+		return art_nickname;
+	}
+
+	public void setArt_nickname(String art_nickname) {
+		this.art_nickname = art_nickname;
+	}
+
+	/**
+	 * 技师昵称
+	 * @return
+	 */
+	public String getRank_id() {
+		return rank_id;
+	}
+
+	public void setRank_id(String rank_id) {
+		this.rank_id = rank_id;
+	}
 
 	public String getCreatetime() {
 		return createtime;

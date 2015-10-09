@@ -20,6 +20,7 @@ import com.cn.washoes.R;
 import com.cn.washoes.activity.ConfirmDialog;
 import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
 
 /**
@@ -155,6 +156,10 @@ public class SetPwdActivity extends BaseActivity {
 			info.setLoginState(true);
 			MyApplication.loginStat = true;
 			MyApplication.setInfo(info);
+			// 登录成功以后刷新一次订单列表
+			Intent mIntent = new Intent(Cst.GET_ORDER);
+			// 发送广播
+			sendBroadcast(mIntent);
 			Toast.makeText(this, responseWrapper.getMsg(), Toast.LENGTH_SHORT);
 			return;
 		}
@@ -162,6 +167,7 @@ public class SetPwdActivity extends BaseActivity {
 		// 写入本地用户信息
 		Info info = responseWrapper.getInfo();
 		MyApplication.setInfo(info);
+		
 		// 弹出提示框
 		ConfirmDialog dialog = new ConfirmDialog(this, R.layout.msg_dialog);
 		dialog.setTitle("提示");

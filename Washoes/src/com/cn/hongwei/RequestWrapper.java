@@ -49,7 +49,23 @@ public class RequestWrapper {
 
 	private String msg_id;//消息ID
 	
+	private String sdate;
+	private String edate;
+	
+	
 
+	public String getSdate() {
+		return sdate;
+	}
+	public void setSdate(String sdate) {
+		this.sdate = sdate;
+	}
+	public String getEdate() {
+		return edate;
+	}
+	public void setEdate(String edate) {
+		this.edate = edate;
+	}
 	public String getMsg_id() {
 		return msg_id;
 	}

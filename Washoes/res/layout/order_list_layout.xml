@@ -71,6 +71,21 @@
             android:paddingTop="10dp"
             android:text="已取消"
             android:textColor="@drawable/text_checked_style" />
+        
+        <RadioButton
+            android:id="@+id/order_list_search_radiobtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/order_radio_selector"
+            android:button="@null"
+            android:drawableTop="@drawable/order_search_select"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="订单查询"
+            android:textColor="@drawable/text_checked_style"
+            android:visibility="gone" />
     </RadioGroup>
 
     <View

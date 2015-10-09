@@ -141,7 +141,10 @@ public class OrderInfoActivity extends BaseActivity {
 				OrderAddress address = orderInfo.getInfo();
 				if (address != null && address.getMobile() != null) {
 					textUserName.setText(address.getRealname());
-					textUserType
+					if(orderInfo.getRank_id().equals("2"))
+						textUserType.setText(orderInfo.getArt_nickname());
+					else
+						textUserType
 							.setText("0".equals(orderInfo.getUtag()) ? "新用户"
 									: "老用户");
 					textPhone.setText(address.getMobile());

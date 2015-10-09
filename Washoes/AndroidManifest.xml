@@ -80,6 +80,7 @@
 
         <activity android:name="com.cn.washoes.person.MessageActivity" />
         <activity android:name="com.cn.washoes.person.MessageDetailActivity" />
+         <activity android:name="com.example.clander.CalendarActivity" />
         <activity
             android:name="com.cn.washoes.activity.ImageShowActivity"
             android:theme="@style/ThemeActivity" />

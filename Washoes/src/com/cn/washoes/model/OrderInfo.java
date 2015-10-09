@@ -3,21 +3,49 @@ package com.cn.washoes.model;
 import java.util.List;
 
 public class OrderInfo {
-	private String uid;
-	private ComInfo com_info;
-	private String is_comment;
-	private String is_pay;
+	private String uid;//用户ID
+	private ComInfo com_info;//评论信息
+	private String is_comment;//是否已评价（1是 0否）
+	private String is_pay;//是否已支付（1是 0否）
 	private List<ServiceInfo> list;
-	private String order_id;
-	private String order_code;
-	private OrderAddress info;
-	private String createtime;
-	private String real_price;
-	private String flag;
-	private String servicetime;
+	private String order_id;//订单ID
+	private String order_code;//订单号（编码）
+	private OrderAddress info;//用户信息
+	private String createtime;//下单时间
+	private String real_price;//实付金额（使用优惠券后）
+	private String flag;//订单状态（2待服务 3已取消 	4服务中 5已完成）
+
+	private String servicetime;//服务时间
 	private List<ImgInfo> ultu_def;
-	private String utag;
-	private String pay_price;
+	private String utag;// 用户标识(0新用户 1老用户)
+	private String pay_price;// 订单金额
+	private String art_nickname;// 技师昵称
+	private String rank_id;// 技师头衔（1组员 2组长）
+
+	
+	/**
+	 * 技师昵称
+	 * @return
+	 */
+	public String getArt_nickname() {
+		return art_nickname;
+	}
+
+	public void setArt_nickname(String art_nickname) {
+		this.art_nickname = art_nickname;
+	}
+
+	/**
+	 * 技师头衔（1组员 2组长）
+	 * @return
+	 */
+	public String getRank_id() {
+		return rank_id;
+	}
+
+	public void setRank_id(String rank_id) {
+		this.rank_id = rank_id;
+	}
 
 	public String getUid() {
 		return uid;
