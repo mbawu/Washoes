@@ -44,6 +44,7 @@ public class ImageShowActivity extends Activity {
 		//radioGroup = (RadioGroup) findViewById(R.id.viewpager_radiogroup);
 		textCurrentImg =  (TextView) findViewById(R.id.viewpager_text);
 		initViewPager();
+		textCurrentImg.setText((index+1)+"/"+images.size());
 	}
 
 	/**
