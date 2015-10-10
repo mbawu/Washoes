@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.cn.washoes.R;
+import com.cn.washoes.activity.OrderListActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -67,16 +68,16 @@ public class CalendarActivity extends Activity implements OnGestureListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar);
 		bd = new Bundle();// out
-		bun = getIntent().getExtras();// in
-
-		if (bun != null && bun.getString("state").equals("ruzhu")) {
-			state = bun.getString("state");
-			System.out.println("%%%%%%" + state);
-		} else if (bun != null && bun.getString("state").equals("lidian")) {
-
-			state = bun.getString("state");
-			System.out.println("|||||||||||" + state);
-		}
+//		bun = getIntent().getExtras();// in
+//
+//		if (bun != null && bun.getString("state").equals("ruzhu")) {
+//			state = bun.getString("state");
+//			System.out.println("%%%%%%" + state);
+//		} else if (bun != null && bun.getString("state").equals("lidian")) {
+//
+//			state = bun.getString("state");
+//			System.out.println("|||||||||||" + state);
+//		}
 
 		gestureDetector = new GestureDetector(this);
 		// bd=new Bundle();
@@ -253,10 +254,24 @@ public class CalendarActivity extends Activity implements OnGestureListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				Toast.makeText(CalendarActivity.this,calV.getDate(position), Toast.LENGTH_SHORT).show();
+//				Toast.makeText(CalendarActivity.this,calV.getDate(position), Toast.LENGTH_SHORT).show();
 				TextView tx=(TextView) arg1.findViewById(R.id.tvtext);
-				tx.setTag("red");
+//				tx.setTag("red");
 				tx.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+				Intent aintent = new Intent(CalendarActivity.this, OrderListActivity.class);
+				/* 将数据打包到aintent Bundle 的过程略 */
+				String request=getIntent().getStringExtra("date");
+				if(request.equals("sdate"))
+				{
+					aintent.putExtra("sdate", calV.getDate(position));
+					setResult(OrderListActivity.SDATE_REQUEST_CODE,aintent);
+				}
+				else
+				{
+					aintent.putExtra("edate", calV.getDate(position));
+					setResult(OrderListActivity.EDATE_REQUEST_CODE,aintent);
+				}
+				finish();
 //				// 点击任何一个item，得到这个item的日期(排除点击的是周日到周六(点击不响应))
 //				int startPosition = calV.getStartPositon();
 //				int endPosition = calV.getEndPosition();
@@ -293,5 +308,5 @@ public class CalendarActivity extends Activity implements OnGestureListener {
 
 		});
 	}
-
+	
 }

@@ -15,6 +15,7 @@ import com.cn.washoes.model.Msg;
 import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.OrderItem;
 import com.cn.washoes.model.Province;
+import com.cn.washoes.model.Team;
 import com.cn.washoes.model.TimeInfo;
 
 /**
@@ -62,8 +63,18 @@ public class ResponseWrapper {
 	private List<TimeInfo> time_list;
 
 	private List<Msg> msg_list;//我的消息列表
-
+	private List<Team> team_list;//组员列表
 	
+	public List<Team> getTeam_list() {
+		return team_list;
+	}
+
+
+	public void setTeam_list(List<Team> team_list) {
+		this.team_list = team_list;
+	}
+
+
 	public List<Msg> getMsg_list() {
 		return msg_list;
 	}

@@ -11,8 +11,8 @@
         android:id="@+id/order_list_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:background="#FFFFFF"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -71,7 +71,7 @@
             android:paddingTop="10dp"
             android:text="已取消"
             android:textColor="@drawable/text_checked_style" />
-        
+
         <RadioButton
             android:id="@+id/order_list_search_radiobtn"
             android:layout_width="0dp"
@@ -79,7 +79,7 @@
             android:layout_weight="1"
             android:background="@drawable/order_radio_selector"
             android:button="@null"
-            android:drawableTop="@drawable/order_search_select"
+            android:drawableTop="@drawable/order_search_radio_selector"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -91,18 +91,17 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        
         android:background="@color/province_line_border" />
 
     <LinearLayout
         android:id="@+id/order_num_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:background="#FFFFFF"
         android:paddingBottom="8dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="#FFFFFF"
+        android:paddingTop="8dp"
         android:visibility="gone" >
 
         <TextView
@@ -135,6 +134,146 @@
             android:text="11"
             android:textColor="#646464"
             android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="8dp"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="起始日期："
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/order_sdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_selector"
+                    android:gravity="center"
+                    android:text="请选择日期"
+                    android:paddingRight="15dp"
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="技师："
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/order_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_selector"
+                    android:gravity="center"
+                    android:text="123"
+                    android:paddingRight="15dp"
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="结束日期："
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/order_edate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_selector"
+                    android:gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="请选择日期"
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="总订单："
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/order_search_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#646464"
+                    android:textSize="14sp" />
+                <FrameLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                 <TextView
+                    android:id="@+id/order_search_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_gravity="right|center"
+                    android:text="查询"
+                    android:textColor="@color/green"
+                    android:background="@drawable/box_green"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textSize="14sp" />
+                 </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

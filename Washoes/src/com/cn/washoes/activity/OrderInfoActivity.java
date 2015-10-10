@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +31,9 @@ import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderAddress;
 import com.cn.washoes.model.OrderInfo;
+import com.cn.washoes.model.Province;
 import com.cn.washoes.model.SS_Info;
+import com.cn.washoes.model.Team;
 import com.cn.washoes.util.NetworkAction;
 import com.ta.utdid2.android.utils.StringUtils;
 
@@ -180,6 +184,8 @@ public class OrderInfoActivity extends BaseActivity {
 
 				if (OrderListActivity.ORDER_STATUS_WAITING.equals(orderInfo
 						.getFlag())) {
+					if(getIntent().getBooleanExtra("isLeader", false))
+						textConfirm.setVisibility(View.VISIBLE);
 					layoutDetail.setVisibility(View.VISIBLE);
 				} else if (OrderListActivity.ORDER_STATUS_WORKING
 						.equals(orderInfo.getFlag())) {
@@ -435,4 +441,8 @@ public class OrderInfoActivity extends BaseActivity {
 			Toast.makeText(this, "地址错误", Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+	
+	
+	
 }

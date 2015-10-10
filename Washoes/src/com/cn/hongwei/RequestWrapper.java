@@ -51,9 +51,16 @@ public class RequestWrapper {
 	
 	private String sdate;
 	private String edate;
+	private String taid;
 	
 	
 
+	public String getTaid() {
+		return taid;
+	}
+	public void setTaid(String taid) {
+		this.taid = taid;
+	}
 	public String getSdate() {
 		return sdate;
 	}
