@@ -52,9 +52,16 @@ public class RequestWrapper {
 	private String sdate;
 	private String edate;
 	private String taid;
+	private String rank_id;
 	
 	
 
+	public String getRank_id() {
+		return rank_id;
+	}
+	public void setRank_id(String rank_id) {
+		this.rank_id = rank_id;
+	}
 	public String getTaid() {
 		return taid;
 	}

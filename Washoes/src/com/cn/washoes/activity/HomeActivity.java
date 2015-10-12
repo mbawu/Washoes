@@ -1,5 +1,6 @@
 package com.cn.washoes.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
@@ -10,9 +11,13 @@ import android.widget.ImageView;
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.CarImageView;
 import com.cn.hongwei.MyApplication;
+import com.cn.hongwei.RequestWrapper;
+import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.util.Cst;
+import com.cn.washoes.util.NetworkAction;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -40,7 +45,12 @@ public class HomeActivity extends BaseActivity {
 		topTitleView.setBackImageViewVisable(View.GONE);
 		imageView = (CarImageView) findViewById(R.id.home_head_img);
 		twoCodeImg = (ImageView) findViewById(R.id.home_twocode_img);
-
+		try {
+			getOrder();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	@Override
@@ -86,4 +96,40 @@ public class HomeActivity extends BaseActivity {
 		return null;
 	}
 
+	/**
+	 * 向后台发送订单列表请求
+	 */
+	private void getOrder() {
+		RequestWrapper requestWrapper = new RequestWrapper();
+		requestWrapper.setAid(MyApplication.getInfo().getAid());
+		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+		requestWrapper.setOp("order");
+		requestWrapper.setPer("1");
+		requestWrapper.setPage("1");
+		requestWrapper.setFlag("1");
+//		requestWrapper.setIs_onum("0");
+		sendData(requestWrapper, NetworkAction.list);
+	}
+	
+	@Override
+	public void showResualt(ResponseWrapper responseWrapper,
+			NetworkAction requestType) {
+		// TODO Auto-generated method stub
+		super.showResualt(responseWrapper, requestType);
+		if(responseWrapper!=null)
+		{
+			Intent intent=new Intent();
+			//检查订单菜单提示状态
+			if(responseWrapper.getUnread_num().equals("0"))
+			{
+				intent.setAction(Cst.CLOSE_ORDER);
+			}
+			else
+			{
+				intent.setAction(Cst.OPEN_ORDER);
+			}
+			sendBroadcast(intent);
+		}
+		
+	}
 }

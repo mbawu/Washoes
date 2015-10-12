@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -34,6 +35,7 @@ import com.cn.washoes.model.OrderInfo;
 import com.cn.washoes.model.Province;
 import com.cn.washoes.model.SS_Info;
 import com.cn.washoes.model.Team;
+import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
 import com.ta.utdid2.android.utils.StringUtils;
 
@@ -121,11 +123,11 @@ public class OrderInfoActivity extends BaseActivity {
 
 		requestWrapper.setAid(MyApplication.getInfo().getAid());
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
-
+		requestWrapper.setRank_id(MyApplication.getInfo().getRank_id());
 		requestWrapper.setOp("order");
 
 		requestWrapper.setOrder_id(oid);
-
+		requestWrapper.setShowDialog(true);
 		sendData(requestWrapper, NetworkAction.detail);
 	}
 
@@ -140,12 +142,12 @@ public class OrderInfoActivity extends BaseActivity {
 			orderInfo = responseWrapper.getOrder_info();
 			if (orderInfo != null) {
 
-				textDate.setText(orderInfo.getServicetime());
-				textPrice.setText("￥ " + orderInfo.getPay_price());
+				textDate.setText(orderInfo.getCreatetime());
+				textPrice.setText("￥ " + orderInfo.getReal_price());
 				OrderAddress address = orderInfo.getInfo();
 				if (address != null && address.getMobile() != null) {
 					textUserName.setText(address.getRealname());
-					if(orderInfo.getRank_id().equals("2"))
+					if(MyApplication.getInfo().getRank_id().equals("2"))
 						textUserType.setText(orderInfo.getArt_nickname());
 					else
 						textUserType
@@ -202,13 +204,31 @@ public class OrderInfoActivity extends BaseActivity {
 						.equals(orderInfo.getFlag())) {
 					layoutCall.setVisibility(View.VISIBLE);
 				}
+				try {
+					Intent intent=new Intent();
+					//检查订单菜单提示状态
+					if(responseWrapper.getUnread_num().equals("0"))
+					{
+						intent.setAction(Cst.CLOSE_ORDER);
+					}
+					else
+					{
+						intent.setAction(Cst.OPEN_ORDER);
+					}
+					sendBroadcast(intent);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 			}
 
 		} else if (requestType == NetworkAction.pos_list) {
 			navigate(responseWrapper.getApos_info());
 		} else if (requestType == NetworkAction.confirm_e) {
 			Toast.makeText(this, "订单确认成功", Toast.LENGTH_SHORT).show();
-			OrderListActivity.REQ_REFRESH = true;
+//			OrderListActivity.REQ_REFRESH = true;
+			Intent intent =new Intent(Cst.GET_ORDER);
+			sendBroadcast(intent);
 			finish();
 		}
 	}

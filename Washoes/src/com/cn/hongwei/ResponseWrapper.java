@@ -65,6 +65,20 @@ public class ResponseWrapper {
 	private List<Msg> msg_list;//我的消息列表
 	private List<Team> team_list;//组员列表
 	
+	private String unread_num;//是否有未读订单
+	
+	
+	
+	public String getUnread_num() {
+		return unread_num;
+	}
+
+
+	public void setUnread_num(String unread_num) {
+		this.unread_num = unread_num;
+	}
+
+
 	public List<Team> getTeam_list() {
 		return team_list;
 	}

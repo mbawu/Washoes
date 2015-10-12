@@ -256,7 +256,10 @@ public class OrderListActivity extends BaseActivity implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (Cst.GET_ORDER.equals(intent.getAction())) {
-				getOrder();
+				if(status!=ORDER_STATUS_SEARCH)
+					getOrder();
+				else
+					searchOrder();
 			}
 		}
 
@@ -338,7 +341,17 @@ public class OrderListActivity extends BaseActivity implements
 				layoutOrderNum.setVisibility(View.GONE);
 			}
 
-			checkOrderNum();
+			Intent intent=new Intent();
+			//检查订单菜单提示状态
+			if(responseWrapper.getUnread_num().equals("0"))
+			{
+				intent.setAction(Cst.CLOSE_ORDER);
+			}
+			else
+			{
+				intent.setAction(Cst.OPEN_ORDER);
+			}
+			sendBroadcast(intent);
 		} else if (requestType == NetworkAction.team_list) {
 			if (responseWrapper.getTeam_list() != null) {
 				if (!memberList.isEmpty())
@@ -465,28 +478,30 @@ public class OrderListActivity extends BaseActivity implements
 
 	}
 
-	/**
-	 * 检查是否还有未查看的订单
-	 */
-	private void checkOrderNum() {
-		if (orderList == null)
-			return;
-		int count = 0;
-		for (int i = 0; i < orderList.size(); i++) {
-			OrderItem oItemTemp = orderList.get(i);
-			if ("0".equals(oItemTemp.getIs_read()))
-				count++;
-		}
 
-		Intent intent1 = null;
-		// 发送广播
-
-		if (count < 1)
-			intent1 = new Intent(Cst.CLOSE_ORDER);
-		else
-			intent1 = new Intent(Cst.OPEN_ORDER);
-		sendBroadcast(intent1);
-	}
+	
+//	/**
+//	 * 检查是否还有未查看的订单
+//	 */
+//	private void checkOrderNum() {
+//		if (orderList == null)
+//			return;
+//		int count = 0;
+//		for (int i = 0; i < orderList.size(); i++) {
+//			OrderItem oItemTemp = orderList.get(i);
+//			if ("0".equals(oItemTemp.getIs_read()))
+//				count++;
+//		}
+//
+//		Intent intent1 = null;
+//		// 发送广播
+//
+//		if (count < 1)
+//			intent1 = new Intent(Cst.CLOSE_ORDER);
+//		else
+//			intent1 = new Intent(Cst.OPEN_ORDER);
+//		sendBroadcast(intent1);
+//	}
 
 	/**
 	 * 订单列表适配器
@@ -531,12 +546,15 @@ public class OrderListActivity extends BaseActivity implements
 			}
 			final OrderItem oItem = orderList.get(position);
 			if (oItem != null) {
-				viewHolder.textDate.setText(oItem.getServicetime());
-				viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
+				viewHolder.textDate.setText(oItem.getCreatetime());
+				viewHolder.textPrice.setText("￥ " + oItem.getReal_price());
 				viewHolder.textUserName.setText(oItem.getRealname());
 				// 组长的界面
 				if (isLeader) {
-					viewHolder.textUserType.setText(oItem.getArt_nickname());
+					if("1".equals(oItem.getIs_comment())&& ORDER_STATUS_FINISH.equals(oItem.getFlag()))
+						viewHolder.textUserType.setText(getUserTypeHtml(oItem.getArt_nickname()));
+					else
+						viewHolder.textUserType.setText(oItem.getArt_nickname());
 				}
 				// 组员的界面
 				else {
@@ -583,7 +601,7 @@ public class OrderListActivity extends BaseActivity implements
 						if ("0".equals(oItem.getIs_read())) {
 							oItem.setIs_read("1");
 							adapter.notifyDataSetChanged();
-							checkOrderNum();
+//							checkOrderNum();
 						}
 
 					}
