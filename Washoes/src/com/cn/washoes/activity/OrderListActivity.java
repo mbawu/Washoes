@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
@@ -89,7 +90,8 @@ public class OrderListActivity extends BaseActivity implements
 	private Spinner member;// 组员选择器
 	private String aid = "0";
 	private MemberAdapter memberAdapter;//组员选择适配器
-
+	private RadioButton waitBtn;//待服务按钮
+	private RadioButton searchRadio;//查询选项
 	/**
 	 * 界面初始化
 	 */
@@ -102,6 +104,8 @@ public class OrderListActivity extends BaseActivity implements
 		topTitleView.setBackImageViewVisable(View.GONE);
 		nodata = (TextView) findViewById(R.id.nodataTxt);
 		memberAdapter = new MemberAdapter(this);
+		waitBtn = (RadioButton) findViewById(R.id.order_list_watting_radiobtn);
+		searchRadio=(RadioButton) findViewById(R.id.order_list_search_radiobtn);
 		listView = (ListView) findViewById(R.id.listview);
 		layoutOrderNum = (LinearLayout) findViewById(R.id.order_num_layout);
 		searchLayout = (LinearLayout) findViewById(R.id.order_search_layout);
@@ -256,10 +260,18 @@ public class OrderListActivity extends BaseActivity implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (Cst.GET_ORDER.equals(intent.getAction())) {
-				if(status!=ORDER_STATUS_SEARCH)
-					getOrder();
-				else
+				if(isLeader)
+				{
+					searchRadio.setChecked(true);
 					searchOrder();
+				}
+				else
+				{
+					waitBtn.setChecked(true);
+					getOrder();
+				}
+				
+					
 			}
 		}
 
