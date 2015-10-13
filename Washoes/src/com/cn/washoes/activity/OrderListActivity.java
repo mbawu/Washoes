@@ -559,14 +559,18 @@ public class OrderListActivity extends BaseActivity implements
 			final OrderItem oItem = orderList.get(position);
 			if (oItem != null) {
 				viewHolder.textDate.setText(oItem.getServicetime());
-				viewHolder.textPrice.setText("￥ " + oItem.getReal_price());
+				if(status==ORDER_STATUS_SEARCH)
+					viewHolder.textPrice.setText("￥ " + oItem.getReal_price());
+				else
+					viewHolder.textPrice.setText("￥ " + oItem.getPay_price());
 				viewHolder.textUserName.setText(oItem.getRealname());
 				// 组长的界面
-				if (isLeader) {
-					if("1".equals(oItem.getIs_comment())&& ORDER_STATUS_FINISH.equals(oItem.getFlag()))
-						viewHolder.textUserType.setText(getUserTypeHtml(oItem.getArt_nickname()));
-					else
-						viewHolder.textUserType.setText(oItem.getArt_nickname());
+				if (isLeader && status==ORDER_STATUS_SEARCH) {
+
+						if("1".equals(oItem.getIs_comment()))
+							viewHolder.textUserType.setText(getUserTypeHtml(oItem.getArt_nickname()));
+						else
+							viewHolder.textUserType.setText(oItem.getArt_nickname());
 				}
 				// 组员的界面
 				else {

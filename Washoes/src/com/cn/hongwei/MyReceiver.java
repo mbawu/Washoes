@@ -99,12 +99,12 @@ public class MyReceiver extends BroadcastReceiver {
 												Cst.OPEN_ORDER);
 										// 发送广播
 										context.sendBroadcast(intent1);
-										// 接收到消息推送以后通知改变消息数量
-										Intent mIntent = new Intent(
-												Cst.GET_ORDER);
-										// 发送广播
-										context.sendBroadcast(mIntent);
 									}
+									// 接收到消息推送以后通知改变消息数量
+									Intent mIntent = new Intent(
+											Cst.GET_ORDER);
+									// 发送广播
+									context.sendBroadcast(mIntent);
 
 								}
 								// 消息推送
