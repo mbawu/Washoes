@@ -546,7 +546,7 @@ public class OrderListActivity extends BaseActivity implements
 			}
 			final OrderItem oItem = orderList.get(position);
 			if (oItem != null) {
-				viewHolder.textDate.setText(oItem.getCreatetime());
+				viewHolder.textDate.setText(oItem.getServicetime());
 				viewHolder.textPrice.setText("￥ " + oItem.getReal_price());
 				viewHolder.textUserName.setText(oItem.getRealname());
 				// 组长的界面
@@ -597,6 +597,8 @@ public class OrderListActivity extends BaseActivity implements
 						intent.setClass(OrderListActivity.this,
 								OrderInfoActivity.class);
 						intent.putExtra("oid", oItem.getOrder_id());
+						if(status.equals(ORDER_STATUS_SEARCH))
+							intent.putExtra("search", "search");
 						OrderListActivity.this.startActivity(intent);
 						if ("0".equals(oItem.getIs_read())) {
 							oItem.setIs_read("1");

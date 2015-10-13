@@ -32,7 +32,6 @@
                 <TextView
                     android:id="@+id/order_item_text_data"
                     style="@style/orderInfotext"
-                    android:drawableLeft="@drawable/order_item_date"
                     android:textColor="#FFFFFF" />
 
                 <TextView

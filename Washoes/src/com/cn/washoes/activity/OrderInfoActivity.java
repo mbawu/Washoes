@@ -142,15 +142,24 @@ public class OrderInfoActivity extends BaseActivity {
 			orderInfo = responseWrapper.getOrder_info();
 			if (orderInfo != null) {
 
-				textDate.setText(orderInfo.getCreatetime());
+				// 判断是否是订单查询模块进来的
+				if (getIntent().getStringExtra("search") == null) {
+					textDate.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.order_item_date),
+							null, null, null);
+					textDate.setText(orderInfo.getServicetime());
+				} else {
+					
+					textDate.setText("下单时间：" + orderInfo.getCreatetime());
+
+				}
 				textPrice.setText("￥ " + orderInfo.getReal_price());
 				OrderAddress address = orderInfo.getInfo();
 				if (address != null && address.getMobile() != null) {
 					textUserName.setText(address.getRealname());
-					if(MyApplication.getInfo().getRank_id().equals("2"))
-						textUserType.setText(orderInfo.getArt_nickname());
-					else
-						textUserType
+					// if(MyApplication.getInfo().getRank_id().equals("2"))
+					// textUserType.setText(orderInfo.getArt_nickname());
+					// else
+					textUserType
 							.setText("0".equals(orderInfo.getUtag()) ? "新用户"
 									: "老用户");
 					textPhone.setText(address.getMobile());
@@ -186,7 +195,7 @@ public class OrderInfoActivity extends BaseActivity {
 
 				if (OrderListActivity.ORDER_STATUS_WAITING.equals(orderInfo
 						.getFlag())) {
-					if(getIntent().getBooleanExtra("isLeader", false))
+					if (getIntent().getBooleanExtra("isLeader", false))
 						textConfirm.setVisibility(View.VISIBLE);
 					layoutDetail.setVisibility(View.VISIBLE);
 				} else if (OrderListActivity.ORDER_STATUS_WORKING
@@ -205,29 +214,26 @@ public class OrderInfoActivity extends BaseActivity {
 					layoutCall.setVisibility(View.VISIBLE);
 				}
 				try {
-					Intent intent=new Intent();
-					//检查订单菜单提示状态
-					if(responseWrapper.getUnread_num().equals("0"))
-					{
+					Intent intent = new Intent();
+					// 检查订单菜单提示状态
+					if (responseWrapper.getUnread_num().equals("0")) {
 						intent.setAction(Cst.CLOSE_ORDER);
-					}
-					else
-					{
+					} else {
 						intent.setAction(Cst.OPEN_ORDER);
 					}
 					sendBroadcast(intent);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				
+
 			}
 
 		} else if (requestType == NetworkAction.pos_list) {
 			navigate(responseWrapper.getApos_info());
 		} else if (requestType == NetworkAction.confirm_e) {
 			Toast.makeText(this, "订单确认成功", Toast.LENGTH_SHORT).show();
-//			OrderListActivity.REQ_REFRESH = true;
-			Intent intent =new Intent(Cst.GET_ORDER);
+			// OrderListActivity.REQ_REFRESH = true;
+			Intent intent = new Intent(Cst.GET_ORDER);
 			sendBroadcast(intent);
 			finish();
 		}
@@ -461,8 +467,5 @@ public class OrderInfoActivity extends BaseActivity {
 			Toast.makeText(this, "地址错误", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
-	
-	
-	
+
 }
