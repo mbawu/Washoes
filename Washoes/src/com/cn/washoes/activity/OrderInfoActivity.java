@@ -147,12 +147,13 @@ public class OrderInfoActivity extends BaseActivity {
 					textDate.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.order_item_date),
 							null, null, null);
 					textDate.setText(orderInfo.getServicetime());
+					textPrice.setText("￥ " + orderInfo.getReal_price());
 				} else {
-					
+					textPrice.setText("￥ " + orderInfo.getPay_price());
 					textDate.setText("下单时间：" + orderInfo.getCreatetime());
 
 				}
-				textPrice.setText("￥ " + orderInfo.getReal_price());
+				
 				OrderAddress address = orderInfo.getInfo();
 				if (address != null && address.getMobile() != null) {
 					textUserName.setText(address.getRealname());
