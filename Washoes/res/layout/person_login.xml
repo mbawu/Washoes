@@ -17,6 +17,7 @@
     <EditText 
         android:id="@+id/login_phone"
         style="@style/editTextStyle"
+        android:maxLength="11"
         android:hint="手机号"/>
     <EditText 
         android:id="@+id/login_pwd"

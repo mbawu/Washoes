@@ -16,8 +16,8 @@ public class Cst {
 	public static boolean lunchIsTop = false;// 启动页面是否完全关闭，当启动也面的焦点关闭后才能使首页的焦点移动
 	public static final String taoKePid = "mm_41847425_0_0";// 淘客中该程序的ID
 
-	public static final String HOST = "http://www.xinquanxinyuan.com/api/import2.php";//测试服务器地址
-//	public static final String HOST = "http://http://www.xidoudou.com.cn/api/import2.php";//正式服务器地址
+//	public static final String HOST = "http://www.xinquanxinyuan.com/api/import2.php";//测试服务器地址
+	public static final String HOST = "http://www.xidoudou.com.cn/api/import2.php";//正式服务器地址
 	public static final String GET_ORDER = "get_order"; // 订单推送
 	public static final String GET_MSG = "get_msg"; // 消息推送
 	public static final String OPEN_ORDER = "open_order"; 

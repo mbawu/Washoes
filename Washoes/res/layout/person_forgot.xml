@@ -31,7 +31,8 @@
     <EditText
         android:id="@+id/forgot_phone"
         style="@style/editTextStyle"
-        android:hint="手机号" />
+        android:hint="手机号"
+        android:maxLength="11" />
 
     <FrameLayout
         android:layout_width="match_parent"

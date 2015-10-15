@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -233,20 +234,25 @@ public class OrderListActivity extends BaseActivity implements
 	 * 判断是否是组长
 	 */
 	private void checkInfo() {
-		String s = MyApplication.getInfo().getRank_id();
-		if (s.equals("2")) {
-			isLeader = true;
-			findViewById(R.id.order_list_search_radiobtn).setVisibility(
-					View.VISIBLE);
-			findViewById(R.id.order_list_cancel_radiobtn).setVisibility(
-					View.GONE);
-		} else {
-			isLeader = false;
-			findViewById(R.id.order_list_search_radiobtn).setVisibility(
-					View.GONE);
-			findViewById(R.id.order_list_cancel_radiobtn).setVisibility(
-					View.VISIBLE);
+		try {
+			String s = MyApplication.getInfo().getRank_id();
+			if (s.equals("2")) {
+				isLeader = true;
+				findViewById(R.id.order_list_search_radiobtn).setVisibility(
+						View.VISIBLE);
+				findViewById(R.id.order_list_cancel_radiobtn).setVisibility(
+						View.GONE);
+			} else {
+				isLeader = false;
+				findViewById(R.id.order_list_search_radiobtn).setVisibility(
+						View.GONE);
+				findViewById(R.id.order_list_cancel_radiobtn).setVisibility(
+						View.VISIBLE);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 
 	}
 
@@ -679,5 +685,24 @@ public class OrderListActivity extends BaseActivity implements
 			private TextView name;
 		}
 
+	}
+	
+	private long exitTime = 0;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				Toast.makeText(getApplicationContext(), "再按一次退出程序",
+						Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				finish();
+				System.exit(0);
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
