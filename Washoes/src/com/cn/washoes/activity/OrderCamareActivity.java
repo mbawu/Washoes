@@ -1,7 +1,12 @@
 package com.cn.washoes.activity;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +14,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,12 +68,12 @@ public class OrderCamareActivity extends PhotoActivity implements
 		topTitleView.setTitle("照片");
 		topTitleView.setRightBtnText("上传", this);
 		rootLayout = (LinearLayout) findViewById(R.id.order_img_root);
-		textPosition = (TextView)findViewById(R.id.order_camare_text_position);
+		textPosition = (TextView) findViewById(R.id.order_camare_text_position);
 		int type = getIntent().getIntExtra(KEY_CAMARE_TYPE, CAMARE_TYPE_BEFORE);
-		if(CAMARE_TYPE_BEFORE ==type){
+		if (CAMARE_TYPE_BEFORE == type) {
 			textPosition.setText("服务前");
 			flag = "4";
-		}else{
+		} else {
 			textPosition.setText("服务后");
 			flag = "5";
 		}
@@ -105,6 +111,7 @@ public class OrderCamareActivity extends PhotoActivity implements
 			Map<String, String> fileMap = new HashMap<String, String>();
 			for (int i = 0; i < imgPaths.size(); i++) {
 				path = imgPaths.get(i);
+
 				fileMap.put("file" + (i + 1), fileToString(path));
 			}
 			request.setFiles(fileMap);
@@ -140,6 +147,17 @@ public class OrderCamareActivity extends PhotoActivity implements
 	@Override
 	public void uploadImg(String imagePath) {
 
+
+		Bitmap myBitmap = convertToBitmap(imagePath,MyApplication.width,MyApplication.height-350);
+
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(new File(imagePath));
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		myBitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
 		if (camareViewTemp != null) {
 			PhotoPath temp = new PhotoPath();
 			temp.localPath = imagePath;
@@ -313,4 +331,23 @@ public class OrderCamareActivity extends PhotoActivity implements
 
 	}
 
+	public Bitmap convertToBitmap(String path, int w, int h) {
+		BitmapFactory.Options opts = new BitmapFactory.Options(); // 设置为ture只获取图片大小
+		opts.inJustDecodeBounds = true;
+		opts.inPreferredConfig = Bitmap.Config.ARGB_8888; // 返回为空
+		BitmapFactory.decodeFile(path, opts);
+		int width = opts.outWidth;
+		int height = opts.outHeight;
+		float scaleWidth = 0.f, scaleHeight = 0.f;
+		if (width > w || height > h) { // 缩放
+			scaleWidth = ((float) width) / w;
+			scaleHeight = ((float) height) / h;
+		}
+		opts.inJustDecodeBounds = false;
+		float scale = Math.max(scaleWidth, scaleHeight);
+		opts.inSampleSize = (int) scale;
+		WeakReference<Bitmap> weak = new WeakReference<Bitmap>(
+				BitmapFactory.decodeFile(path, opts));
+		return Bitmap.createScaledBitmap(weak.get(), w, h, true);
+	}
 }

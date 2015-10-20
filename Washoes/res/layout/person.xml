@@ -131,13 +131,15 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/person_item_margging"
-        android:background="@color/edit_hint_color" />
+        android:background="@color/edit_hint_color" 
+        android:visibility="gone"/>
 
     <FrameLayout
         android:id="@+id/person_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/wihte" >
+        android:background="@color/wihte" 
+        android:visibility="gone">
 
         <TextView
             style="@style/personLeft"
@@ -155,7 +157,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/edit_hint_color" />
+        android:background="@color/edit_hint_color" 
+        android:visibility="gone"/>
 
     <View
         android:layout_width="match_parent"

@@ -3,21 +3,24 @@ package com.cn.hongwei;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 
 import com.cn.washoes.activity.PhotoSelectDialog;
-
 
 public abstract class PhotoActivity extends BaseActivity {
 	public static final int REQUEST_CODE_SELECT_PHOTO = 1;
@@ -26,7 +29,7 @@ public abstract class PhotoActivity extends BaseActivity {
 
 	private PhotoSelectDialog dialog;
 
-	protected String imgPath;
+	protected static String imgPath;
 	protected Uri imageUri;
 
 	public void setImgPath(String imgPath) {
@@ -97,9 +100,9 @@ public abstract class PhotoActivity extends BaseActivity {
 					break;
 				case REQUEST_CODE_CAMERA:
 
-					startPhotoZoom(Uri.fromFile(new File(imgPath)));
+					// startPhotoZoom(Uri.fromFile(new File(imgPath)));
 					// tempImagePath = imgPath;
-					// uploadImg(imgPath);
+					uploadImg(imgPath);
 					break;
 				case REQUEST_CODE_CORP:
 					// tempImgUri = Uri.fromFile(new File(imgPath));
@@ -140,20 +143,25 @@ public abstract class PhotoActivity extends BaseActivity {
 
 	protected void startPhotoZoom(Uri uri) {
 
-		Intent intent = new Intent("com.android.camera.action.CROP");
-
-		intent.setDataAndType(uri, "image/*");
-		intent.putExtra("crop", "true");
-		intent.putExtra("aspectX", MyApplication.width);
-		intent.putExtra("aspectY", MyApplication.width);
-		intent.putExtra("outputX", MyApplication.width);
-		intent.putExtra("outputY", MyApplication.width);
-		intent.putExtra("scale", true);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT,
-				Uri.fromFile(new File(imgPath)));
-		intent.putExtra("return-data", false);
-		intent.putExtra("outputFormat", Bitmap.CompressFormat.WEBP.toString());
-		intent.putExtra("noFaceDetection", true); // no face detection
+		// Intent intent = new Intent("com.android.camera.action.CROP");
+		//
+		// intent.setDataAndType(uri, "image/*");
+		// intent.putExtra("crop", "true");
+		// intent.putExtra("aspectX", 1000);
+		// intent.putExtra("aspectY", 1000);
+		// intent.putExtra("outputX", MyApplication.width);
+		// intent.putExtra("outputY", MyApplication.height);
+		// intent.putExtra("scale", false);
+		// intent.putExtra("scaleUpIfNeeded", false);//黑边
+		//
+		// intent.putExtra(MediaStore.EXTRA_OUTPUT,
+		// Uri.fromFile(new File(imgPath)));
+		// intent.putExtra("return-data", false);
+		// intent.putExtra("outputFormat",
+		// Bitmap.CompressFormat.WEBP.toString());
+		// intent.putExtra("noFaceDetection", true); // no face detection
+		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+		intent.setPackage("com.android.camera");
 		startActivityForResult(intent, PhotoActivity.REQUEST_CODE_CORP);
 	}
 
@@ -193,5 +201,7 @@ public abstract class PhotoActivity extends BaseActivity {
 		}
 		return data;
 	}
+
+
 
 }
