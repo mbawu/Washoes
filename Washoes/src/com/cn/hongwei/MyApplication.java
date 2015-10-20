@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONObject;
+
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -19,6 +21,9 @@ import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.baidu.location.BDLocation;
 import com.cn.hongwei.BaiduLoction.LocationCallback;
 import com.cn.washoes.R;
@@ -110,7 +115,31 @@ public class MyApplication extends Application {
 				detail = location.getStreet() + location.getStreetNumber();
 				lng = String.valueOf(location.getLongitude());
 				lat = String.valueOf(location.getLatitude());
+				HashMap<String, String> pramer = new HashMap<String, String>();
+				pramer.put("aid", getInfo().getAid());
+				pramer.put("seskey", getInfo().getSeskey());
+				pramer.put("op", "artifier");
+				pramer.put("act", "jit_gps");
+				pramer.put("gps", lng+","+lat);
+				Log.i("test", lng+","+lat);
+				client.postWithURL(Cst.HOST, pramer,
+						NetworkAction.jit_gps,
+						new Listener<JSONObject>() {
 
+							@Override
+							public void onResponse(JSONObject arg0) {
+								// TODO Auto-generated method stub
+
+							}
+						}, new ErrorListener() {
+
+							@Override
+							public void onErrorResponse(VolleyError arg0) {
+								Log.i("test", "GPS出错");
+
+							}
+						});
+			
 			}
 
 		});

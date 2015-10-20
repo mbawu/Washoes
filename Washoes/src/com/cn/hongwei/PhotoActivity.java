@@ -19,6 +19,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.cn.washoes.activity.PhotoSelectDialog;
 
@@ -160,9 +161,14 @@ public abstract class PhotoActivity extends BaseActivity {
 		// intent.putExtra("outputFormat",
 		// Bitmap.CompressFormat.WEBP.toString());
 		// intent.putExtra("noFaceDetection", true); // no face detection
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-		intent.setPackage("com.android.camera");
-		startActivityForResult(intent, PhotoActivity.REQUEST_CODE_CORP);
+		try {
+			Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+			intent.setPackage("com.android.camera");
+			startActivityForResult(intent, PhotoActivity.REQUEST_CODE_CORP);
+		} catch (Exception e) {
+			Toast.makeText(this, "打开系统摄像头出错", Toast.LENGTH_SHORT).show();
+		}
+		
 	}
 
 	public abstract void uploadImg(String imagePath);

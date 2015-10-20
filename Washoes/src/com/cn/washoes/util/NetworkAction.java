@@ -5,6 +5,7 @@ package com.cn.washoes.util;
  */
 public enum NetworkAction {
 
+	jit_gps,//技师实时GPS更新
 	login, // 登录
 	code, // 获取验证码
 	register, // 注册
