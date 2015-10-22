@@ -116,30 +116,31 @@ public class MyApplication extends Application {
 				lng = String.valueOf(location.getLongitude());
 				lat = String.valueOf(location.getLatitude());
 				HashMap<String, String> pramer = new HashMap<String, String>();
-				pramer.put("aid", getInfo().getAid());
-				pramer.put("seskey", getInfo().getSeskey());
-				pramer.put("op", "artifier");
-				pramer.put("act", "jit_gps");
-				pramer.put("gps", lng+","+lat);
-				Log.i("test", lng+","+lat);
-				client.postWithURL(Cst.HOST, pramer,
-						NetworkAction.jit_gps,
-						new Listener<JSONObject>() {
+				if (info != null) {
+					pramer.put("aid", getInfo().getAid());
+					pramer.put("seskey", getInfo().getSeskey());
+					pramer.put("op", "artifier");
+					pramer.put("act", "jit_gps");
+					pramer.put("gps", lng + "," + lat);
+					Log.i("test", lng + "," + lat);
+					client.postWithURL(Cst.HOST, pramer, NetworkAction.jit_gps,
+							new Listener<JSONObject>() {
 
-							@Override
-							public void onResponse(JSONObject arg0) {
-								// TODO Auto-generated method stub
+								@Override
+								public void onResponse(JSONObject arg0) {
+									// TODO Auto-generated method stub
 
-							}
-						}, new ErrorListener() {
+								}
+							}, new ErrorListener() {
 
-							@Override
-							public void onErrorResponse(VolleyError arg0) {
-								Log.i("test", "GPS出错");
+								@Override
+								public void onErrorResponse(VolleyError arg0) {
+									Log.i("test", "GPS出错");
 
-							}
-						});
-			
+								}
+							});
+
+				}
 			}
 
 		});
