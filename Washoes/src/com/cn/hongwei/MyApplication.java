@@ -125,7 +125,7 @@ public class MyApplication extends Application {
 				if (info != null) {
 					pramer.put("aid", getInfo().getAid());
 					pramer.put("seskey", getInfo().getSeskey());
-					pramer.put("op", "artifier");
+					pramer.put("op", "artificer");
 					pramer.put("act", "jit_gps");
 					pramer.put("gps", lng + "," + lat);
 					Log.i("test", lng + "," + lat);
