@@ -147,8 +147,8 @@ public class OrderCamareActivity extends PhotoActivity implements
 	@Override
 	public void uploadImg(String imagePath) {
 
-
-		Bitmap myBitmap = convertToBitmap(imagePath,MyApplication.width,MyApplication.height-350);
+		Bitmap myBitmap = convertToBitmap(imagePath, MyApplication.width,
+				MyApplication.height - 350);
 
 		FileOutputStream fos = null;
 		try {
@@ -305,9 +305,18 @@ public class OrderCamareActivity extends PhotoActivity implements
 							File vDirPath = vFile.getParentFile();
 							vDirPath.mkdirs();
 							Uri uri = Uri.fromFile(vFile);
-							Intent intent = new Intent(
-									MediaStore.ACTION_IMAGE_CAPTURE);
-							intent.setPackage("com.android.camera");
+
+							// Intent intent =null;
+							// try {
+							// intent = new Intent(
+							// MediaStore.ACTION_IMAGE_CAPTURE);
+							// intent.setPackage("com.android.camera");
+							// } catch (Exception e) {
+							// intent = new Intent(
+							// MediaStore.ACTION_IMAGE_CAPTURE);
+							// }
+							Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//							Intent intent =  getPackageManager().getLaunchIntentForPackage("com.android.camera");  
 							intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//
 							OrderCamareActivity.this.startActivityForResult(
 									intent, PhotoActivity.REQUEST_CODE_CAMERA);

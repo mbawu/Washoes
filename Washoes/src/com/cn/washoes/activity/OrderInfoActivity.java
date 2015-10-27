@@ -229,8 +229,6 @@ public class OrderInfoActivity extends BaseActivity {
 
 			}
 
-		} else if (requestType == NetworkAction.pos_list) {
-			navigate(responseWrapper.getApos_info());
 		} else if (requestType == NetworkAction.confirm_e) {
 			Toast.makeText(this, "订单确认成功", Toast.LENGTH_SHORT).show();
 			// OrderListActivity.REQ_REFRESH = true;
@@ -387,15 +385,15 @@ public class OrderInfoActivity extends BaseActivity {
 
 		} else if (v.getId() == R.id.order_info_text_navig) {
 
-			RequestWrapper requestWrapper = new RequestWrapper();
-			requestWrapper.setOp("artificer");
-			requestWrapper.setPage("1");
-			requestWrapper.setPer("1");
-			requestWrapper.setPos("1");
-			requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
-			requestWrapper.setAid(MyApplication.getInfo().getAid());
-			sendData(requestWrapper, NetworkAction.pos_list);
-
+//			RequestWrapper requestWrapper = new RequestWrapper();
+//			requestWrapper.setOp("artificer");
+//			requestWrapper.setPage("1");
+//			requestWrapper.setPer("1");
+//			requestWrapper.setPos("1");
+//			requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+//			requestWrapper.setAid(MyApplication.getInfo().getAid());
+//			sendData(requestWrapper, NetworkAction.pos_list);
+			navigate(MyApplication.locInfo);
 		} else if (v.getId() == R.id.order_info_confirm_btn) {
 
 			ConfirmDialog dlg = new ConfirmDialog(this);
@@ -444,7 +442,10 @@ public class OrderInfoActivity extends BaseActivity {
 					String fromAdd = info.getAddress();
 					String toAdd = textAddress.getText().toString();
 					String city = info.getCity_name();
-
+					Log.i("test", "fromAdd->"+fromAdd);
+					Log.i("test", "toAdd->"+toAdd);
+					Log.i("test", "city->"+city);
+					
 					Intent intent = Intent
 							.parseUri(
 									"intent://map/direction?origin=name:"

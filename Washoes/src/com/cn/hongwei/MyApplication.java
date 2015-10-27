@@ -29,6 +29,7 @@ import com.cn.hongwei.BaiduLoction.LocationCallback;
 import com.cn.washoes.R;
 import com.cn.washoes.activity.MenuTable;
 import com.cn.washoes.model.Info;
+import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.person.MessageActivity;
 import com.cn.washoes.util.CrashHandler;
 import com.cn.washoes.util.Cst;
@@ -55,6 +56,7 @@ public class MyApplication extends Application {
 	public static int msgType = 0;// 0 打开我的订单列表页面 1打开我的消息页面
 	public static int width = 1;
 	public static int height = 1;
+	public static LocInfo locInfo;
 
 	@Override
 	public void onCreate() {
@@ -66,6 +68,7 @@ public class MyApplication extends Application {
 		 * 初始化Volley框架的Http工具类
 		 */
 		ShareSDK.initSDK(this);
+		locInfo=new LocInfo();
 		client = MyHttpClient.getInstance(MyApplication.this
 				.getApplicationContext());
 		BaiduLoction.getInstance().init(this);
@@ -110,6 +113,9 @@ public class MyApplication extends Application {
 
 			@Override
 			public void locationResult(BDLocation location) {
+				locInfo.setProvince_name(location.getProvince());
+				locInfo.setCity_name(location.getCity());
+				locInfo.setAddress(location.getStreet());
 				address = location.getProvince() + location.getCity()
 						+ location.getDistrict();
 				detail = location.getStreet() + location.getStreetNumber();
