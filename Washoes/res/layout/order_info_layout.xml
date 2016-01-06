@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg_color"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix" >
 
     <include
         android:id="@+id/top"
@@ -193,23 +196,101 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
+                <com.cn.hongwei.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#FFFFFF"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="@dimen/order_info_text_H_padding"
+                    android:paddingRight="@dimen/order_info_text_H_padding"
+                    app:columnCount="3" >
+                </com.cn.hongwei.GridLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/qs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
                     android:background="#FFFFFF"
                     android:orientation="vertical"
-                    android:paddingBottom="3dp"
                     android:paddingLeft="@dimen/order_info_text_H_padding"
                     android:paddingRight="@dimen/order_info_text_H_padding" >
 
                     <TextView
-                        android:id="@+id/order_info_service_heel"
-                        android:layout_width="wrap_content"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#286090"
+                        android:gravity="center"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"
+                        android:text="取送"
+                        android:textColor="#FFFFFF"
                         android:textSize="18sp" />
                 </LinearLayout>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#FFFFFF"
+                    android:columnCount="3"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="@dimen/order_info_text_H_padding"
+                    android:paddingRight="@dimen/order_info_text_H_padding" >
+                </GridLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/order_info_text_H_padding"
+                    android:paddingRight="@dimen/order_info_text_H_padding" >
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#d9534f"
+                        android:gravity="center"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"
+                        android:text="其他"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#FFFFFF"
+                    android:columnCount="3"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="@dimen/order_info_text_H_padding"
+                    android:paddingRight="@dimen/order_info_text_H_padding" >
+                </GridLayout>
             </LinearLayout>
 
             <LinearLayout

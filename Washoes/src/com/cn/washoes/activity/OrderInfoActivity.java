@@ -2,9 +2,7 @@ package com.cn.washoes.activity;
 
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.List;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +11,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,20 +18,18 @@ import android.widget.Toast;
 
 import com.cn.hongwei.BaseActivity;
 import com.cn.hongwei.CarImageView;
+import com.cn.hongwei.GridLayout;
 import com.cn.hongwei.MyApplication;
 import com.cn.hongwei.RequestWrapper;
 import com.cn.hongwei.ResponseWrapper;
 import com.cn.hongwei.TopTitleView;
 import com.cn.washoes.R;
-import com.cn.washoes.model.AposInfo;
 import com.cn.washoes.model.ComInfo;
 import com.cn.washoes.model.ImgInfo;
 import com.cn.washoes.model.LocInfo;
 import com.cn.washoes.model.OrderAddress;
 import com.cn.washoes.model.OrderInfo;
-import com.cn.washoes.model.Province;
 import com.cn.washoes.model.SS_Info;
-import com.cn.washoes.model.Team;
 import com.cn.washoes.util.Cst;
 import com.cn.washoes.util.NetworkAction;
 import com.ta.utdid2.android.utils.StringUtils;
@@ -62,7 +57,7 @@ public class OrderInfoActivity extends BaseActivity {
 
 	private LinearLayout layoutColorService;
 
-	private TextView textHeel;
+	// private TextView textHeel;
 
 	private LinearLayout layoutPic;
 
@@ -96,7 +91,7 @@ public class OrderInfoActivity extends BaseActivity {
 		textAddress = (TextView) findViewById(R.id.order_item_text_address);
 
 		layoutColorService = (LinearLayout) findViewById(R.id.order_info_color_layout);
-		textHeel = (TextView) findViewById(R.id.order_info_service_heel);
+		// textHeel = (TextView) findViewById(R.id.order_info_service_heel);
 		layoutPic = (LinearLayout) findViewById(R.id.order_info_pic_layout);
 
 		textEvaZy = (TextView) findViewById(R.id.order_info_eva_zy);
@@ -144,8 +139,10 @@ public class OrderInfoActivity extends BaseActivity {
 
 				// 判断是否是订单查询模块进来的
 				if (getIntent().getStringExtra("search") == null) {
-					textDate.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.order_item_date),
-							null, null, null);
+					textDate.setCompoundDrawablesWithIntrinsicBounds(
+							getResources().getDrawable(
+									R.drawable.order_item_date), null, null,
+							null);
 					textDate.setText(orderInfo.getServicetime());
 					textPrice.setText("￥ " + orderInfo.getPay_price());
 				} else {
@@ -153,7 +150,7 @@ public class OrderInfoActivity extends BaseActivity {
 					textDate.setText("下单时间：" + orderInfo.getCreatetime());
 
 				}
-				
+
 				OrderAddress address = orderInfo.getInfo();
 				if (address != null && address.getMobile() != null) {
 					textUserName.setText(address.getRealname());
@@ -172,17 +169,12 @@ public class OrderInfoActivity extends BaseActivity {
 						&& orderInfo.getList().size() > 0) {
 					for (com.cn.washoes.model.ServiceInfo sInfo : orderInfo
 							.getList()) {
-						if ("3".equals(sInfo.getCategory_id())) {// 修理
-							setDataRepairService(sInfo.getProject_name(),
-									sInfo.getBuy_num());
-						} else {
+
+						// 1：洗护， 3：修理， 4：取送， 5：其他
+						if ("1".equals(sInfo.getCategory_id())) {// 洗护
 							setDataColorService(sInfo);
-							/*
-							 * setDataColorService(sInfo.getProject_name(),
-							 * sInfo.getSs_info());
-							 * setDataColorService(sInfo.getProject_name(),
-							 * sInfo.getSs_info());
-							 */
+						} else {
+							setDataRepairService(sInfo);
 						}
 					}
 
@@ -339,10 +331,25 @@ public class OrderInfoActivity extends BaseActivity {
 	 * @param typeName
 	 * @param ss_Infos
 	 */
-	private void setDataRepairService(String typeName, String num) {
-		findViewById(R.id.xL).setVisibility(View.VISIBLE);
+	private void setDataRepairService(com.cn.washoes.model.ServiceInfo info) {
+		LinearLayout layout = null;
+		if ("3".equals(info.getCategory_id())) {
+			layout = (LinearLayout) findViewById(R.id.xL);
+		} else if ("4".equals(info.getCategory_id())) {
+			layout = (LinearLayout) findViewById(R.id.qs);
+		} else if ("100".equals(info.getCategory_id())) {
+			layout = (LinearLayout) findViewById(R.id.other);
+		}
+		if (layout != null) {
+			layout.setVisibility(View.VISIBLE);
+			GridLayout gridlLayout = (GridLayout) layout.getChildAt(1);
+			TextView text = (TextView) getLayoutInflater().inflate(
+					R.layout.service_gridlayout_item, gridlLayout, false);
+			text.setText(getServiceHtml(info.getProject_name(),
+					info.getBuy_num()));
+			gridlLayout.addView(text);
 
-		textHeel.setText(getServiceHtml(typeName, num));
+		}
 
 	}
 
@@ -385,14 +392,14 @@ public class OrderInfoActivity extends BaseActivity {
 
 		} else if (v.getId() == R.id.order_info_text_navig) {
 
-//			RequestWrapper requestWrapper = new RequestWrapper();
-//			requestWrapper.setOp("artificer");
-//			requestWrapper.setPage("1");
-//			requestWrapper.setPer("1");
-//			requestWrapper.setPos("1");
-//			requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
-//			requestWrapper.setAid(MyApplication.getInfo().getAid());
-//			sendData(requestWrapper, NetworkAction.pos_list);
+			// RequestWrapper requestWrapper = new RequestWrapper();
+			// requestWrapper.setOp("artificer");
+			// requestWrapper.setPage("1");
+			// requestWrapper.setPer("1");
+			// requestWrapper.setPos("1");
+			// requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
+			// requestWrapper.setAid(MyApplication.getInfo().getAid());
+			// sendData(requestWrapper, NetworkAction.pos_list);
 			navigate(MyApplication.locInfo);
 		} else if (v.getId() == R.id.order_info_confirm_btn) {
 
@@ -442,10 +449,10 @@ public class OrderInfoActivity extends BaseActivity {
 					String fromAdd = info.getAddress();
 					String toAdd = textAddress.getText().toString();
 					String city = info.getCity_name();
-					Log.i("test", "fromAdd->"+fromAdd);
-					Log.i("test", "toAdd->"+toAdd);
-					Log.i("test", "city->"+city);
-					
+					Log.i("test", "fromAdd->" + fromAdd);
+					Log.i("test", "toAdd->" + toAdd);
+					Log.i("test", "city->" + city);
+
 					Intent intent = Intent
 							.parseUri(
 									"intent://map/direction?origin=name:"
