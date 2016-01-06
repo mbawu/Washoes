@@ -54,6 +54,8 @@ public class RequestWrapper {
 	private String taid;
 	private String rank_id;
 	
+	private String ver;
+	
 	
 
 	public String getRank_id() {
@@ -287,6 +289,12 @@ public class RequestWrapper {
 	}
 	public void setTime_id(String time_id) {
 		this.time_id = time_id;
+	}
+	public String getVer() {
+		return ver;
+	}
+	public void setVer(String ver) {
+		this.ver = ver;
 	}
 
 }

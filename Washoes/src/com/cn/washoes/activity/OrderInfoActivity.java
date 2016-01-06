@@ -120,7 +120,7 @@ public class OrderInfoActivity extends BaseActivity {
 		requestWrapper.setSeskey(MyApplication.getInfo().getSeskey());
 		requestWrapper.setRank_id(MyApplication.getInfo().getRank_id());
 		requestWrapper.setOp("order");
-
+		requestWrapper.setVer("2");
 		requestWrapper.setOrder_id(oid);
 		requestWrapper.setShowDialog(true);
 		sendData(requestWrapper, NetworkAction.detail);
@@ -178,12 +178,6 @@ public class OrderInfoActivity extends BaseActivity {
 						}
 					}
 
-				}
-
-				if ("1408".equals(oid)) {
-					orderInfo.setFlag(OrderListActivity.ORDER_STATUS_WAITING);
-				} else if ("1407".equals(oid)) {
-					orderInfo.setFlag(OrderListActivity.ORDER_STATUS_WORKING);
 				}
 
 				if (OrderListActivity.ORDER_STATUS_WAITING.equals(orderInfo

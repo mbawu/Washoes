@@ -239,16 +239,16 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <GridLayout
+                <com.cn.hongwei.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:columnCount="3"
                     android:paddingBottom="3dp"
                     android:paddingLeft="@dimen/order_info_text_H_padding"
-                    android:paddingRight="@dimen/order_info_text_H_padding" >
-                </GridLayout>
+                    android:paddingRight="@dimen/order_info_text_H_padding"
+                    app:columnCount="3" >
+                </com.cn.hongwei.GridLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -281,16 +281,16 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <GridLayout
+                <com.cn.hongwei.GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="#FFFFFF"
-                    android:columnCount="3"
                     android:paddingBottom="3dp"
                     android:paddingLeft="@dimen/order_info_text_H_padding"
-                    android:paddingRight="@dimen/order_info_text_H_padding" >
-                </GridLayout>
+                    android:paddingRight="@dimen/order_info_text_H_padding"
+                    app:columnCount="3" >
+                </com.cn.hongwei.GridLayout>
             </LinearLayout>
 
             <LinearLayout
