@@ -23,6 +23,7 @@ import com.cn.hongwei.MyApplication;
 import com.cn.washoes.R;
 import com.cn.washoes.model.Info;
 import com.cn.washoes.person.PersonActivity;
+import com.cn.washoes.person.ShopActivity;
 import com.cn.washoes.util.Cst;
 
 public class MenuTable extends TabActivity {
@@ -32,6 +33,7 @@ public class MenuTable extends TabActivity {
 	private Resources resources; // 获取资源文件
 	private RadioButton orderBtn;
 	private RadioButton personBtn;
+	private RadioButton shopBtn;
 	private View orderView;
 	private View msgView;
 
@@ -53,7 +55,7 @@ public class MenuTable extends TabActivity {
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		MyApplication.width = dm.widthPixels;// 宽度
-		MyApplication.height = dm.heightPixels ;//高度
+		MyApplication.height = dm.heightPixels;// 高度
 	}
 
 	private void initData() {
@@ -62,6 +64,7 @@ public class MenuTable extends TabActivity {
 		msgView = (View) findViewById(R.id.msg_item_view_no_read);
 		orderBtn = (RadioButton) findViewById(R.id.main_tab_order);
 		personBtn = (RadioButton) findViewById(R.id.main_tab_personcenter);
+		shopBtn = (RadioButton) findViewById(R.id.main_tab_shop);
 		TabHost.TabSpec spec;
 		Intent intent;
 		// 首页菜单
@@ -85,7 +88,13 @@ public class MenuTable extends TabActivity {
 				.setIndicator(resources.getString(R.string.main_menu_person))
 				.setContent(intent);
 		tabHost.addTab(spec);
-
+		// 商场
+		intent = new Intent().setClass(this, ShopActivity.class);
+		spec = tabHost
+				.newTabSpec(resources.getString(R.string.main_menu_shop))
+				.setIndicator(resources.getString(R.string.main_menu_shop))
+				.setContent(intent);
+		tabHost.addTab(spec);
 		// // 登录界面
 		// intent = new Intent().setClass(this, PersonLogin.class);
 		// spec = tabHost
@@ -113,6 +122,10 @@ public class MenuTable extends TabActivity {
 				case R.id.main_tab_personcenter:
 					tabHost.setCurrentTabByTag(resources
 							.getString(R.string.main_menu_person));
+					break;
+				case R.id.main_tab_shop:
+					tabHost.setCurrentTabByTag(resources
+							.getString(R.string.main_menu_shop));
 					break;
 				default:
 					break;
@@ -145,6 +158,7 @@ public class MenuTable extends TabActivity {
 		// TODO Auto-generated method stub
 		super.onStop();
 	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -191,8 +205,6 @@ public class MenuTable extends TabActivity {
 		personBtn.setChecked(true);
 	}
 
-
-
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
@@ -206,12 +218,10 @@ public class MenuTable extends TabActivity {
 				closeMsgView();
 			} else if (Cst.CLOSE_ORDER.equals(intent.getAction())) {
 				closeOrderView();
-			}
-			else if (Cst.SET_ORDER.equals(intent.getAction())) {
+			} else if (Cst.SET_ORDER.equals(intent.getAction())) {
 				tabHost.setCurrentTab(1);
 				orderBtn.setChecked(true);
-			}
-			else if (Cst.SET_PERSON.equals(intent.getAction())) {
+			} else if (Cst.SET_PERSON.equals(intent.getAction())) {
 				tabHost.setCurrentTab(2);
 				personBtn.setChecked(true);
 			}

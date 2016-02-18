@@ -85,6 +85,21 @@
                     android:paddingTop="7dp"
                     android:text="@string/main_menu_person"
                     android:textColor="@color/color_radiobutton" />
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#d2d2d2" />
+                <!-- 个人中心 -->
+
+                <RadioButton
+                    android:id="@+id/main_tab_shop"
+                    style="@style/MMTabButton"
+                    android:layout_weight="1.0"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/main_menu_shop"
+                    android:paddingTop="7dp"
+                    android:text="@string/main_menu_shop"
+                    android:textColor="@color/color_radiobutton" />
             </RadioGroup>
 
             <View

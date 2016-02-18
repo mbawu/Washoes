@@ -8,6 +8,7 @@
     <string name="main_menu_home">首页</string>
     <string name="main_menu_order">订单</string>
     <string name="main_menu_person">我的</string>
+     <string name="main_menu_shop">商场</string>
     <string name="load_title">洗豆豆技师版</string>
     <string name="order_info_zy">专业：%1$s</string>
     <string name="order_info_td">态度：%1$s</string>

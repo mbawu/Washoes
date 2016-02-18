@@ -8,10 +8,10 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
-
     <permission
         android:name="com.cn.washoes.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.cn.washoes.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -75,12 +75,11 @@
         <activity android:name="com.cn.washoes.activity.OrderListActivity" />
         <activity android:name="com.cn.washoes.activity.OrderCamareActivity" />
         <activity android:name="com.cn.washoes.activity.ImgDetailActivity" />
-
+        <activity android:name="com.cn.washoes.person.ShopActivity" />
         <activity android:name="com.cn.washoes.person.MyTimeActivity" />
-
         <activity android:name="com.cn.washoes.person.MessageActivity" />
         <activity android:name="com.cn.washoes.person.MessageDetailActivity" />
-         <activity android:name="com.example.clander.CalendarActivity" />
+        <activity android:name="com.example.clander.CalendarActivity" />
         <activity
             android:name="com.cn.washoes.activity.ImageShowActivity"
             android:theme="@style/ThemeActivity" />

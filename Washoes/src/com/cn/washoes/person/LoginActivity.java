@@ -111,6 +111,8 @@ public class LoginActivity extends BaseActivity {
 			//登录成功以后更改登录状态并写入用户信息
 			Info info=responseWrapper.getInfo();
 			info.setLoginState(true);
+			info.setPwd(pwd);
+			info.setUsername(phone);
 			MyApplication.loginStat=true;
 			MyApplication.setInfo(info);
 			Intent intent=new Intent().setClass(this, MenuTable.class);

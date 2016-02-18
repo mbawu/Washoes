@@ -13,7 +13,22 @@ public class Info {
 	private String logintimes;  //登录次数
 	private boolean loginState;//登录状态
 	private String rank_id; //技师头衔（1组员 2组长）
+	private String pwd;
+	private String username;
 	
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 	/**
 	 * 技师头衔（1组员 2组长）
 	 * @return
