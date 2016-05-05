@@ -354,7 +354,7 @@ public class OrderListActivity extends BaseActivity implements
 			if (status == ORDER_STATUS_FINISH) {
 				layoutOrderNum.setVisibility(View.VISIBLE);
 				textOrderAll.setText(responseWrapper.getAll_onums());
-				textOrderMonth.setText(responseWrapper.getNow_onums());
+				textOrderMonth.setText("￥ "+responseWrapper.getRealPriceW());
 			} else {
 				layoutOrderNum.setVisibility(View.GONE);
 			}

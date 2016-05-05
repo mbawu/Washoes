@@ -43,14 +43,14 @@ public class ResponseWrapper {
 	private String now_onums;// 本月订单总数（已完成的订单 flag=5）
 	private List<OrderItem> list;// 订单列表
 
-	private OrderInfo order_info;//订单信息
-	
-	private ArrayList<Province> province;//省份
-	private ArrayList<City> city;//省份
-	private ArrayList<Area> area;//地区
-	private ArrayList<Distance> distance;//获取服务距离列表
-	private LocInfo apos_info;//定点位置信息
-	private ArrayList<LocArea> apos_list;//区域列表
+	private OrderInfo order_info;// 订单信息
+
+	private ArrayList<Province> province;// 省份
+	private ArrayList<City> city;// 省份
+	private ArrayList<Area> area;// 地区
+	private ArrayList<Distance> distance;// 获取服务距离列表
+	private LocInfo apos_info;// 定点位置信息
+	private ArrayList<LocArea> apos_list;// 区域列表
 
 	private String be_time;// 服务前照片上传时间
 	private List<ImgInfo> be_images;// 服务前照片列表
@@ -59,50 +59,52 @@ public class ResponseWrapper {
 	private List<ImgInfo> af_images;// 服务后照片列表
 
 	private List<DateInfo> date_list;
-	
+
 	private List<TimeInfo> time_list;
 
-	private List<Msg> msg_list;//我的消息列表
-	private List<Team> team_list;//组员列表
-	
-	private String unread_num;//是否有未读订单
-	
-	
-	
+	private List<Msg> msg_list;// 我的消息列表
+	private List<Team> team_list;// 组员列表
+
+	private String unread_num;// 是否有未读订单
+
+	private float RealPriceW;// 总收入
+
+	public float getRealPriceW() {
+		return RealPriceW;
+	}
+
+	public void setRealPriceW(float realPriceW) {
+		
+		RealPriceW = realPriceW;
+	}
+
 	public String getUnread_num() {
 		return unread_num;
 	}
-
 
 	public void setUnread_num(String unread_num) {
 		this.unread_num = unread_num;
 	}
 
-
 	public List<Team> getTeam_list() {
 		return team_list;
 	}
-
 
 	public void setTeam_list(List<Team> team_list) {
 		this.team_list = team_list;
 	}
 
-
 	public List<Msg> getMsg_list() {
 		return msg_list;
 	}
-
 
 	public void setMsg_list(List<Msg> msg_list) {
 		this.msg_list = msg_list;
 	}
 
-
 	public LocInfo getApos_info() {
 		return apos_info;
 	}
-	
 
 	public void setApos_info(LocInfo apos_info) {
 		this.apos_info = apos_info;
@@ -292,26 +294,20 @@ public class ResponseWrapper {
 		this.af_images = af_images;
 	}
 
-
 	public List<DateInfo> getDate_list() {
 		return date_list;
 	}
-
 
 	public void setDate_list(List<DateInfo> date_list) {
 		this.date_list = date_list;
 	}
 
-
 	public List<TimeInfo> getTime_list() {
 		return time_list;
 	}
-
 
 	public void setTime_list(List<TimeInfo> time_list) {
 		this.time_list = time_list;
 	}
 
-	
-	
 }
