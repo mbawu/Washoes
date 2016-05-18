@@ -289,7 +289,7 @@
                     android:paddingBottom="3dp"
                     android:paddingLeft="@dimen/order_info_text_H_padding"
                     android:paddingRight="@dimen/order_info_text_H_padding"
-                    app:columnCount="3" >
+                    app:columnCount="1" >
                 </com.cn.hongwei.GridLayout>
             </LinearLayout>
 
